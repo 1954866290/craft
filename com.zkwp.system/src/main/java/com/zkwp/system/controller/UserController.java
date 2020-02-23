@@ -1,11 +1,9 @@
 package com.zkwp.system.controller;
 
-import com.zkwp.api.bean.User;
-import com.zkwp.system.service.UserService;
+import com.zkwp.system.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * @auther zhangkun
@@ -14,5 +12,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping(value = "/user")
 public class UserController {
+
+    @Autowired
+    EmailService emailService;
+
+    @RequestMapping("/sendEmail")
+    public void sendEmail(){
+        for (int i = 0 ; i<10;i++)
+        emailService.sendSimpleMail("2647808433@qq.com","小宝贝","爸爸爱你");
+    }
+
 
 }
