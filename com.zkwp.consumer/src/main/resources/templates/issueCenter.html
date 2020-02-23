@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>发布作品</title>
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../css/issue.css">
+</head>
+<body>
+ <div th:include="navbar.html" ></div>
+<div>
+    <div class="issue_body" style="clear: both;">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#issue" aria-controls="issue" role="tab" data-toggle="tab">发布</a></li>
+            <li role="presentation"><a href="#issueview" aria-controls="issueview" role="tab" data-toggle="tab">查看</a></li>
+            <li role="presentation"><a href="#issuemessages" aria-controls="issuemessages" role="tab" data-toggle="tab">消息</a></li>
+            <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">设置</a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="issue">
+                <div class="container">
+                    <div class="form row">
+                        <div class="form-horizontal col-sm-offset-3 col-md-offset-3" id="goods_form">
+                            <h3 class="form-title">发布信息</h3>
+                            <div class="col-sm-9 col-md-9">
+                                <!-- form-inline -->
+                                <div class="form-group margin-bottom-sm ">
+                                    <label for="goods_name" class="control-label">发布名称</label>
+                                    <input class="form-control required" type="text" placeholder="发布名称" id="goods_name" name="goods_name"/>
+                                </div>
+                                <div class="form-group dropdown">
+                                    <label for="goods_type" class="control-label">艺术品类别</label>
+                                    <select class="form-control" id="goods_type">
+                                        <option>书本</option>
+                                        <option>生活</option>
+                                        <option>服饰</option>
+                                        <option>数码</option>
+                                        <option>动漫</option>
+                                        <option>游戏</option>
+                                    </select>
+                                </div>
+                                <div class="form-group margin-bottom-sm ">
+                                    <label for="goods_price" class="control-label">艺术品价格</label>
+                                    <input class="form-control required" type="number" placeholder="艺术品价格" id="goods_price" name="goods_price"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="goods_desc" class="control-label">艺术品描述</label>
+                                    <textarea  class="form-control" rows="5" id="goods_desc" name="goods_desc"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="uploadImage" class="control-label">艺术品图片</label>
+                                    <input class="file form-control" type="file" name="uploadImage" id="uploadImage"/>
+                                </div>
+                                <div class="form-group col-md-offset-9">
+                                    <input type="button" value="发布艺术品" class="btn btn-info center-block" name="publish" onclick="publish()"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="issueview">...</div>
+            <div role="tabpanel" class="tab-pane" id="issuemessages">...</div>
+            <div role="tabpanel" class="tab-pane" id="settings">...</div>
+        </div>
+
+    </div>
+
+
+</div>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/js/fileinput.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/locales/zh.js"></script>
+ <script type="text/javascript" src="../js/issue.js"></script>
+ <script type="javascript">
+     $('#myTabs a').click(function (e) {
+         e.preventDefault()
+         $(this).tab('show')
+     })
+
+ </script>
+</body>
+</html>
