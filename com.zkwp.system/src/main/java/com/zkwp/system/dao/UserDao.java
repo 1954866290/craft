@@ -1,10 +1,8 @@
 package com.zkwp.system.dao;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
-import java.util.Map;
+import com.zkwp.api.bean.User;
 
 /**
  * @auther zhangkun
@@ -13,6 +11,8 @@ import java.util.Map;
 @Mapper
 public interface UserDao {
 
-     Map getUserState(@Param("username") String username);
+     User getUserInfo(String username);// 根据邮箱获取用户信息
+     
+     User insertUserRegister(User user);
 
 }

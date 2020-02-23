@@ -39,3 +39,10 @@ eureka:
   instance:
     instance-id: system
     prefer-ip-address: true
+    
+    
+Spring:
+  redis:
+    host: 121.36.91.177
+    port: 6379
+    password:
