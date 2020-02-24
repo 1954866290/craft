@@ -2,6 +2,7 @@ package com.zkwp.api.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,5 +26,27 @@ public class StringUtil {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return format.format(date);
     }
+    
+    /**
+     * 生成UUID
+*/
+public static String uuid() {
+	return UUID.randomUUID().toString();
+}
+
+/**
+* 判断字符串不为空
+*/
+public static boolean isNotBlank(String param) {
+	return param !=null && !"".equals(param.trim()) && !"null".equals(param.toLowerCase());
+}
+
+/**
+* 判断字符串为空
+*/
+public static boolean isBlank(String param) {
+	return param ==null || "".equals(param.trim());
+}
+
 
 }
