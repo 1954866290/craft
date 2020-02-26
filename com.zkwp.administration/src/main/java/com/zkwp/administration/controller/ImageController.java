@@ -1,5 +1,6 @@
 package com.zkwp.administration.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.zkwp.administration.service.ImageService;
 import com.zkwp.api.bean.SystemImage;
 import com.zkwp.api.utils.ImageUtils;
@@ -45,5 +46,16 @@ public class ImageController {
         logger.info("-------------图片上传结束--------path:"+path);
         int i = imageService.uploadImage(path, fileName);
         return i == 1 ? "上传成功" : "上传失败";
+    }
+    
+    /*
+     * 根据图片名称获取图片信息，主要用于获取轮播图信息
+     */
+    @RequestMapping(value = "/getSwiperData", method = RequestMethod.GET)
+    public String getSwiperDataByName(String imageName) {
+    	SystemImage image = imageService.getSwiperDataByImageName(imageName);
+    	String swiperData = image.getFilepath();
+    	// JSONObject datas = JSONObject.parseObject(swiperData);
+    	return swiperData;
     }
 }

@@ -38,4 +38,8 @@ public class ImageService {
     public List<SystemImage> getImages(){
         return imageDao.getImages();
     }
+    
+    public SystemImage getSwiperDataByImageName(String imageName) {
+    	return imageDao.getSwiperDataByImageName(imageName);
+    }
 }

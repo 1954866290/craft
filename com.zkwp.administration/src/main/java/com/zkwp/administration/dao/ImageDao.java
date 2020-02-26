@@ -16,4 +16,6 @@ public interface ImageDao {
     int uploadImage(@Param("systemImage") SystemImage systemImage);
 
     List<SystemImage> getImages();
+    
+    SystemImage getSwiperDataByImageName(String imageName);
 }
