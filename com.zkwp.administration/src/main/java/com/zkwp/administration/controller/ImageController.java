@@ -52,6 +52,7 @@ public class ImageController {
      * 根据图片名称获取图片信息，主要用于获取轮播图信息
      */
     @RequestMapping(value = "/getSwiperData", method = RequestMethod.GET)
+    @ResponseBody
     public String getSwiperDataByName(String imageName) {
     	SystemImage image = imageService.getSwiperDataByImageName(imageName);
     	String swiperData = image.getFilepath();
