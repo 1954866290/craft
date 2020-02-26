@@ -11,9 +11,8 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
  * @auther zhangkun
  * @date 2020/2/14 20:52
  **/
-@SpringBootApplication(scanBasePackages = "com.zkwp")
+@SpringBootApplication(scanBasePackages = "com.zkwp.administration")
 @EnableEurekaClient
-@MapperScan("com.zkwp.administration.dao")
 public class AdministrationApplication {
     public static void main(String[] args) {
         SpringApplication.run(AdministrationApplication.class);
