@@ -22,7 +22,7 @@ public class EmailService {
     public void sendSimpleMail(String to, String subject, String content) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setSubject(subject);
-        message.setText("爸爸爱你啊");
+        message.setText(content);
         message.setTo(to);
         message.setFrom(from);
         javaMailSender.send(message);

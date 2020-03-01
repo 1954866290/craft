@@ -13,15 +13,21 @@ public class UserServiceImpl implements UserService{
 	private UserDao userDao;
 
 	@Override
-	public User getUserInfoByUsername(String username) {
+	public User getUserInfoByPhone(String phone) {
 		// TODO Auto-generated method stub
-		return this.userDao.getUserInfo(username);
+		return this.userDao.getUserInfoByPhone(phone);
 	}
 
 	@Override
 	public User userRegister(User user) {
 		// TODO Auto-generated method stub
-		return this.userRegister(user);
+		return this.userDao.insertUserRegister(user);
+	}
+
+	@Override
+	public User getUserInfoByEmail(String email) {
+		// TODO Auto-generated method stub
+		return this.userDao.getUserInfoByEmail(email);
 	}
 	
 

@@ -10,8 +10,10 @@ import com.zkwp.api.bean.User;
  **/
 @Mapper
 public interface UserDao {
+	
+	 User getUserInfoByPhone(String phone);// 根据手机号获取用户信息
 
-     User getUserInfo(String username);// 根据邮箱获取用户信息
+     User getUserInfoByEmail(String email);// 根据邮箱获取用户信息
      
      User insertUserRegister(User user);
 
