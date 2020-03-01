@@ -9,10 +9,9 @@ import org.springframework.context.annotation.Import;
  * @auther zhangkun
  * @date 2020/2/18 21:44
  **/
-@SpringBootApplication(scanBasePackages = "com.zkwp",exclude= {DataSourceAutoConfiguration.class})
+@SpringBootApplication(exclude= {DataSourceAutoConfiguration.class})
 public class ApiApplication {
     public static void main(String[] args) {
-
         SpringApplication.run(ApiApplication.class);
     }
 }

@@ -5,7 +5,6 @@ import org.csource.fastdfs.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -15,7 +14,6 @@ import java.io.IOException;
  * @date 2020/2/18 21:52
  **/
 
-@Component
 public class ImageUtils {
 
     private static TrackerClient trackerClient = null;

@@ -1,17 +1,28 @@
 package com.zkwp.consumer.controller.system;
 
+import com.alibaba.fastjson.JSONObject;
+import com.zkwp.api.bean.OutputObject;
 import com.zkwp.api.bean.User;
+import com.zkwp.api.utils.RestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * @auther zhangkun
  * @date 2020/2/16 11:10
  **/
-@RestController(value = "/system")
+@Controller
+@RequestMapping(value = "/system")
 public class UserController {
     @Value("${SYSTEM_REST_URL_PREFIX}")
     private  String SYSTEM_REST_URL_PREFIX ;
@@ -32,4 +43,15 @@ public class UserController {
         return restTemplate.postForObject(SYSTEM_REST_URL_PREFIX+"/user/addUser",user,Boolean.class);
     }
 
+    @RequestMapping(value = "/sendCode" ,method = {RequestMethod.POST,RequestMethod.GET})
+    public OutputObject sentCode(HttpServletRequest request){
+        MultiValueMap params = RestUtil.getParameterMap(request);
+        return  restTemplate.postForObject(SYSTEM_REST_URL_PREFIX+"/user/sendCode",params,OutputObject.class);
+    }
+
+    @RequestMapping(value = "/checkRandomCode",method = {RequestMethod.POST,RequestMethod.GET})
+    public OutputObject checkRandomCode(HttpServletRequest request){
+        MultiValueMap params = RestUtil.getParameterMap(request);
+        return restTemplate.postForObject(SYSTEM_REST_URL_PREFIX+"/user/checkRandomCode",params,OutputObject.class);
+    }
 }
