@@ -23,9 +23,9 @@ import com.aliyuncs.profile.DefaultProfile;
 import com.zkwp.api.bean.OutputObject;
 import com.zkwp.api.bean.User;
 import com.zkwp.api.constant.CacheConstant;
-import com.zkwp.api.utils.RedisUtils;
 import com.zkwp.api.utils.StringUtil;
 import com.zkwp.system.service.UserService;
+import com.zkwp.system.util.RedisUtils;
 
 
 /**
@@ -91,7 +91,9 @@ public class UserController {
 	   session.setAttribute(billId, user);
 	   return out;
    }
-   
+   /*
+    * 发送短信验证码
+    */
    private  OutputObject sendRandomCode(String billId, String code, HttpServletRequest request1) {
 	   OutputObject out = new OutputObject();
 	   DefaultProfile profile = DefaultProfile.getProfile(sendCodeArea, AccessKeyID, AccessKeySecret);
