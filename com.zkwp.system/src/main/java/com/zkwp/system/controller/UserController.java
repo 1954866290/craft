@@ -1,5 +1,6 @@
 package com.zkwp.system.controller;
 
+import com.zkwp.system.constant.CacheConstant;
 import com.zkwp.system.service.EmailService;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -22,7 +23,6 @@ import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.zkwp.api.bean.OutputObject;
 import com.zkwp.api.bean.User;
-import com.zkwp.api.constant.CacheConstant;
 import com.zkwp.api.utils.StringUtil;
 import com.zkwp.system.service.UserService;
 import com.zkwp.system.util.RedisUtils;
@@ -44,8 +44,8 @@ public class UserController {
     private RedisUtils redisUtils;
     @Autowired
     private EmailService emailService;
-    @Autowired
-    private CacheConstant cacheConstant;
+//    @Autowired
+//    private CacheConstant cacheConstant;
     
    /**
     * 发送短信验证码接口
@@ -73,16 +73,16 @@ public class UserController {
 		   user = userService.getUserInfoByEmail(billId);
 		   if (StringUtil.isNotBlank(user.toString())) {
 			   emailService.sendSimpleMail(billId, "手工艺品推广平台","验证码为：" + randomCode + "，您正在登录，若非本人操作，请勿泄露。");
-			   out.setReturnCode(cacheConstant.SEND_CODE_SUCCESS_RETURN_CODE);
-	           out.setReturnMessage(cacheConstant.SEND_CODE_SUCCESS_RETURN_MESSAGE);
+			   out.setReturnCode(CacheConstant.SEND_CODE_SUCCESS_RETURN_CODE);
+	           out.setReturnMessage(CacheConstant.SEND_CODE_SUCCESS_RETURN_MESSAGE);
 	           // 获取访问者的真实ip地址
 	           String requestIp = getIpAddr(request1);
 	           redisUtils.set("randomCodeRedis" + requestIp, randomCode, CodeExpireTime);// 将邮箱验证码放入到redis缓存中,失效时间60s
 		   } else {
 			   userService.userRegister(user);
 			   emailService.sendSimpleMail(billId, "手工艺品推广平台","验证码为：" + randomCode + "，您正在登录，若非本人操作，请勿泄露。");
-			   out.setReturnCode(cacheConstant.SEND_CODE_SUCCESS_RETURN_CODE);
-	           out.setReturnMessage(cacheConstant.SEND_CODE_SUCCESS_RETURN_MESSAGE);
+			   out.setReturnCode(CacheConstant.SEND_CODE_SUCCESS_RETURN_CODE);
+	           out.setReturnMessage(CacheConstant.SEND_CODE_SUCCESS_RETURN_MESSAGE);
 	           // 获取访问者的真实ip地址
 	           String requestIp = getIpAddr(request1);
 	           redisUtils.set("randomCodeRedis" + requestIp, randomCode, CodeExpireTime);// 将邮箱验证码放入到redis缓存中,失效时间60s
@@ -112,11 +112,11 @@ public class UserController {
        try {
            CommonResponse response = client.getCommonResponse(request);
            if ("200".equals(response.getHttpStatus())) {// 200表示短信发送成功
-           	out.setReturnCode(cacheConstant.SEND_CODE_SUCCESS_RETURN_CODE);
-           	out.setReturnMessage(cacheConstant.SEND_CODE_SUCCESS_RETURN_MESSAGE);
+           	out.setReturnCode(CacheConstant.SEND_CODE_SUCCESS_RETURN_CODE);
+           	out.setReturnMessage(CacheConstant.SEND_CODE_SUCCESS_RETURN_MESSAGE);
            } else {
-           	out.setReturnCode(cacheConstant.SEND_CODE_FAIL_RETURN_CODE);
-           	out.setReturnMessage(cacheConstant.SEND_CODE_FAIL_RETURN_MESSAGE);
+           	out.setReturnCode(CacheConstant.SEND_CODE_FAIL_RETURN_CODE);
+           	out.setReturnMessage(CacheConstant.SEND_CODE_FAIL_RETURN_MESSAGE);
            }
            // 获取访问者的真实ip地址
            String requestIp = getIpAddr(request1);
@@ -138,14 +138,14 @@ public class UserController {
 	   String requestIp = getIpAddr(request);
 	   String randomCode = (String)redisUtils.get("randomCodeRedis" + requestIp);// 从redis缓存中获取短信验证码
 	   if (StringUtil.isBlank(randomCode)) {
-		   out.setReturnCode(cacheConstant.RANDOM_CODE_IS_BLANK_RETURN_CODE);
-		   out.setReturnMessage(cacheConstant.RANDOM_CODE_IS_BLANK_RETURN_MESSAGE);
+		   out.setReturnCode(CacheConstant.RANDOM_CODE_IS_BLANK_RETURN_CODE);
+		   out.setReturnMessage(CacheConstant.RANDOM_CODE_IS_BLANK_RETURN_MESSAGE);
 	   } else if (randomCode.equals(code)){
-		   out.setReturnCode(cacheConstant.LOGIN_SUCCESS_RETURN_CODE);
-		   out.setReturnMessage(cacheConstant.LOGIN_SUCCESS_RETURN_MESSAGE);//表示登陆成功
+		   out.setReturnCode(CacheConstant.LOGIN_SUCCESS_RETURN_CODE);
+		   out.setReturnMessage(CacheConstant.LOGIN_SUCCESS_RETURN_MESSAGE);//表示登陆成功
 	   } else {
-		   out.setReturnCode(cacheConstant.RANDOM_CODE_NO_SAME_RETURN_CODE);
-		   out.setReturnMessage(cacheConstant.RANDOM_CODE_NO_SAME_RETURN_MESSAGE);
+		   out.setReturnCode(CacheConstant.RANDOM_CODE_NO_SAME_RETURN_CODE);
+		   out.setReturnMessage(CacheConstant.RANDOM_CODE_NO_SAME_RETURN_MESSAGE);
 	   }
 	   return out;
    }

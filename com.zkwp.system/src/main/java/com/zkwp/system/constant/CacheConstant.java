@@ -1,4 +1,6 @@
-package com.zkwp.api.constant;
+package com.zkwp.system.constant;
+
+
 /*
  * 应用缓存常量管理类
  */
