@@ -15,6 +15,8 @@ public interface UserDao {
 
      User getUserInfoByEmail(String email);// 根据邮箱获取用户信息
      
-     User insertUserRegister(User user);
+     User insertUserRegister(User user);// 用户注册
+     
+     User updateUserInfo(User user);//用户信息修改
 
 }

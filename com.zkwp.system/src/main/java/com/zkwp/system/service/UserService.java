@@ -8,5 +8,7 @@ public interface UserService {
 	User getUserInfoByEmail(String email);
 	
 	User userRegister(User user);
+	
+	User updateUserInfo(User user);
 
 }

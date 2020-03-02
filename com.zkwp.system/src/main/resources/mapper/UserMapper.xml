@@ -5,6 +5,7 @@
     <select id = "getUserInfoByPhone" parameterType = "java.lang.String" resultType = "com.zkwp.api.bean.User">
         select * from sys_user where phone = #{phone}
     </select>
+    
     <select id = "getUserInfoByEmail" parameterType = "java.lang.String" resultType = "com.zkwp.api.bean.User">
         select * from sys_user where email = #{email}
     </select>
@@ -88,5 +89,47 @@
         </if>
         </trim>
     </insert>
-
+    
+    <update id = "updateUserInfo" parameterType = "com.zkwp.api.bean.User">
+    update sys_user
+    <set>
+    <if test="username != null and username != '' ">
+        username = #{username},
+        </if>
+        <if test="password != null and password != '' ">
+        password = #{password},
+        </if>
+        <if test="phone != null and phone != '' ">
+        phone = #{phone},
+        </if>
+        <if test="email != null and email != '' ">
+        email = #{email},
+        </if>
+        <if test="nickname != null and nickname != '' ">
+        nickname = #{nickname},
+        </if>
+        <if test="gender != null and gender != '' ">
+        gender = #{gender},
+        </if>
+        <if test="introduction != null and introduction != '' ">
+        introduction = #{introduction},
+        </if>
+        <if test="region != null and region != '' ">
+        region = #{region},
+        </if>
+        <if test="state != null and state != '' ">
+        state = #{state},
+        </if>
+        <if test="headurl != null and headurl != '' ">
+        headurl = #{headurl},
+        </if>
+        <if test="create != null and create != '' ">
+        create = #{create},
+        </if>
+         <if test="update != null and update != '' ">
+        update = #{update},
+        </if>
+    </set>
+    where id = #{id}
+    </update>
 </mapper>
