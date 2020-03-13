@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zkwp.system.dao.UserDao" >
+<select id="getUserInfoById" parameterType="String" resultType="com.zkwp.api.bean.User">
+select * from sys_user where id = #{id}
+</select>
+<select id="getWorksInfoById" parameterType="String" resultType="com.zkwp.api.bean.Issue">
+select * from biz_issue where id = #{id}
+</select>
+<select id="getIssueInfoByWorksId" parameterType="String" resultType="com.zkwp.api.bean.UserPublic">
+select * from user_public_info where id = #{id}
+</select>
+<update id="updateUserPubInfoByWorksId" parameterType="com.zkwp.api.bean.UserPublic">
+update biz_user_public_info
+<set>
+        <if test="worksid != null and worksid != ''">
+        worksid=#{worksid},
+        </if>
+        <if test="username != null and username != ''">
+        username=#{username},
+        </if>
+        <if test="password != null and password != ''">
+        password=#{password},
+        </if>
+        <if test="phone != null and phone != ''">
+        phone=#{phone},
+        </if>
+        <if test="email != null and email != ''">
+        email=#{email},
+        </if>
+        <if test="nickname != null and nickname != ''">
+        nickname=#{nickname},
+        </if>
+        <if test="gender != null and gender != ''">
+        gender=#{gender},
+        </if>
+        <if test="introduction != null and introduction != ''">
+        introduction=#{introduction},
+        </if>
+        <if test="region != null and region != ''">
+        region=#{region},
+        </if>
+        <if test="state != null and state != ''">
+        state=#{state},
+        </if>
+        <if test="headurl != null and headurl != ''">
+        headurl=#{headurl},
+        </if>
+        <if test="usercreatetime != null and usercreatetime != ''">
+        usercreatetime=#{usercreatetime},
+        </if>
+        <if test="userupdatetime != null and userupdatetime != ''">
+        userupdatetime=#{userupdatetime},
+        </if>
+        <if test="title != null and title != ''">
+        title=#{title},
+        </if>
+        <if test="discription != null and discription != ''">
+        discription=#{discription},
+        </if>
+        <if test="viewcount != null and viewcount != ''">
+        viewcount=#{viewcount},
+        </if>
+        <if test="charmingcount != null and charmingcount != ''">
+        charmingcount=#{charmingcount},
+        </if>
+        <if test="issueCreatedTime != null and issueCreatedTime != ''">
+        issueCreatedTime=#{issueCreatedTime},
+        </if>
+        <if test="issueUpdatedTime != null and issueUpdatedTime != ''">
+        issueUpdatedTime=#{issueUpdatedTime},
+        </if>
+        <if test="delflag != null and delflag != ''">
+        delflag=#{delflag},
+        </if>
+        <if test="oneimagepath != null and oneimagepath != ''">
+        oneimagepath=#{oneimagepath},
+        </if>
+        <if test="twoimagepath != null and twoimagepath != ''">
+        twoimagepath=#{twoimagepath},
+        </if>
+        <if test="threeimagepath != null and threeimagepath != ''">
+        threeimagepath=#{threeimagepath},
+        </if>
+        <if test="fourimagepath != null and fourimagepath != ''">
+        fourimagepath=#{fourimagepath},
+        </if>
+        <if test="videopath != null and videopath != ''">
+        videopath=#{videopath},
+        </if>
+        <if test="price != null and price != ''">
+        price=#{price},
+        </if>
+</set>
+where worksid=#{worksid}
+</update>
+<insert id="saveUserPubInfo" parameterType="com.zkwp.api.bean.UserPublic">
+ insert into biz_user_public_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="worksId != null and worksId != '' ">
+        worksId,
+        </if>
+        <if test="username != null and username != '' ">
+        username,
+        </if>
+        <if test="password != null and password != '' ">
+        password,
+        </if>
+        <if test="phone != null and phone != '' ">
+        phone,
+        </if>
+        <if test="email != null and email != '' ">
+        email,
+        </if>
+        <if test="nickname != null and nickname != '' ">
+        nickname,
+        </if>
+        <if test="gender != null and gender != '' ">
+        gender,
+        </if>
+        <if test="introduction != null and introduction != '' ">
+        introduction,
+        </if>
+        <if test="region != null and region != '' ">
+        region,
+        </if>
+        <if test="state != null and state != '' ">
+        state,
+        </if>
+        <if test="headurl != null and headurl != '' ">
+        headurl,
+        </if>
+        <if test="usercreatetime != null and usercreatetime != '' ">
+        usercreatetime,
+        </if>
+         <if test="userupdatetime != null and userupdatetime != '' ">
+        userupdatetime,
+        </if>
+        <if test="title != null and title != '' ">
+        title,
+        </if>
+        <if test="discription != null and discription != '' ">
+        discription,
+        </if>
+        <if test="viewcount != null and viewcount != '' ">
+        viewcount,
+        </if>
+        <if test="charmingcount != null and charmingcount != '' ">
+        charmingcount,
+        </if>
+        <if test="type != null and type != '' ">
+        type,
+        </if>
+        <if test="issueCreatedTime != null and issueCreatedTime != '' ">
+        issueCreatedTime,
+        </if>
+        <if test="issueUpdatedTime != null and issueUpdatedTime != '' ">
+        issueUpdatedTime,
+        </if>
+        <if test="delflag != null and delflag != '' ">
+        delflag,
+        </if>
+        <if test="oneimagepath != null and oneimagepath != '' ">
+        oneimagepath,
+        </if>
+        <if test="twoimagepath != null and twoimagepath != '' ">
+        twoimagepath,
+        </if>
+        <if test="threeimagepath != null and threeimagepath != '' ">
+        threeimagepath,
+        </if>
+        <if test="fourimagepath != null and fourimagepath != '' ">
+        fourimagepath,
+        </if>
+        <if test="videopath != null and videopath != '' ">
+        videopath,
+        </if>
+        <if test="price != null and price != '' ">
+        price,
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="worksId != null and worksId != '' ">
+        #{worksId},
+        </if>
+        <if test="username != null and username != '' ">
+        #{username},
+        </if>
+        <if test="password != null and password != '' ">
+        #{password},
+        </if>
+        <if test="phone != null and phone != '' ">
+        #{phone},
+        </if>
+        <if test="email != null and email != '' ">
+        #{email},
+        </if>
+        <if test="nickname != null and nickname != '' ">
+        #{nickname},
+        </if>
+        <if test="gender != null and gender != '' ">
+        #{gender},
+        </if>
+        <if test="introduction != null and introduction != '' ">
+        #{introduction},
+        </if>
+        <if test="region != null and region != '' ">
+        #{region},
+        </if>
+        <if test="state != null and state != '' ">
+        #{state},
+        </if>
+        <if test="headurl != null and headurl != '' ">
+        #{headurl},
+        </if>
+        <if test="usercreatetime != null and usercreatetime != '' ">
+        #{usercreatetime},
+        </if>
+         <if test="userupdatetime != null and userupdatetime != '' ">
+        #{userupdatetime},
+        </if>
+         <if test="title != null and title != '' ">
+        #{title},
+        </if>
+         <if test="discription != null and discription != '' ">
+        #{discription},
+        </if>
+         <if test="viewcount != null and viewcount != '' ">
+        #{viewcount},
+        </if>
+         <if test="charmingcount != null and charmingcount != '' ">
+        #{charmingcount},
+        </if>
+         <if test="type != null and type != '' ">
+        #{type},
+        </if>
+         <if test="issueCreatedTime != null and issueCreatedTime != '' ">
+        #{issueCreatedTime},
+        </if>
+         <if test="issueUpdatedTime != null and issueUpdatedTime != '' ">
+        #{issueUpdatedTime},
+        </if>
+         <if test="delflag != null and delflag != '' ">
+        #{delflag},
+        </if>
+         <if test="oneimagepath != null and oneimagepath != '' ">
+        #{oneimagepath},
+        </if>
+        <if test="twoimagepath != null and twoimagepath != '' ">
+        #{twoimagepath},
+        </if>
+        <if test="threeimagepath != null and threeimagepath != '' ">
+        #{threeimagepath},
+        </if>
+        <if test="fourimagepath != null and fourimagepath != '' ">
+        #{fourimagepath},
+        </if>
+        <if test="videopath != null and videopath != '' ">
+        #{videopath},
+        </if>
+        <if test="price != null and price != '' ">
+        #{price},
+        </if>
+        </trim>
+</insert>
+</mapper>
