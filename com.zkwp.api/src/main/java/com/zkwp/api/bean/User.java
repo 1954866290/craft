@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Data
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
-    private String id;
+    private String userid;
     private String username;
     private String password;
     private String phone;
@@ -22,7 +22,7 @@ public class User implements Serializable {
     private String region;
     private String state;
     private String headurl;
-    private String create;
-    private String update;
+    private String usercreatetime;
+    private String userupdatetime;
 
 }

@@ -11,15 +11,21 @@ import java.io.Serializable;
 @Data
 public class Issue implements Serializable {
     private static final long serialVersionUID = 4L;
-    private String id;
+    private String worksid;
     private String title;
-    private String content;
+    private String discription;
     private String viewcount;
     private String charmingcount ;
     private String type;
-    private String created;
-    private String updated;
+    private String issueCreatedTime;
+    private String issueUpdatedTime;
     private String delflag;
+    private String oneimagepath;//第一张图片路径
+    private String twoimagepath;//第二张图片路径
+    private String threeimagepath;//第三张图片路径
+    private String fourimagepath;//第四张图片路径
+    private String videopath;//视频路径
+    private String price;//价格
 
 
 }

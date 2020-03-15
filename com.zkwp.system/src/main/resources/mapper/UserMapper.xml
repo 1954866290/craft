@@ -43,11 +43,11 @@
         <if test="headurl != null and headurl != '' ">
         headurl,
         </if>
-        <if test="create != null and create != '' ">
-        create,
+        <if test="usercreatetime != null and usercreatetime != '' ">
+        usercreatetime,
         </if>
-         <if test="update != null and update != '' ">
-        update,
+         <if test="userupdatetime != null and userupdatetime != '' ">
+        userupdatetime,
         </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -81,11 +81,11 @@
         <if test="headurl != null and headurl != '' ">
         #{headurl},
         </if>
-        <if test="create != null and create != '' ">
-        #{create},
+        <if test="usercreatetime != null and usercreatetime != '' ">
+        #{usercreatetime},
         </if>
-         <if test="update != null and update != '' ">
-        #{update},
+         <if test="userupdatetime != null and userupdatetime != '' ">
+        #{userupdatetime},
         </if>
         </trim>
     </insert>

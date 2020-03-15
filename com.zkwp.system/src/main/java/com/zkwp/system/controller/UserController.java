@@ -253,7 +253,7 @@ public class UserController {
     		out.setReturnMessage(CacheConstant.UPDATE_PASSWORD_TWO_NO_SAME_MESSAGE);
     		return out;
     	} else {
-    		user.setId(id);
+    		user.setUserid(id);
     		user.setPassword(newPassword);
 			userService.updateUserInfo(user);
 			out.setReturnCode(CacheConstant.UPDATE_PASSWORD_SUCCESS_CODE);
@@ -269,7 +269,7 @@ public class UserController {
     public OutputObject updateFictitiousName(String id, String fictitiousName) {
     	OutputObject out = new OutputObject();
     	User user = new User();
-    	user.setId(id);
+    	user.setUserid(id);
     	user.setUsername(fictitiousName);
     	userService.updateUserInfo(user);
     	out.setReturnCode(CacheConstant.UPDATE_FI_NAME_SUCCESS_CODE);
