@@ -16,6 +16,7 @@ public interface TypeDao {
 
     int insertType(Map param);
 
+
     List<Type> queryTypes(Map param);
 
     int deleteType(Map param);
