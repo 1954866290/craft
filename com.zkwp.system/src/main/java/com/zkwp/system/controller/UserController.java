@@ -1,13 +1,18 @@
 package com.zkwp.system.controller;
 
+import com.zkwp.api.utils.RestUtil;
 import com.zkwp.system.constant.CacheConstant;
 import com.zkwp.system.service.EmailService;
+
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
+import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,12 +31,14 @@ import com.zkwp.api.bean.User;
 import com.zkwp.api.utils.StringUtil;
 import com.zkwp.system.service.UserService;
 import com.zkwp.system.util.RedisUtils;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 
 /**
  * 用户登录注册模块
  **/
-@Controller
+@RestController
 @RequestMapping(value = "/user")
 public class UserController {
 	private static int CodeExpireTime = 60;   // redis中存储的短信验证码过期时间60s
@@ -62,7 +69,7 @@ public class UserController {
 	   // 参数为手机号
 	   if (isBillId) {
 		   user = userService.getUserInfoByPhone(billId);
-		   if (StringUtil.isNotBlank(user.toString())) {
+		   if (StringUtil.isNotBlank("1")) {
 			   out = sendRandomCode(billId, randomCode, request1);
 		   } else {
 			   userService.userRegister(user);

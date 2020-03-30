@@ -23,6 +23,10 @@ spring:
     static-path-pattern: /**
   resources:
     static-locations: classpath:/static/
+  servlet:
+    multipart:
+      max-request-size: 300MB
+      max-file-size: 300MB
 
 mybatis:
   type-aliases-package: com/zkwp/consumer
@@ -35,6 +39,7 @@ server:
     context-path: /craft/consumer
 
 
+
 eureka:
   client:  #客户端注册进eureka
     service-url:
@@ -42,5 +47,4 @@ eureka:
   instance:
     instance-id: consumer
     prefer-ip-address: true
-
 

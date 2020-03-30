@@ -19,6 +19,20 @@ spring:
     cache: false  #是否使用缓存
     mode: HTML  #严格的HTML语法模式
     suffix: .html  #后缀名
+  redis:
+    host: 116.62.114.28
+    port: 6379
+    jedis:
+      pool:
+        max-active: 2000
+        max-wait: 5000
+        max-idle: 500
+        min-idle: 0
+    timeout: 5000
+  servlet:
+    multipart:
+      max-file-size:  300MB
+      max-request-size: 300MB
 
 
 mybatis:
@@ -39,3 +53,4 @@ eureka:
   instance:
     instance-id: issue
     prefer-ip-address: true
+

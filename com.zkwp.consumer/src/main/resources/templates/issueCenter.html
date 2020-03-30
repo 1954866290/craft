@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>手工艺品推广平台</title>
@@ -9,80 +9,56 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
     <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap-fileinput/4.3.3/js/fileinput.min.js"></script>
+    <link href="https://cdn.bootcss.com/bootstrap-fileinput/4.3.3/css/fileinput.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/bootstrap-fileinput/4.3.5/js/locales/zh.min.js "></script>
 </head>
 <body>
- <div th:include="navbar.html" ></div>
+
 <div>
-    <div class="issue_body" style="clear: both;">
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#issue" aria-controls="issue" role="tab" data-toggle="tab">发布</a></li>
-            <li role="presentation"><a href="#issueview" aria-controls="issueview" role="tab" data-toggle="tab">查看</a></li>
-            <li role="presentation"><a href="#issuemessages" aria-controls="issuemessages" role="tab" data-toggle="tab">消息</a></li>
-            <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">设置</a></li>
-        </ul>
-        <!-- Tab panes -->
-        <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="issue">
-                <div class="container">
-                    <div class="form row">
-                        <div class="form-horizontal col-sm-offset-3 col-md-offset-3" id="goods_form">
-                            <h3 class="form-title">发布信息</h3>
-                            <div class="col-sm-9 col-md-9">
-                                <!-- form-inline -->
-                                <div class="form-group margin-bottom-sm ">
-                                    <label for="goods_name" class="control-label">发布名称</label>
-                                    <input class="form-control required" type="text" placeholder="发布名称" id="goods_name" name="goods_name"/>
-                                </div>
-                                <div class="form-group dropdown">
-                                    <label for="goods_type" class="control-label">艺术品类别</label>
-                                    <select class="form-control" id="goods_type">
-                                        <option>书本</option>
-                                        <option>生活</option>
-                                        <option>服饰</option>
-                                        <option>数码</option>
-                                        <option>动漫</option>
-                                        <option>游戏</option>
-                                    </select>
-                                </div>
-                                <div class="form-group margin-bottom-sm ">
-                                    <label for="goods_price" class="control-label">艺术品价格</label>
-                                    <input class="form-control required" type="number" placeholder="艺术品价格" id="goods_price" name="goods_price"/>
-                                </div>
-                                <div class="form-group">
-                                    <label for="goods_desc" class="control-label">艺术品描述</label>
-                                    <textarea  class="form-control" rows="5" id="goods_desc" name="goods_desc"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label for="uploadImage" class="control-label">艺术品图片</label>
-                                    <input class="file form-control" type="file" name="uploadImage" id="uploadImage"/>
-                                </div>
-                                <div class="form-group col-md-offset-9">
-                                    <input type="button" value="发布艺术品" class="btn btn-info center-block" name="publish" onclick="publish()"/>
-                                </div>
-                            </div>
-                        </div>
+    <div class="box">
+        <div class="issue_body" style="clear: both;">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="title" class="col-sm-1 control-label">标题</label>
+                    <div class="col-sm-10">
+                        <input type="title" class="form-control" name="title" id="title" placeholder="标题">
                     </div>
                 </div>
-            </div>
-            <div role="tabpanel" class="tab-pane" id="issueview">...</div>
-            <div role="tabpanel" class="tab-pane" id="issuemessages">...</div>
-            <div role="tabpanel" class="tab-pane" id="settings">...</div>
+                <div class="form-group">
+                    <label for="content" class="col-sm-1 control-label">描述</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" id="content" name="content" rows="3" placeholder="请描述发布作品"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="price" class="col-sm-1 control-label">预售价格</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" id="price" name="price" placeholder="请输入预售价格">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="type" class="col-sm-1 control-label">请选择类型</label>
+                    <div class="col-sm-10">
+                        <select th:remove="all-but-first" id="type" name="type" class="form-control">
+                            <option th:each="type : ${types}"
+                                    th:value="${type}" th:text="${type.description}">Credit card
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="uploadfile" class="col-sm-1 control-label">上传视频</label>
+                    <div class="col-sm-10">
+                        <input type="file" class="file" id="uploadfile" multiple="uploadfile"  style="width:190px;" name="images"><br>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-default">提交</button>
+            </form>
         </div>
-
     </div>
 
-
 </div>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.9/js/fileinput.min.js"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/locales/zh.js"></script>
- <script type="text/javascript" src="../js/issue.js"></script>
- <script type="javascript">
-     $('#myTabs a').click(function (e) {
-         e.preventDefault()
-         $(this).tab('show')
-     })
-
- </script>
+<script type="text/javascript" src="../js/issue.js"></script>
 </body>
 </html>
