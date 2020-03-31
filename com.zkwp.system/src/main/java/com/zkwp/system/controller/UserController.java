@@ -65,20 +65,26 @@ public class UserController {
 	   OutputObject out = new OutputObject();
 	   boolean isBillId = isPhoneNum(billId);
 	   User user = new User();
+	   String userName = "";
 	   String randomCode = createRandomCode();
 	   // 参数为手机号
 	   if (isBillId) {
 		   user = userService.getUserInfoByPhone(billId);
-		   if (StringUtil.isNotBlank("1")) {
+		   userName = user.getUsername();
+		   if (StringUtil.isNotBlank(userName)) {
 			   out = sendRandomCode(billId, randomCode, request1);
 		   } else {
+			   userName = StringUtil.uuid().substring(0, 8);
+			   user.setUsername(userName);
+			   user.setPhone(billId);
 			   userService.userRegister(user);
 			   out = sendRandomCode(billId, randomCode, request1);
 		   }
 	   } else {
 		   // 参数为邮箱
 		   user = userService.getUserInfoByEmail(billId);
-		   if (StringUtil.isNotBlank(user.toString())) {
+		   userName = user.getUsername();
+		   if (StringUtil.isNotBlank(userName)) {
 			   emailService.sendSimpleMail(billId, "手工艺品推广平台","验证码为：" + randomCode + "，您正在登录，若非本人操作，请勿泄露。");
 			   out.setReturnCode(CacheConstant.SEND_CODE_SUCCESS_RETURN_CODE);
 	           out.setReturnMessage(CacheConstant.SEND_CODE_SUCCESS_RETURN_MESSAGE);
@@ -86,6 +92,9 @@ public class UserController {
 	           String requestIp = getIpAddr(request1);
 	           redisUtils.set("randomCodeRedis" + requestIp, randomCode, CodeExpireTime);// 将邮箱验证码放入到redis缓存中,失效时间60s
 		   } else {
+			   userName = StringUtil.uuid().substring(0, 8);
+			   user.setUsername(userName);
+			   user.setEmail(billId);
 			   userService.userRegister(user);
 			   emailService.sendSimpleMail(billId, "手工艺品推广平台","验证码为：" + randomCode + "，您正在登录，若非本人操作，请勿泄露。");
 			   out.setReturnCode(CacheConstant.SEND_CODE_SUCCESS_RETURN_CODE);
@@ -222,6 +231,57 @@ public class UserController {
 	            } else {
 	                return request.getRemoteAddr();
 	            }
-	        }
+    }
+	        
+    /*
+     * 修改密码
+     */
+    @RequestMapping(value = "/updatePassword", method = RequestMethod.POST)
+    public OutputObject updatePassword(String id, String originPassword, String newPassword, String newPasswordAgain) {
+    	OutputObject out = new OutputObject();
+    	User user = userService.getUserInfoByPhone(id);
+    	if (StringUtil.isBlank(originPassword)) {
+    		out.setReturnCode(CacheConstant.UPDATE_PASSWORD_ORIGIN_PASSWORD_IS_NULL_CODE);
+    		out.setReturnMessage(CacheConstant.UPDATE_PASSWORD_ORIGIN_PASSWORD_IS_NULL_MESSAGE);
+    		return out;
+    	} else {
+    		if (!originPassword.equals(user.getPassword())) {
+    			out.setReturnCode(CacheConstant.UPDATE_PASSWORD_ORIGIN_PASSWORD_ERROR_CODE);
+        		out.setReturnMessage(CacheConstant.UPDATE_PASSWORD_ORIGIN_PASSWORD_ERROR_MESSAGE);
+        		return out;
+    		}
+    	}
+    	if (StringUtil.isBlank(newPassword) || StringUtil.isBlank(newPasswordAgain)) {
+    		out.setReturnCode(CacheConstant.UPDATE_PASSWORD_NEW_PASSWORD_IS_NULL_CODE);
+    		out.setReturnMessage(CacheConstant.UPDATE_PASSWORD_NEW_PASSWORD_IS_NULL_MESSAGE);
+    		return out;
+    	} else if (!newPassword.equals(newPasswordAgain)){
+    		out.setReturnCode(CacheConstant.UPDATE_PASSWORD_TWO_NO_SAME_CODE);
+    		out.setReturnMessage(CacheConstant.UPDATE_PASSWORD_TWO_NO_SAME_MESSAGE);
+    		return out;
+    	} else {
+    		user.setUserid(id);
+    		user.setPassword(newPassword);
+			userService.updateUserInfo(user);
+			out.setReturnCode(CacheConstant.UPDATE_PASSWORD_SUCCESS_CODE);
+    		out.setReturnMessage(CacheConstant.UPDATE_PASSWORD_SUCCESS_MESSAGE);
+    	}
+    	return out;
+    }
+    
+    /*
+     * 修改昵称
+     */
+    @RequestMapping(value = "/updateFictitiousName", method = RequestMethod.POST)
+    public OutputObject updateFictitiousName(String id, String fictitiousName) {
+    	OutputObject out = new OutputObject();
+    	User user = new User();
+    	user.setUserid(id);
+    	user.setUsername(fictitiousName);
+    	userService.updateUserInfo(user);
+    	out.setReturnCode(CacheConstant.UPDATE_FI_NAME_SUCCESS_CODE);
+		out.setReturnMessage(CacheConstant.UPDATE_FI_NAME_SUCCESS_MESSAGE);
+    	return out;
+    }
 
 }

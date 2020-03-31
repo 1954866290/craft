@@ -29,6 +29,12 @@ public class UserServiceImpl implements UserService{
 		// TODO Auto-generated method stub
 		return this.userDao.getUserInfoByEmail(email);
 	}
+
+	@Override
+	public User updateUserInfo(User user) {
+		// TODO Auto-generated method stub
+		return this.userDao.updateUserInfo(user);
+	}
 	
 
 }
