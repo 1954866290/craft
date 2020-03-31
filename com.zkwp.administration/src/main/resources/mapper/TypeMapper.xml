@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zkwp.administration.dao.TypeDao">
+    <select id="queryTypes" parameterType="Map" resultType="com.zkwp.api.bean.Type">
+        select * from sys_type where delflag != 1
+    </select>
+    <insert id="insertType" parameterType="Map" >
+        insert into sys_type
+        (name,code,description)
+        values
+        (#{name},#{code},#{description})
+    </insert>
+    <update id="updateType" parameterType="Map">
+        update sys_type set 1=1
+        <if test="name != null and name != ''">
+            and name = #{name}
+        </if>
+        <if test="code != null and code != ''">
+            and code = #{code}
+        </if>
+        <if test="description != null and description != ''">
+            and description = #{description}
+        </if>
+        where 1=1 and id = #{id}
+    </update>
+
+    <delete id="deleteType" parameterType="Map">
+        delete from sys_type where id = #{id}
+    </delete>
+</mapper>

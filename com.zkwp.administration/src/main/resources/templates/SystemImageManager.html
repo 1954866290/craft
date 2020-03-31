@@ -10,10 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
 </head>
 <script type="text/css">
-    .upload_div {
-        width: 50%;
-        margin-left: 25%;
-    }
+
 </script>
 
 
@@ -43,7 +40,7 @@
 <div class="row">
     <div class="col-md-2"></div>
     <div class="col-md-8">
-    <table class="table table-bordered" >
+    <table class="table  table-hover table-striped" >
         <thead>
         <tr>
             <th>系统资源文件名</th>
@@ -52,11 +49,23 @@
         </tr>
         </thead>
         <tr th:each="image : ${imageList}">
+            <div class="media" th:each="image : ${imageList}">
+                <div class="media-left">
+                    <a th:href="'http://116.62.114.28:8080/'+${image.filepath}">
+                        <img style="width: 64px;height: 64px;" class="media-object" th:src="@{'http://116.62.114.28:8080/'+${image.filepath}}" >
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading" th:text="${image.imagename}"></h4>
+                    <p th:text="'http://116.62.114.28:8080/'+${image.filepath}"></p>
+                </div>
+            </div>
             <td th:text="${image.imagename}"></td>
             <td th:text="'http://116.62.114.28:8080/'+${image.filepath}"></td>
             <td><a th:href="'http://116.62.114.28:8080/'+${image.filepath}"  target="_blank">点击查看</a></td>
         </tr>
     </table>
+
         </div>
     <div class="col-md-2"></div>
 </div>

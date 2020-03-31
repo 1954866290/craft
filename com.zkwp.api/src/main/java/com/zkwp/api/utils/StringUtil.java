@@ -49,4 +49,8 @@ public static boolean isBlank(String param) {
 }
 
 
+public static String objToString(Object obj){
+    if(obj == null) return "";
+    return obj.toString();
+}
 }
