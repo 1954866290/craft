@@ -1,18 +1,27 @@
 package com.zkwp.administration.controller;
 
-import com.alibaba.fastjson.JSONObject;
-import com.zkwp.administration.service.ImageService;
-import com.zkwp.api.bean.SystemImage;
-import com.zkwp.api.utils.ImageUtils;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.zkwp.administration.service.ImageService;
+import com.zkwp.api.bean.SystemImage;
+import com.zkwp.api.utils.ImageUtils;
 
 
 /**
@@ -51,12 +60,15 @@ public class ImageController {
     /*
      * 根据图片名称获取图片信息，主要用于获取轮播图信息
      */
-    @RequestMapping(value = "/getSwiperData", method = RequestMethod.GET)
+    @RequestMapping(value = "/getImageDataByImageName", method = RequestMethod.GET)
     @ResponseBody
     public String getSwiperDataByName(String imageName) {
-    	SystemImage image = imageService.getSwiperDataByImageName(imageName);
-    	String swiperData = image.getFilepath();
-    	// JSONObject datas = JSONObject.parseObject(swiperData);
-    	return swiperData;
+    	SystemImage image;
+    	String returnJson = "";
+    	StringBuilder sb = new StringBuilder();
+    	Map<String, String> returnMap = new HashMap<String, String>();
+    	List<SystemImage> beans = (List<SystemImage>) imageService.getSwiperDataByImageName(imageName);
+    	returnJson = JSON.toJSONString(beans);
+    	return returnJson;
     }
 }

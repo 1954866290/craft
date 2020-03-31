@@ -26,7 +26,7 @@ public class ImageService {
     public int uploadImage(String path,String fileName) throws Exception{
         SystemImage systemImage = new SystemImage();
         systemImage.setCreatetime(StringUtil.dateToString(new Date()));
-        systemImage.setFilepath(path);
+        systemImage.setImage_src(path);
         systemImage.setImagename(fileName);
         systemImage.setDelflag("0");
         logger.info("----------uploadFile path write SQL start ------------");
@@ -39,7 +39,7 @@ public class ImageService {
         return imageDao.getImages();
     }
     
-    public SystemImage getSwiperDataByImageName(String imageName) {
+    public List<SystemImage> getSwiperDataByImageName(String imageName) {
     	return imageDao.getSwiperDataByImageName(imageName);
     }
 }
