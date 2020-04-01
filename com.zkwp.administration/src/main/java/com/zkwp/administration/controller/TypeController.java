@@ -62,7 +62,7 @@ public class TypeController {
     public CommonResult insertType(HttpServletRequest request){
         Map param = RestUtil.getParameterMap(request);
         try {
-            return  CommonResult.success(typeService.insertType(param));
+            return  CommonResult.success(typeService.insertType(param)==1?"添加成功":"添加失败");
         }catch (Exception e){
             return CommonResult.failed("抱歉，请联系运维");
         }

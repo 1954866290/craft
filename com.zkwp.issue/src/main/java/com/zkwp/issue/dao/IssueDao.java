@@ -19,4 +19,6 @@ public interface IssueDao {
     List<SystemType> getTypes(@Param("code") String code);
 
     int insertTempImage(Map param);
+
+    int issueCraft(Map param);
 }

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
@@ -80,6 +81,13 @@ public class IssueController  {
     public CommonResult uploadImageFile(HttpServletRequest request, HttpServletResponse response){
         MultiValueMap param = RestUtil.getParameterMap(request);
         return restTemplate.postForObject(ISSUE_REST_URL_PREFIX+"/issueCenter/uploadFile",param,CommonResult.class);
+    }
+
+    @RequestMapping(value = "/issueCenter/issueCraft",method = {RequestMethod.POST,RequestMethod.GET})
+    @ResponseBody
+    public CommonResult issueCraft(HttpServletRequest request){
+        MultiValueMap param = RestUtil.getParameterMap(request);
+        return restTemplate.postForObject(ISSUE_REST_URL_PREFIX+"/issueCenter/issueCraft",param,CommonResult.class);
     }
 }
 

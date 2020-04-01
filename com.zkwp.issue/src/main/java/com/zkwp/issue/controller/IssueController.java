@@ -71,4 +71,14 @@ public class IssueController extends BaseController {
         }
     }
 
+    @RequestMapping(value = "/issueIndex/issueCraft",method = {RequestMethod.POST})
+    @ResponseBody
+    public CommonResult issueCraft(HttpServletRequest request){
+        MultiValueMap param = RestUtil.getParameterMap(request);
+        try{
+            return CommonResult.success(issueService.issueCraft(param));
+        }catch (Exception e){
+            return CommonResult.failed("发布失败");
+        }
+    }
 }

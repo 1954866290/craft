@@ -51,18 +51,18 @@
         <tr th:each="image : ${imageList}">
             <div class="media" th:each="image : ${imageList}">
                 <div class="media-left">
-                    <a th:href="'http://116.62.114.28:8080/'+${image.filepath}">
-                        <img style="width: 64px;height: 64px;" class="media-object" th:src="@{'http://116.62.114.28:8080/'+${image.filepath}}" >
+                    <a th:href="'http://116.62.114.28:8080/'+${image.image_src}">
+                        <img style="width: 64px;height: 64px;" class="media-object" th:src="@{'http://116.62.114.28:8080/'+${image.image_src}}" >
                     </a>
                 </div>
                 <div class="media-body">
                     <h4 class="media-heading" th:text="${image.imagename}"></h4>
-                    <p th:text="'http://116.62.114.28:8080/'+${image.filepath}"></p>
+                    <p th:text="'http://116.62.114.28:8080/'+${image.image_src}"></p>
                 </div>
             </div>
             <td th:text="${image.imagename}"></td>
-            <td th:text="'http://116.62.114.28:8080/'+${image.filepath}"></td>
-            <td><a th:href="'http://116.62.114.28:8080/'+${image.filepath}"  target="_blank">点击查看</a></td>
+            <td th:text="'http://116.62.114.28:8080/'+${image.image_src}"></td>
+            <td><a th:href="'http://116.62.114.28:8080/'+${image.image_src}"  target="_blank">点击查看</a></td>
         </tr>
     </table>
 
