@@ -6,16 +6,18 @@ import com.zkwp.administration.service.TypeService;
 import com.zkwp.api.bean.Type;
 import com.zkwp.api.utils.CommonResult;
 import com.zkwp.api.utils.RestUtil;
+import org.apache.ibatis.annotations.Param;
+import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,61 +34,73 @@ public class TypeController {
 
 
     @RequestMapping(value = "/type")
-    public ModelAndView type(@RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum,HttpServletRequest request){
-        ModelAndView modelAndView = new ModelAndView();
-        Map param = RestUtil.getParameterMap(request);
-        PageHelper.startPage(pageNum,10);
-        modelAndView.setViewName("type");
-        List<Type> list = typeService.queryTypes(param);
-        PageInfo<Type> pageInfo = new PageInfo<>(list);
-        modelAndView.addObject("pageInfo",pageInfo);
-        return  modelAndView;
+    public String type(@RequestParam(value = "pageNumber", defaultValue = "1") Integer pageNumber,
+                       @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+                       Model model) {
+        PageInfo<Type> pageInfo = typeService.queryTypes(pageNumber, pageSize);
+        model.addAttribute("pageInfo", pageInfo);
+        return "type";
     }
 
-    @RequestMapping(value = "/type/queryTypes",method = {RequestMethod.GET,RequestMethod.POST})
+
+    @RequestMapping(value = "/type/queryTypes", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
-    public CommonResult queryTypes(HttpServletRequest request){
-        Map param = RestUtil.getParameterMap(request);
-        Integer pageNum = (Integer) param.get("pageNum");
-        if(pageNum==null){
-            pageNum = 1;
-        }
-        PageHelper.startPage(pageNum,10);
-        List<Type> list = typeService.queryTypes(param);
-        PageInfo<Type> pageInfo = new PageInfo<>(list);
-        return  CommonResult.success(pageInfo);
+    public CommonResult queryTypes(@RequestParam(value = "pageNumber", defaultValue = "1") Integer pageNumber,
+                                   @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+                                   Model model) {
+            PageInfo<Type> pageInfo = typeService.queryTypes(pageNumber,pageSize);
+            Map result = new HashMap();
+            result.put("pageInfo",pageInfo);
+            return CommonResult.success(result);
     }
 
-    @RequestMapping(value = "/type/insertType",method = {RequestMethod.GET,RequestMethod.POST})
+    @PostMapping(value = "/type/insertType")
     @ResponseBody
-    public CommonResult insertType(HttpServletRequest request){
-        Map param = RestUtil.getParameterMap(request);
-        try {
-            return  CommonResult.success(typeService.insertType(param)==1?"添加成功":"添加失败");
-        }catch (Exception e){
-            return CommonResult.failed("抱歉，请联系运维");
-        }
+    public CommonResult insertType(Type type) {
+        int res = typeService.insertType(type);
+        if (res > 0)
+            return CommonResult.success(res);
+        else
+            return CommonResult.failed();
     }
 
-    @RequestMapping(value = "/type/deleteType",method = {RequestMethod.GET,RequestMethod.POST})
+    @PostMapping(value = "/type/checkNameExit")
     @ResponseBody
-    public CommonResult deleteType(HttpServletRequest request){
-        Map param = RestUtil.getParameterMap(request);
-        try{
-            return CommonResult.success(typeService.deleteType(param));
-        }catch (Exception e){
-            return CommonResult.failed("抱歉，请联系运维");
-        }
+    public CommonResult checkNameExit(@Param("name") String name){
+        boolean isExit = typeService.checkNameExit(name);
+        if(isExit)
+            return CommonResult.failed();
+        else
+            return CommonResult.success(isExit);
     }
 
-    @RequestMapping(value = "/type/updateType" ,method = {RequestMethod.GET,RequestMethod.POST})
+    @GetMapping(value = "/type/getType/{id}")
     @ResponseBody
-    public CommonResult updateType(HttpServletRequest request){
-        Map param = RestUtil.getParameterMap(request);
-        try{
-            return CommonResult.success(typeService.updateType(param));
-        }catch (Exception e){
-            return CommonResult.failed("抱歉,请联系运维");
-        }
+    public CommonResult getType(@PathVariable("id") Integer id) {
+        Type type = typeService.getTypeById(id);
+        if (type != null)
+            return CommonResult.success(type);
+        else
+            return CommonResult.failed();
+    }
+
+    @DeleteMapping(value = "/type/deleteType/{id}")
+    @ResponseBody
+    public CommonResult deleteType(@PathVariable("id") Integer id) {
+        int res = typeService.deleteType(id);
+        if (res > 0)
+            return CommonResult.success(res);
+        else
+            return CommonResult.failed();
+    }
+
+    @PutMapping(value = "/type/updateType/{id}")
+    @ResponseBody
+    public CommonResult updateType(Type type) {
+        int res = typeService.updateType(type);
+        if (res > 0)
+            return CommonResult.success(res);
+        else
+            return CommonResult.failed();
     }
 }

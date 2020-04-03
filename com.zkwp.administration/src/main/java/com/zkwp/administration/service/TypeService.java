@@ -1,5 +1,7 @@
 package com.zkwp.administration.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zkwp.administration.dao.TypeDao;
 import com.zkwp.api.bean.Type;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,19 +20,32 @@ public class TypeService {
     @Autowired
     TypeDao typeDao;
 
-    public List<Type> queryTypes(Map param){
-        return typeDao.queryTypes(param);
+    public PageInfo<Type> queryTypes(Integer pageNumber, Integer pageSize){
+        PageHelper.startPage(pageNumber,pageSize);
+        List<Type> types = typeDao.queryTypes(null);
+        // 5表示设置连续显示的页号数目 1 2 3 4 5
+        return new PageInfo<>(types,5);
     }
 
-    public int insertType(Map param){
-        return typeDao.insertType(param);
+    public int insertType(Type type){
+        return typeDao.insertType(type);
     }
 
-    public int deleteType(Map param){
-        return typeDao.deleteType(param);
+    public int deleteType(Integer id){
+        return typeDao.deleteType(id);
     }
 
-    public int updateType(Map param){
-        return typeDao.updateType(param);
+    public int updateType(Type type){
+        return typeDao.updateType(type);
     }
+
+    public Type getTypeById(Integer id){
+        return  typeDao.getTypeById(id);
+    }
+
+    public Boolean checkNameExit(String name){
+        if(typeDao.checkNameExit(name)==1) return true;
+        else return false;
+    }
+
 }

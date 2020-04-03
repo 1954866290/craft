@@ -12,87 +12,93 @@
 <script type="javascript">
 
 </script>
-<body style="background-color: #c0c0c0">
-<div style="width: 70%;margin-left: 15%;" >
-    <h1>系统类型管理</h1>
-    <div style="margin-top: 100px;padding-bottom: 50px;">
-        <form action="#" method="post" class="form-horizontal">
-            <div class="form-group">
-                <label for="name" class="col-sm-2 control-label ">name</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="name" name="name" placeholder="name"
-                           style="width: 200px">
-                </div>
+<body>
+<div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>系统类型管理</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-10">
+                <button class="btn btn-success" id="type_add_btn" >新增</button>
+                <button class="btn btn-danger">删除</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-hover table-bordered">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>名称</th>
+                        <th>编码</th>
+                        <th>描述</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="type:${pageInfo.list}">
+                        <td th:text="${type.id}"></td>
+                        <td th:text="${type.name}"></td>
+                        <td th:text="${type.code}"></td>
+                        <td th:text="${type.description}"></td>
+                        <td>
+                            <button class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-pencil btn_edit" aria-hidden="true" th:attr="type_id=${type.id}" ></span>
+                                编辑
+                            </button>
+                            <button class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-trash btn_del" aria-hidden="true" th:attr="type_id=${type.id}" ></span>
+                                删除
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                当前第 <span class="label label-default" th:text="${pageInfo.pageNum}"></span> 页，
+                共 <span class="label label-default" th:text="${pageInfo.pages}"></span> 页，
+                共 <span class="label label-default" th:text="${pageInfo.total}"></span> 条记录
+            </div>
+            <div class="col-md-6">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        <li th:if="${pageInfo.isFirstPage == true}"><a href="#">首页</a></li>
+                        <li th:if="${pageInfo.isFirstPage == false}"><a
+                                th:href="@{../../administration/system/type/queryTypes(pageNumber=1)}">首页</a></li>
+                        <li th:if="${pageInfo.hasPreviousPage == true}">
+                            <a th:href="@{../../administration/system/type/queryTypes(pageNumber=${pageInfo.pageNum-1})}"
+                               aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                            <li  class="active" th:each="num:${pageInfo.navigatepageNums}"
+                                th:if="${pageInfo.pageNum == num}"><a href="#" th:text="${num}"></a></li>
+                            <li th:each="num:${pageInfo.navigatepageNums}" th:if="${pageInfo.pageNum != num}"><a th:href="@{../../administration/system/type/queryTypes(pageNumber=${num})}"
+                                    th:text="${num}"></a></li>
 
+                        <li th:if="${pageInfo.hasNextPage == true}">
+                            <a th:href="@{../../administration/system/type/queryTypes(pageNumber=${pageInfo.pageNum+1})}"
+                               aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                        <li th:if="${pageInfo.isLastPage == true}">
+                            <a href="#">尾页</a>
+                        </li>
+                        <li th:if="${pageInfo.isLastPage == false}">
+                            <a th:href="@{../../administration/system/type/queryTypes(pageNumber=${pageInfo.pages})}">尾页</a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
-            <div class="form-group">
-                <label for="code" class="col-sm-2 control-label">code</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="code" name="code" placeholder="code"
-                           style="width: 200px">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="description" class="col-sm-2 control-label">description</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="description" name="description"
-                           placeholder="description" style="width: 200px">
-                </div>
-            </div>
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default" id="submitType">增加</button>
-            </div>
-        </form>
+        </div>
     </div>
-    <div id="table" style="margin-top: 50px;">
-        <table border="1" class="table table-hover">
-            <tr>
-                <th>id</th>
-                <th>name</th>
-                <th>code</th>
-                <th>description</th>
-                <th>操作</th>
-            </tr>
-            <tr th:each="type:${pageInfo.list}" >
-                <td th:text="${type.id}"></td>
-                <td th:text="${type.code}"></td>
-                <td th:text="${type.name}"></td>
-                <td th:text="${type.description}"></td>
-                <td><a th:href="@{../../craft/administration/system/type/deleteType(id=${type.id})}">
-                    <span aria-hidden="true">删除</span>
-                </a></td>
-            </tr>
-        </table>
-    </div>
-    <div class="pagination" align="center">
-        <nav aria-label="Page navigation">
-            <ul class="pagination">
-                <li>
-                    <a th:href="@{../../craft/administration/system/type}">
-                        <span aria-hidden="true">首页</span>
-                    </a>
-                </li>
-                <li>
-                    <a th:href="@{../../craft/administration/system/type(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}"
-                       aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li>
-                    <a th:href="@{../../craft/administration/system/type(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}"
-                       aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-                <li>
-                    <a th:href="@{../../craft/administration/system/type}">
-                        <span aria-hidden="true">尾页</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-
 </div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -108,42 +114,435 @@
         </div>
     </div>
 </div>
-<script >
+
+
+<div class="modal fade" id="typeUpdateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">修改信息</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="type_edit_form">
+                    <div class="form-group">
+                        <label for="type_edit_name" class="col-sm-2 control-label">名称</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control"  id="type_edit_name" name="name" placeholder="" readonly="true">
+                            <span id="helpBlock1" class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="type_edit_code" class="col-sm-2 control-label">编码</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="code" id="type_edit_code" placeholder="">
+                            <span id="helpBlock2" class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="type_edit_description" class="col-sm-2 control-label">描述</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="description" id="type_edit_description"
+                                   placeholder="">
+                            <span id="helpBlock3" class="help-block"></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="type_edit_submit">修改</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="typeAddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">种类添加</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="type_add_form">
+                    <div class="form-group">
+                        <label for="type_edit_name" class="col-sm-2 control-label">名称</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control"  id="type_add_name" name="name" placeholder="">
+                            <span id="helpBlock4" class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="type_edit_code" class="col-sm-2 control-label">编码</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="code" id="type_add_code" placeholder="">
+                            <span id="helpBlock5" class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="type_edit_description" class="col-sm-2 control-label">描述</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="description" id="type_add_description"
+                                   placeholder="">
+                            <span id="helpBlock6" class="help-block"></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="type_save_btn">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+    var urlPre = '../../administration/system'
+    var totalPage; // 保存总记录数
+    var currentPage; // 保存当前页号
+
     $(function () {
-
-        bindSubmitType();
-
+        ajax_to_page(1);
+        AddSave();
+        Add();
     })
-
-    function showMessage(Message) {
-        $('#myModal').modal('show')
-        $('#message').html(Message);
+    function gettypeInfo(typeId) {
+        $.ajax({
+            url: urlPre + "/type/getType/" + typeId,
+            type: "GET",
+            success: function (result) {
+                if (result.status == "200") {
+                    var type = result.data;
+                    $("#type_edit_name").val(type.name);
+                    $("#type_edit_code").val(type.code);
+                    $("#type_edit_description").val(type.description);
+                }
+            }
+        });
     }
 
-    function bindSubmitType() {
-        $("#submitType").click(function () {
-            var name = $("#name").val();
-            var code = $("#code").val();
-            var description = $("#description").html();
-
-            if(name == '' || name ==undefined){
-                showMessage("请输入类型名字");
-            }
-            if(code == '' || code ==undefined){
-                showMessage("请输入类型名字");
-            }
-            var postData = {
-                name:name,
-                code:code,
-                description:description
-            }
-            $.post("../../administration/system/type/insertType",postData,function (data) {
-                if(data.status==200||data.status=="200"){
-                    showMessage("添加成功")
-                }
-            })
+    function Edit(){
+        $(".btn_edit").click(function(){
+            var typeId = $(this).attr("type_id");
+            gettypeInfo(typeId);
+            $("#type_edit_submit").attr("type_id", typeId);
+            $("#typeUpdateModal").modal({
+                backdrop: "static"
+            });
         })
     }
+
+    function Del(){
+        $(".btn_del").click(function(){
+            var typeName = $(this).parents("tr").find("td:eq(2)").text();
+            var typeId = $(this).attr("type_id");
+            if (confirm("你是否确定删除类型【" + typeName + "】?")) {
+                $.ajax({
+                    url: urlPre + "/type/deleteType/" + typeId,
+                    type: "DELETE",
+                    success: function (result) {
+                        if (result.status == "200") {
+                            alert(result.message);
+                            ajax_to_page(currentPage);
+                        }
+                    }
+                });
+            }
+        })
+    }
+
+    function EditSave(){
+        $("#type_edit_submit").click(function () {
+            if(checkCode("#type_edit_code")){
+                $.ajax({
+                    url:urlPre+"/type/updateType/"+$(this).attr("type_id"),
+                    type:"PUT",
+                    data:$("#typeUpdateModal form").serialize(),
+                    success:function (result) {
+                        // 修改成功
+                        if(result.status == "200"){
+                            // alert(result.msg);
+                            // 关闭模态框
+                            $("#typeUpdateModal").modal("hide");
+                            // 跳转到修改了的记录所在的页
+                            ajax_to_page(currentPage);
+                        }
+                    }
+                });
+            }
+        })
+    }
+
+    function Add() {
+        $("#type_add_btn").click(function () {
+            $("#typeAddModal").modal({
+                backdrop:"static"
+            });
+        });
+    }
+    function AddSave(){
+        $("#type_save_btn").click(function () {
+
+            if(!validate_form_data()){
+
+                return false;
+            }
+
+            if(!checkNameAvailable()) {
+                return false;
+            }
+
+            $.ajax({
+                url:urlPre+"/type/insertType",
+                type:"POST",
+                data:$("#typeAddModal form").serialize(),
+                success:function (result) {
+
+                    if(result.status == "200"){
+                        // 保存成功后，关闭模态框，清除上一次的数据，跳转到最后一页
+                        $('#typeAddModal').on('hidden.bs.modal', function () {
+                            form_reset("#type_add_form");
+                        });
+                        $('#typeAddModal').modal('hide');
+                        ajax_to_page(totalPage);
+                    }else{
+                        var errorMap = result.dataMap;
+                        if(errorMap.name != undefined){
+                            show_validate_msg("#type_add_name","error",errorMap.name);
+                        }
+                        if(errorMap.code != undefined){
+                            show_validate_msg("#type_add_code","error",errorMap.code);
+                        }
+                    }
+                }
+            });
+        });
+    }
+    function nameExit() {
+        var name = $("#type_add_name").val().trim();
+        // 防止未输入时，就去发送请求
+        if(name != " " && name.length>0){
+            $.ajax({
+                url:urlPre+"/type/checkNameExit",
+                type:"POST",
+                data:"name="+name,
+                success:function (result) {
+                    if(result.status == "200"){
+                        // 当前用户名不存在，给input标签添加一个属性值
+                        show_validate_msg("#type_add_name","success","名称可用");
+                        $("#type_add_name").attr("isExit","false");
+                    }else {
+                        show_validate_msg("#type_add_name","error","名称已存在");
+                        $("#type_add_name").attr("isExit","true");
+                    }
+                }
+            })
+        }
+    }
+
+    function checkNameAvailable() {
+        nameExit();
+        var isExit = $("#type_add_name").attr("isExit");
+        if(isExit == "false"){
+            return true;
+        }else
+            return false;
+    }
+
+    function checkCode (CodeElemSelector) {
+        var Code = $(CodeElemSelector).val();
+
+        if(Code != '' && Code != undefined){
+            show_validate_msg(CodeElemSelector,"success","");
+            return true;
+        }else {
+            show_validate_msg(CodeElemSelector,"error","code 不能为空");
+            return false;
+        }
+        $("#type_add_code").blur(function () {
+            checkCode("#type_add_code");
+        });
+    }
+
+    function checkName (nameElementSelector) {
+        var name = $(nameElementSelector).val();
+        if(name != "" && name != undefined){
+            show_validate_msg(nameElementSelector,"success","");
+            return true;
+        }else {
+            show_validate_msg(nameElementSelector,"error","名称不能为空");
+            return false;
+        }
+    }
+    function validate_form_data() {
+        // 校验用户名
+        // 校验邮箱
+        return checkName("#type_add_name")&&checkCode("#type_add_code");
+    }
+    function ajax_to_page(pageNum) {
+        $.ajax({
+            url:urlPre+"/type/queryTypes",
+            type:"GET",
+            data:"pageNumber="+pageNum,
+            // result是服务器返回结果(InfoDTO对象)
+            success:function (result) {
+                // console.log(result);
+                totalPage = result.data.pageInfo.total;
+                currentPage = result.data.pageInfo.pageNum;
+                build_types_table(result);
+                build_page_info(result);
+                build_nav_info(result);
+                Edit();
+                Del();
+                EditSave();
+            }
+        });
+    }
+    function build_types_table(result) {
+        // 清空上一页的显示数据
+        $("table tbody").empty();
+        // 清除th行的全选框选中状态
+        $("#checkbox_all").prop("checked", false);
+
+        var types = result.data.pageInfo.list;
+        $.each(types,function (index,item) {
+            // 每一个属性字段放在一个td里面
+            var checkboxTd = $("<td></td>").append($("<input type='checkbox' class='checkbox_single'></input>"));
+            var idTd = $("<td></td>").append(item.id);
+            var nameTd = $("<td></td>").append(item.name);
+            var codeTd = $("<td></td>").append(item.code);
+            var descriptionTd = $("<td></td>").append(item.description);
+            var btnEdit = $("<button></button>").addClass("btn btn-info btn-sm btn_edit")
+                .append($("<span></span>").addClass("glyphicon glyphicon-pencil"))
+                .append("编辑");
+            // 自定义一个属性，用于保存当前记录(种类)的id号,便于之后的修改查询传值
+            btnEdit.attr("type_id",item.id);
+            /*				<button class="btn btn-danger btn-sm">
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                    删除
+                            </button>*/
+            var btnDel = $("<button></button>").addClass("btn btn-danger btn-sm btn_del")
+                .append($("<span></span>").addClass("glyphicon glyphicon-trash"))
+                .append("删除");
+            // 自定义一个属性，用于保存当前记录(种类)的id号,便于之后的删除传值
+            btnDel.attr("type_id",item.id);
+            // 所有td组成一个tr
+            var operateTd = $("<td></td>").append(btnEdit).append(" ").append(btnDel);
+            var itemTr = $("<tr></tr>").append(checkboxTd).append(nameTd).append(codeTd).append(descriptionTd).append(operateTd);
+            // 将此tr加到table tbody里面
+            itemTr.appendTo($("table tbody"));
+        });
+    }
+
+    function build_page_info(result) {
+        // 清空上一页的显示数据
+        $("#page_info_area").empty();
+        var pageInfo = result.data.pageInfo;
+        var page_info = '当前第 <span class="label label-default">'+pageInfo.pageNum+'</span> 页，\
+							共 <span class="label label-default">'+pageInfo.pages+'</span> 页，\
+							共 <span class="label label-default">'+pageInfo.total+'</span> 条记录'
+        $("#page_info_area").append(page_info);
+    }
+
+    /**
+     * 重置表单，并清空其子标签之前的样式
+     */
+    function form_reset(formElementId) {
+        $(formElementId)[0].reset();
+        // document.getElementById(formElementId).reset();
+        // 清空输入框的校验状态类
+        $(formElementId).find("*").removeClass("has-error has-success");
+        // // 清空校验信息显示的span的内容
+        $(formElementId).find(".help-block").text("");
+    }
+
+
+    function build_nav_info(result) {
+        // 清空上一页的显示数据
+        $("#nav_info_area").empty();
+
+        var pageInfo = result.data.pageInfo;
+        // 每个导航数字 1 2 3都在li标签里面，所有li在一个ul里面，ul在nav里面
+        var ul = $("<ul></ul>").addClass("pagination");
+        var nav = $("<nav></nav>").attr("aria-label","Page navigation");
+        // 首页li
+        var firstLi = $("<li></li>").append($("<a></a>").attr("href","#").append("首页"));
+        // 上一页li
+        var prevLi = $("<li></li>").append($("<a></a>").attr("href","#").append("&laquo;"));
+        // 绑定事件（不在第一页时，点击首页和上一页才发送请求）
+        if(pageInfo.hasPreviousPage == true){
+            firstLi.click(function () {
+                ajax_to_page(1);
+            });
+            prevLi.click(function () {
+                ajax_to_page(pageInfo.pageNum-1);
+            });
+        }
+        ul.append(firstLi).append(prevLi);
+
+        // 遍历此次pageInfo中的导航页，并构建li标签，添加到ul
+        $.each(pageInfo.navigatepageNums,function (index,item) {
+            var navLi = $("<li></li>").append($("<a></a>").attr("href","#").append(item));
+            // 遍历到当前显示的页，就高亮，且不能点击
+            if(pageInfo.pageNum == item){
+                navLi.addClass("active");
+            }else {
+                // 绑定单击事件
+                navLi.click(function () {
+                    // 传入页号，获取数据
+                    ajax_to_page(item);
+                });
+            }
+            ul.append(navLi);
+        })
+
+        // 下一页li
+        var nextLi = $("<li></li>").append($("<a></a>").attr("href","#").append("&raquo;"));
+        // 尾页li
+        var lastLi = $("<li></li>").append($("<a></a>").attr("href","#").append("尾页"));
+        // 绑定事件（不在最后页时，点击尾页和下一页才发送请求）
+        if(pageInfo.hasNextPage == true){
+            nextLi.click(function () {
+                ajax_to_page(pageInfo.pageNum+1);
+            });
+            lastLi.click(function () {
+                ajax_to_page(pageInfo.pages);
+            });
+        }
+        ul.append(nextLi).append(lastLi);
+        // 将ul添加到nav
+        nav.append(ul);
+        // 将构造好的nav添加到table tbody
+        nav.appendTo($("#nav_info_area"));
+    }
+
+
+    function show_validate_msg(element,status,msg) {
+        // 先清除上一次的校验状态及显示的校验信息
+        var parent = $(element).parent();
+        parent.removeClass("has-error has-success");
+        var msg_span = $(element).next("span");
+        msg_span.text("");
+        if(status == "success"){
+            parent.addClass("has-success");
+        }else if(status == "error"){
+            parent.addClass("has-error");
+        }
+        msg_span.text(msg);
+    }
+
+
+
+
+
 
 </script>
 </body>
