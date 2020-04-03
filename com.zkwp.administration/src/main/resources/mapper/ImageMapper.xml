@@ -12,8 +12,4 @@
     <select id="getImages" resultType="com.zkwp.api.bean.SystemImage">
         select * from sys_image order by createtime desc
     </select>
-    
-    <select id="getSwiperDataByImageName" parameterType="String" resultType="com.zkwp.api.bean.SystemImage">
-    select * from sys_image where imagename = #{imageName}
-    </select>
 </mapper>

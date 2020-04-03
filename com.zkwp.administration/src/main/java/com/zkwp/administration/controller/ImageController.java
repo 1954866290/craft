@@ -57,18 +57,4 @@ public class ImageController {
         return i == 1 ? "上传成功" : "上传失败";
     }
     
-    /*
-     * 根据图片名称获取图片信息，主要用于获取轮播图信息
-     */
-    @RequestMapping(value = "/getImageDataByImageName", method = RequestMethod.GET)
-    @ResponseBody
-    public String getSwiperDataByName(String imageName) {
-    	SystemImage image;
-    	String returnJson = "";
-    	StringBuilder sb = new StringBuilder();
-    	Map<String, String> returnMap = new HashMap<String, String>();
-    	List<SystemImage> beans = (List<SystemImage>) imageService.getSwiperDataByImageName(imageName);
-    	returnJson = JSON.toJSONString(beans);
-    	return returnJson;
-    }
 }

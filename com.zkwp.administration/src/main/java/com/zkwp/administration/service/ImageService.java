@@ -39,7 +39,4 @@ public class ImageService {
         return imageDao.getImages();
     }
     
-    public List<SystemImage> getSwiperDataByImageName(String imageName) {
-    	return imageDao.getSwiperDataByImageName(imageName);
-    }
 }

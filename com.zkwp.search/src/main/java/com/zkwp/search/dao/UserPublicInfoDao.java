@@ -1,5 +1,6 @@
 package com.zkwp.search.dao;
 
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.zkwp.api.bean.Issue;

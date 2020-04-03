@@ -1,11 +1,15 @@
 package com.zkwp.api.bean;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import lombok.Data;
 /*
  * elasticSearch搜索实体类，包含user表和发布表的所有信息
  */
 
 @Data
+@JsonInclude(value = Include.NON_NULL)// 过滤掉值为null的属性
 public class UserPublic {
 	private String worksid;//作品id
     private String username;//用户名
@@ -34,4 +38,7 @@ public class UserPublic {
     private String fourimagepath;//第四张图片路径
     private String videopath;//视频路径
     private String price;//价格
+    private String image_src;//图片路径
+    private String goods_id;//图片id
+    private String imagename;//图片名称
 }
