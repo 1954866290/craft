@@ -15,3 +15,13 @@ eureka:
 spring:
   application:
     name: craft-eureka
+
+ribbon:
+  ConnectTimeout: 2000
+  ReadTimeout: 5000
+  MaxTotalConnections: 500
+  MaxConnectionsPerHost: 500
+  retryableStatusCodes: 500,404,502
+  maxAutoRetries: 1
+  maxAutoRetriesNextServer: 0
+  okToRetryOnAllOperations: true

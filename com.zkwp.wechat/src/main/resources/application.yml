@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: craft-wechat
+  servlet:
+    multipart:
+      max-request-size: 300MB
+      max-file-size: 300MB
+
+mybatis:
+  type-aliases-package: com/zkwp/consumer
+  mapper-locations: classpath:mapper/*.xml
+
+
+server:
+  port: 8007
+  servlet:
+    context-path: /craft/wechat
+
+
+
+eureka:
+  client:  #客户端注册进eureka
+    service-url:
+      defaultZone: http://eureka.zkwp.com:7001/eureka/
+  instance:
+    instance-id: wechat
+    prefer-ip-address: true
+

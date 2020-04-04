@@ -12,6 +12,7 @@
         <module>com.zkwp.eureka</module>
         <module>com.zkwp.consumer</module>
         <module>com.zkwp.api</module>
+        <module>com.zkwp.wechat</module>
     </modules>
     <parent>
 		<groupId>org.springframework.boot</groupId>
@@ -39,6 +40,14 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

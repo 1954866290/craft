@@ -39,11 +39,3 @@ eureka:
   instance:
     instance-id: search
     prefer-ip-address: true
-
-wangpeng: 
-  elasticsearch: 
-    hostlist: ${eshostlist:127.0.0.1:9200} #多个结点中间用逗号分隔
-  craft:
-    index: zkwp
-    type: doc
-    source_field: worksid,username,phone,email,nickname,gender,introduction,region,title,discription,viewcount,charmingcount,type,issueCreatedTime,issueUpdatedTime,oneimagepath,twoimagepath,threeimagepath,fourimagepath,videopath,price
