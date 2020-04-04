@@ -12,5 +12,6 @@ public class Type {
     private String name;
     private String code;
     private String description;
+    private int seq;
     private int delflag;
 }

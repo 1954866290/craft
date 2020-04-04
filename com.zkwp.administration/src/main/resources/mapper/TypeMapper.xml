@@ -6,13 +6,13 @@
     </select>
     <insert id="insertType" parameterType="com.zkwp.api.bean.Type">
         insert into sys_type
-        (name,code,description)
+        (name,code,description,seq)
         values
-        (#{type.name},#{type.code},#{type.description})
+        (#{type.name},#{type.code},#{type.description},#{type.seq})
     </insert>
     <update id="updateType" parameterType="com.zkwp.api.bean.Type">
         update sys_type
-             set   code = #{type.code} , description = #{type.description}
+             set   code = #{type.code} , description = #{type.description} ,seq = #{type.seq}
         where  id = #{type.id}
     </update>
 
