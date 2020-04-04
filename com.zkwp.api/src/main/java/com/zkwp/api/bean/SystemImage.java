@@ -24,12 +24,6 @@ public class SystemImage implements Serializable {
 
     //删除标记
     private String delflag;
-    
-    //商品id
-    private String goods_id;
-    
-    //点击图片，根据商品id跳转到商品详情页路径
-    private String navigator_url;
 
 
     public SystemImage(){

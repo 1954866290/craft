@@ -5,7 +5,7 @@
         insert into sys_image
         (filepath,imagename,createtime,delflag)
         values
-        (#{systemImage.image_src},#{systemImage.imagename},#{systemImage.createtime},#{systemImage.delflag})
+        (#{systemImage.filepath},#{systemImage.imagename},#{systemImage.createtime},#{systemImage.delflag})
     </insert>
 
     <select id="getImages" resultType="com.zkwp.api.bean.SystemImage">
