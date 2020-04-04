@@ -16,6 +16,9 @@ public class AipImageClassifyConfig {
     @Value("${baidu.SecretKey}")
     public String secretKey;
 
+
+
+
     @Bean
     public AipContentCensor getAipImageClassify() {
         AipContentCensor  client = new AipContentCensor (appId, apiKey, secretKey);
