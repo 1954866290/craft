@@ -18,15 +18,4 @@ public class SmallRoutineImageServiceImpl implements SmallRoutineImageService{
 		// TODO Auto-generated method stub
 		return this.smallRoutineImageDao.getSwiperDataByImageName(imageName);
 	}
-	@Override
-	public List<UserPublic> getImageName(String imageName) {
-		// TODO Auto-generated method stub
-		return this.smallRoutineImageDao.getImageName(imageName);
-	}
-	@Override
-	public List<Types> getTypes() {
-		// TODO Auto-generated method stub
-		return this.smallRoutineImageDao.getTypes();
-	}
-
 }

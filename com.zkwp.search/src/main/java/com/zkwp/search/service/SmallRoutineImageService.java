@@ -7,8 +7,5 @@ import com.zkwp.api.bean.UserPublic;
 
 public interface SmallRoutineImageService {
 		List<UserPublic> getSwiperDataByImageName(String imageName);
-		List<UserPublic> getImageName(String imageName);
-		List<Types> getTypes();
-
-
+		
 }

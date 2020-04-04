@@ -4,10 +4,4 @@
 <select id="getSwiperDataByImageName" parameterType="String" resultType="com.zkwp.api.bean.UserPublic">
     select * from biz_user_public_info where imagename = #{imageName}
 </select>
-<select id="getImageName" parameterType="String" resultType="com.zkwp.api.bean.UserPublic">
-    select * from biz_user_public_info where username = #{imageName}
-</select>
-<select id="getTypes" resultType="com.zkwp.api.bean.Types">
-    select * from sys_type
-</select>
 </mapper>
