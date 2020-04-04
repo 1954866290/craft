@@ -3,10 +3,9 @@
 <mapper namespace="com.zkwp.administration.dao.ImageDao" >
     <insert id="uploadImage" parameterType="com.zkwp.api.bean.SystemImage" >
         insert into sys_image
-        (image_src,imagename,createtime,delflag,goods_id,navigator_url)
+        (filepath,imagename,createtime,delflag)
         values
-        (#{systemImage.image_src},#{systemImage.imagename},#{systemImage.createtime},#{systemImage.delflag},
-        #{systemImage.goods_id},#{systemImage.navigator_url})
+        (#{systemImage.image_src},#{systemImage.imagename},#{systemImage.createtime},#{systemImage.delflag})
     </insert>
 
     <select id="getImages" resultType="com.zkwp.api.bean.SystemImage">

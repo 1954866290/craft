@@ -14,7 +14,7 @@ public class SystemImage implements Serializable {
 
     private int id;
     //文件路径
-    private String image_src;
+    private String filepath;
 
     //文件名
     private String imagename;
