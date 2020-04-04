@@ -20,6 +20,15 @@
         update sys_type set delflag = 1 where id = #{id}
     </delete>
 
+    <delete id="deleteTypes" parameterType="List">
+        update sys_type set delflag = 1 where id in(
+         <foreach collection="ids" item="id" separator="," index="id">
+             #{id}
+         </foreach>
+        )
+    </delete>
+
+
     <select id="getTypeById" parameterType="java.lang.Integer" resultType="com.zkwp.api.bean.Type">
         select * from sys_type where id = #{id}  and delflag != 1
     </select>

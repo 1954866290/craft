@@ -94,6 +94,19 @@ public class TypeController {
             return CommonResult.failed();
     }
 
+    @DeleteMapping(value = "/type/deleteTypes/{ids}")
+    @ResponseBody
+    public CommonResult deleteTypes(@PathVariable("ids") String ids) {
+        int res = typeService.deleteTypes(ids);
+        if (res > 0)
+            return CommonResult.success(res);
+        else
+            return CommonResult.failed();
+    }
+
+
+
+
     @PutMapping(value = "/type/updateType/{id}")
     @ResponseBody
     public CommonResult updateType(Type type) {

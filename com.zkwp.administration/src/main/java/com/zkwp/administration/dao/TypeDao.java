@@ -23,6 +23,8 @@ public interface TypeDao {
 
     int deleteType(@Param("id")Integer id);
 
+    int deleteTypes(@Param("ids")List<Integer> ids);
+
     int updateType(@Param("type")Type type);
 
     int checkNameExit(@Param("name") String name);

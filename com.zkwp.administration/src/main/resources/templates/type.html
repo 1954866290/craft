@@ -23,7 +23,7 @@
         <div class="row">
             <div class="col-md-4 col-md-offset-10">
                 <button class="btn btn-success" id="type_add_btn" >新增</button>
-                <button class="btn btn-danger">删除</button>
+                <button class="btn btn-danger" id="type_delete_all">删除</button>
             </div>
         </div>
         <div class="row">
@@ -213,6 +213,7 @@
         ajax_to_page(1);
         AddSave();
         Add();
+        DeleteSelect();
     })
     function gettypeInfo(typeId) {
         $.ajax({
@@ -259,6 +260,38 @@
         })
     }
 
+
+    function DeleteSelect(){
+        $("#type_delete_all").click(function () {
+            var names = "";
+            var ids = "";
+            $.each($(".checkbox_single:checked"),function (index,item) {
+                names += $(this).parents("tr").find("td:eq(2)").text()+",";
+                ids += $(this).parents("tr").find("td:eq(1)").text()+"-";
+            });
+            names = names.substring(0,names.length-1);
+            ids = ids.substring(0,ids.length-1);
+            if(names.trim().length==0){
+                alert("请选择要删除的类型！")
+                return false;
+            }
+            if(confirm("你确定要删除类型【"+names+"】吗？")){
+                // 发送ajax请求批量删除
+                $.ajax({
+                    url:urlPre+"/type/deleteTypes/"+ids,
+                    type:"DELETE",
+                    success:function (result) {
+                        if(result.status == "200"){
+                            alert(result.message);
+                            ajax_to_page(currentPage);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+
     function EditSave(){
         $("#type_edit_submit").click(function () {
             if(checkCode("#type_edit_code")){
@@ -269,7 +302,7 @@
                     success:function (result) {
                         // 修改成功
                         if(result.status == "200"){
-                            // alert(result.msg);
+                            // alert(result.message);
                             // 关闭模态框
                             $("#typeUpdateModal").modal("hide");
                             // 跳转到修改了的记录所在的页
@@ -436,7 +469,7 @@
             btnDel.attr("type_id",item.id);
             // 所有td组成一个tr
             var operateTd = $("<td></td>").append(btnEdit).append(" ").append(btnDel);
-            var itemTr = $("<tr></tr>").append(checkboxTd).append(nameTd).append(codeTd).append(descriptionTd).append(operateTd);
+            var itemTr = $("<tr></tr>").append(checkboxTd).append(idTd).append(nameTd).append(codeTd).append(descriptionTd).append(operateTd);
             // 将此tr加到table tbody里面
             itemTr.appendTo($("table tbody"));
         });
@@ -538,8 +571,6 @@
         }
         msg_span.text(msg);
     }
-
-
 
 
 

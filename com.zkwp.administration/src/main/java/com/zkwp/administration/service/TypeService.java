@@ -7,6 +7,7 @@ import com.zkwp.api.bean.Type;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -33,6 +34,14 @@ public class TypeService {
 
     public int deleteType(Integer id){
         return typeDao.deleteType(id);
+    }
+    public int deleteTypes(String ids){
+        String[] id_strs = ids.split("-");
+        List<Integer> idList = new ArrayList();
+        for (String id_str : id_strs) {
+            idList.add(Integer.parseInt(id_str));
+        }
+        return typeDao.deleteTypes(idList);
     }
 
     public int updateType(Type type){
