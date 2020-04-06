@@ -14,4 +14,5 @@ public class Type {
     private String description;
     private int seq;
     private int delflag;
+    private String parentCode;
 }
