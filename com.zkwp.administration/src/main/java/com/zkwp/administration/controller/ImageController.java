@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.zkwp.administration.util.ImageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.zkwp.administration.service.ImageService;
 import com.zkwp.api.bean.SystemImage;
-import com.zkwp.api.utils.ImageUtils;
+
 
 
 /**
@@ -38,6 +39,9 @@ public class ImageController {
     @Autowired
     private ImageService imageService;
 
+    @Autowired
+    private ImageUtil imageUtil;
+
     @GetMapping("/manager")
     public String systemImageManager(Model model){
        List<SystemImage> imageList = imageService.getImages();
@@ -52,7 +56,8 @@ public class ImageController {
         String ext = originFileName.substring(originFileName.lastIndexOf("."));
         System.out.println(originFileName);
         logger.info("-------------图片上传开始--------------");
-        String path = ImageUtils.uploadFile(fileBytes, ext, null);
+        String path =imageUtil.uploadFile(file);
+        //ImageUtils.uploadFile(fileBytes, ext, null);
         logger.info("-------------图片上传结束--------path:"+path);
         int i = imageService.uploadImage(path, fileName);
         return i == 1 ? "上传成功" : "上传失败";
