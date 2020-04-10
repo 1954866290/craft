@@ -50,6 +50,7 @@ public class ImageController {
         byte[] fileBytes = file.getBytes();
         String originFileName = file.getOriginalFilename();
         String ext = originFileName.substring(originFileName.lastIndexOf("."));
+        System.out.println(originFileName);
         logger.info("-------------图片上传开始--------------");
         String path = ImageUtils.uploadFile(fileBytes, ext, null);
         logger.info("-------------图片上传结束--------path:"+path);
