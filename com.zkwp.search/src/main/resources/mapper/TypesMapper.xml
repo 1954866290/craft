@@ -4,4 +4,10 @@
 <select id="getTypeList" parameterType="String" resultType="com.zkwp.api.bean.Type">
     select * from sys_type where parentCode = #{bigSort}
     </select>
+    <select id="getImageSrcBySmallTypeName" parameterType="String" resultType="com.zkwp.api.bean.SystemImage">
+    select * from sys_image where imagename = #{imageSrcName}
+    </select>
+    <select id="getImageAll" resultType="com.zkwp.api.bean.SystemImage">
+    select * from sys_image
+    </select>
 </mapper>

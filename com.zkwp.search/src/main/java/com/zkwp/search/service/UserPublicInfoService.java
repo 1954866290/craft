@@ -1,5 +1,7 @@
 package com.zkwp.search.service;
 
+import java.util.List;
+
 import com.zkwp.api.bean.Issue;
 import com.zkwp.api.bean.User;
 import com.zkwp.api.bean.UserPublic;
@@ -15,5 +17,6 @@ public interface UserPublicInfoService {
 	    void updateUserPubInfoByWorksId(UserPublic userPub);
 		// 插入userPub
 		void saveUserPubInfo(UserPublic userPub);
+		List<UserPublic> getGoodsListByTitle(String typeName);
 
 }

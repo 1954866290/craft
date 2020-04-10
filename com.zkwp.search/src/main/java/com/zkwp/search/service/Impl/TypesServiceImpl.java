@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.zkwp.api.bean.SystemImage;
 import com.zkwp.api.bean.Type;
 import com.zkwp.search.dao.TypesDao;
 import com.zkwp.search.service.TypesService;
@@ -17,6 +18,18 @@ public class TypesServiceImpl implements TypesService{
 	public List<Type> getTypeList(String bigSortName) {
 		// TODO Auto-generated method stub
 		return this.typesDao.getTypeList(bigSortName);
+	}
+
+	@Override
+	public SystemImage getImageSrcBySmallTypeName(String imageSrcName) {
+		// TODO Auto-generated method stub
+		return this.typesDao.getImageSrcBySmallTypeName(imageSrcName);
+	}
+
+	@Override
+	public List<SystemImage> getImageAll() {
+		// TODO Auto-generated method stub
+		return this.typesDao.getImageAll();
 	}
 
 }

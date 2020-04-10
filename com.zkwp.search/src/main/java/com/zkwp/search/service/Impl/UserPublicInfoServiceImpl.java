@@ -1,5 +1,7 @@
 package com.zkwp.search.service.Impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +43,12 @@ public class UserPublicInfoServiceImpl implements UserPublicInfoService{
 	public void saveUserPubInfo(UserPublic userPub) {
 		// TODO Auto-generated method stub
 		this.userPublicInfoDao.saveUserPubInfo(userPub);
+	}
+
+	@Override
+	public List<UserPublic> getGoodsListByTitle(String typeName) {
+		// TODO Auto-generated method stub
+		return this.userPublicInfoDao.getGoodsListByTitle(typeName);
 	}
 
 }

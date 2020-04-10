@@ -5,20 +5,29 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.zkwp.api.bean.OutputObject;
+import com.zkwp.api.bean.SystemImage;
 import com.zkwp.api.bean.Type;
 import com.zkwp.api.bean.UserPublic;
 import com.zkwp.search.service.SmallRoutineService;
 import com.zkwp.search.service.TypesService;
+import com.zkwp.search.service.UserPublicInfoService;
 
 @Controller
 public class SmallRoutineController {
@@ -26,6 +35,8 @@ public class SmallRoutineController {
 	private SmallRoutineService smallRoutineService;
 	@Autowired
 	private TypesService typesService;
+	@Autowired
+	private UserPublicInfoService userPublicInfoService;
 	private static String BIG_SORT = "bigSort";
      /* 
      * 根据图片名称获取图片信息，主要用于获取小程序首页轮播图和导航栏图片信息
@@ -62,17 +73,47 @@ public class SmallRoutineController {
     public OutputObject getSortPageInfo() {
     	OutputObject out = new OutputObject();
     	List resultList = new ArrayList();
+    	List resultList1 = new ArrayList();
     	List<Type> types = typesService.getTypeList(BIG_SORT);
     	for (int i = 0; i < types.size(); i++) {
-			String code = types.get(i).getCode();
-			String name = types.get(i).getName();
-			int id = types.get(i).getId();
+    		Type type = types.get(i);
+			String code = type.getCode();
 			List<Type> smallTypes = typesService.getTypeList(code);
-			resultList.add(smallTypes);
+			type.setList(smallTypes);
+			resultList.add(type);
 		}
-    	resultList.add(types);
     	out.setReturnList(resultList);
     	return out;
+    }
+    /**
+     * 根据类别名称，获取商品列表信息
+     */
+    @RequestMapping(value="/getGoodsListInfo", method = RequestMethod.GET)
+    @ResponseBody
+    public OutputObject getGoodsListInfo(HttpServletRequest request) {
+    	// 获取前端传入的请求参数
+    	String typeName = request.getParameter("name");
+    	int pageNum = Integer.parseInt(request.getParameter("pagenum"));
+    	int pageSize = Integer.parseInt(request.getParameter("pagesize"));
+    	OutputObject out = new OutputObject();
+    	// 先查询出总条数，再进行分页查询
+    	List<UserPublic> total = userPublicInfoService.getGoodsListByTitle(typeName);
+    	PageHelper.startPage(pageNum, pageSize);
+    	List<UserPublic> goodsList = userPublicInfoService.getGoodsListByTitle(typeName);
+    	out.setList(goodsList);
+    	out.setSearchTotals(total.size());
+    	return out;
+    }
+    /**
+     * 用户上传图片
+     */
+    @RequestMapping(value="/uploadImages")
+    @ResponseBody
+    public OutputObject uploadImages(HttpServletRequest request, @RequestParam("imageTempSrc") MultipartFile file) {
+    	System.out.println(request.getParameter("description"));
+    	System.out.println(file.getOriginalFilename());
+    	OutputObject out = new OutputObject();
+        return out;
     }
 
 }

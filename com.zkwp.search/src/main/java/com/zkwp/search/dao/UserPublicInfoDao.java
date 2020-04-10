@@ -1,5 +1,7 @@
 package com.zkwp.search.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.zkwp.api.bean.Issue;
@@ -18,5 +20,7 @@ public interface UserPublicInfoDao {
     void updateUserPubInfoByWorksId(UserPublic userPub);
 	// 插入userPub
 	void saveUserPubInfo(UserPublic userPub);
+	//根据类别名称查询商品列表
+	List<UserPublic> getGoodsListByTitle(String typeName);
 
 }

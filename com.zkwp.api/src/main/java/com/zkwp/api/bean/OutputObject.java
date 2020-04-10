@@ -17,5 +17,6 @@ public class OutputObject {
 	private List<UserPublic> list;// 搜索返回前端的结果
 	private Map returnMap;
 	private List returnList;
+	private List<Map> finalList;
 	
 }

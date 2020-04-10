@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.zkwp.system.dao.UserDao" >
+<mapper namespace="com.zkwp.search.dao.UserPublicInfoDao" >
 <select id="getUserInfoById" parameterType="String" resultType="com.zkwp.api.bean.User">
 select * from sys_user where id = #{id}
 </select>
@@ -8,7 +8,7 @@ select * from sys_user where id = #{id}
 select * from biz_issue where id = #{id}
 </select>
 <select id="getIssueInfoByWorksId" parameterType="String" resultType="com.zkwp.api.bean.UserPublic">
-select * from user_public_info where id = #{id}
+select * from biz_user_public_info where id = #{id}
 </select>
 <update id="updateUserPubInfoByWorksId" parameterType="com.zkwp.api.bean.UserPublic">
 update biz_user_public_info
@@ -263,4 +263,7 @@ where worksid=#{worksid}
         </if>
         </trim>
 </insert>
+<select id="getGoodsListByTitle" parameterType="String" resultType="com.zkwp.api.bean.UserPublic">
+select * from biz_user_public_info where title=#{typeName}
+</select>
 </mapper>
