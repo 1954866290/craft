@@ -1,37 +1,31 @@
-package com.zkwp.consumer.controller.issue;
+package com.zkwp.consumer.controller;
 
-import com.alibaba.fastjson.JSONObject;
-import com.sun.xml.internal.rngom.parse.host.Base;
 import com.zkwp.api.bean.SystemType;
-import com.zkwp.api.controller.BaseController;
+import com.zkwp.api.bean.Type;
 import com.zkwp.api.utils.CommonListResult;
-import com.zkwp.api.utils.CommonMapResult;
-import com.zkwp.api.utils.CommonResult;
 import com.zkwp.api.utils.RestUtil;
+import com.zkwp.consumer.feign.AdministrationFeignService;
+import com.zkwp.consumer.service.PageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @auther zhangkun
- * @date 2020/2/22 12:06
+ * @date 2020/4/11 10:57
  **/
 @Controller
-@RequestMapping(value = "/issue")
-public class IssueController  {
+@RequestMapping("")
+public class PageController {
+
 
     @Value("${SYSTEM_REST_URL_PREFIX}")
     private String SYSTEM_REST_URL_PREFIX;
@@ -47,11 +41,27 @@ public class IssueController  {
     @Autowired
     private RestTemplate restTemplate;
 
-    @RequestMapping(value = "/issueCenter/issue")
-    @ResponseBody
-    public String issue() {
-        return "";
+    @RequestMapping("/index")
+    public String index(){
+        return "index";
     }
 
-}
+    @RequestMapping("/login")
+    public String login(){
+        return "login";
+    }
 
+    @Autowired
+    PageService pageService;
+    @RequestMapping(value = "/issue")
+    public ModelAndView issue(HttpServletRequest request) {
+        ModelAndView modelAndView = new ModelAndView();
+        Map params = RestUtil.getParameterMap(request);
+        params.put("code","issueType");
+        String issueTypeCode ="issueType";
+        List<Type> types = pageService.getTypeListByPCode(issueTypeCode);
+        modelAndView.addObject("types", types);
+        modelAndView.setViewName("issue");
+        return modelAndView;
+    }
+}

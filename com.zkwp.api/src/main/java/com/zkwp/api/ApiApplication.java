@@ -14,7 +14,6 @@ import org.springframework.context.annotation.Import;
  * @date 2020/2/18 21:44
  **/
 @SpringBootApplication(exclude= {DataSourceAutoConfiguration.class})
-@EnableEurekaClient
 @EnableDiscoveryClient
 @EnableCircuitBreaker
 @EnableFeignClients

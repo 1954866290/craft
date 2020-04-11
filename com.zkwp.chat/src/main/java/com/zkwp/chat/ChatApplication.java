@@ -13,7 +13,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @date 2020/2/15 10:36
  **/
 @SpringBootApplication(scanBasePackages = "com.zkwp.chat")
-@EnableEurekaClient
 @EnableDiscoveryClient
 @EnableCircuitBreaker
 @EnableFeignClients

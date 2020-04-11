@@ -29,4 +29,6 @@ public interface TypeDao {
 
     int checkNameExit(@Param("name") String name);
 
+    List<Type> getTypeListByPCode(@Param("pcode")String pcode);
+
 }

@@ -29,14 +29,5 @@ public class IndexController {
     private RestTemplate restTemplate;
 
 
-    @RequestMapping("/index")
-    public String index(){
-        return "index";
-    }
-
-    @RequestMapping("/login")
-    public String login(){
-        return "login";
-    }
 
 }

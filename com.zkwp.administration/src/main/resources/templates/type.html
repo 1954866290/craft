@@ -35,6 +35,7 @@
                         <th>id</th>
                         <th>名称</th>
                         <th>编码</th>
+                        <th>父级编码</th>
                         <th>描述</th>
                         <th>排序</th>
                         <th>操作</th>
@@ -64,44 +65,10 @@
                 </table>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6">
-                当前第 <span class="label label-default" th:text="${pageInfo.pageNum}"></span> 页，
-                共 <span class="label label-default" th:text="${pageInfo.pages}"></span> 页，
-                共 <span class="label label-default" th:text="${pageInfo.total}"></span> 条记录
+        <div class="row" >
+            <div class="col-md-6" id="page_info_area">
             </div>
-            <div class="col-md-6">
-                <nav aria-label="Page navigation">
-                    <ul class="pagination">
-                        <li th:if="${pageInfo.isFirstPage == true}"><a href="#">首页</a></li>
-                        <li th:if="${pageInfo.isFirstPage == false}"><a
-                                th:href="@{../../administration/system/type/queryTypes(pageNumber=1)}">首页</a></li>
-                        <li th:if="${pageInfo.hasPreviousPage == true}">
-                            <a th:href="@{../../administration/system/type/queryTypes(pageNumber=${pageInfo.pageNum-1})}"
-                               aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li class="active" th:each="num:${pageInfo.navigatepageNums}"
-                            th:if="${pageInfo.pageNum == num}"><a href="#" th:text="${num}"></a></li>
-                        <li th:each="num:${pageInfo.navigatepageNums}" th:if="${pageInfo.pageNum != num}"><a
-                                th:href="@{../../administration/system/type/queryTypes(pageNumber=${num})}"
-                                th:text="${num}"></a></li>
-
-                        <li th:if="${pageInfo.hasNextPage == true}">
-                            <a th:href="@{../../administration/system/type/queryTypes(pageNumber=${pageInfo.pageNum+1})}"
-                               aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                        <li th:if="${pageInfo.isLastPage == true}">
-                            <a href="#">尾页</a>
-                        </li>
-                        <li th:if="${pageInfo.isLastPage == false}">
-                            <a th:href="@{../../administration/system/type/queryTypes(pageNumber=${pageInfo.pages})}">尾页</a>
-                        </li>
-                    </ul>
-                </nav>
+            <div class="col-md-6" id="nav_info_area">
             </div>
         </div>
     </div>
@@ -145,6 +112,14 @@
                         <div class="col-sm-9">
                             <input type="text" class="form-control" name="code" id="type_edit_code" placeholder="">
                             <span id="helpBlock2" class="help-block"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="type_edit_parentCode" class="col-sm-2 control-label">父级编码</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="code" id="type_edit_parentCode" placeholder="">
+                            <span id="helpBlock115" class="help-block"></span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -198,6 +173,14 @@
                             <span id="helpBlock5" class="help-block"></span>
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <label for="type_add_parentCode" class="col-sm-2 control-label">父级编码</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="code" id="type_add_parentCode" placeholder="">
+                            <span id="helpBlock15" class="help-block"></span>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label for="type_add_description" class="col-sm-2 control-label">描述</label>
                         <div class="col-sm-9">
@@ -247,6 +230,7 @@
                     var type = result.data;
                     $("#type_edit_name").val(type.name);
                     $("#type_edit_code").val(type.code);
+                    $("#type_edit_parentCode").val(type.parentCode);
                     $("#type_edit_description").val(type.description);
                     $("#type_edit_seq").val(type.seq);
                 }
@@ -480,6 +464,7 @@
             var idTd = $("<td></td>").append(item.id);
             var nameTd = $("<td></td>").append(item.name);
             var codeTd = $("<td></td>").append(item.code);
+            var parentCodeTd = $("<td></td>").append(item.parentCode);
             var descriptionTd = $("<td></td>").append(item.description);
             var seqTd = $("<td></td>").append(item.seq);
             var btnEdit = $("<button></button>").addClass("btn btn-info btn-sm btn_edit")
@@ -498,7 +483,7 @@
             btnDel.attr("type_id", item.id);
             // 所有td组成一个tr
             var operateTd = $("<td></td>").append(btnEdit).append(" ").append(btnDel);
-            var itemTr = $("<tr></tr>").append(checkboxTd).append(idTd).append(nameTd).append(codeTd).append(descriptionTd).append(seqTd).append(operateTd);
+            var itemTr = $("<tr></tr>").append(checkboxTd).append(idTd).append(nameTd).append(codeTd).append(parentCodeTd).append(descriptionTd).append(seqTd).append(operateTd);
             // 将此tr加到table tbody里面
             itemTr.appendTo($("table tbody"));
         });

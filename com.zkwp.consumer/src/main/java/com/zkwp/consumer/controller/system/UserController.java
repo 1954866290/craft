@@ -43,15 +43,4 @@ public class UserController {
         return restTemplate.postForObject(SYSTEM_REST_URL_PREFIX+"/user/addUser",user,Boolean.class);
     }
 
-    @RequestMapping(value = "/sendCode" ,method = {RequestMethod.POST,RequestMethod.GET})
-    public OutputObject sentCode(HttpServletRequest request){
-        MultiValueMap params = RestUtil.getParameterMap(request);
-        return  restTemplate.postForObject(SYSTEM_REST_URL_PREFIX+"/user/sendCode",params,OutputObject.class);
-    }
-
-    @RequestMapping(value = "/checkRandomCode",method = {RequestMethod.POST,RequestMethod.GET})
-    public OutputObject checkRandomCode(HttpServletRequest request){
-        MultiValueMap params = RestUtil.getParameterMap(request);
-        return restTemplate.postForObject(SYSTEM_REST_URL_PREFIX+"/user/checkRandomCode",params,OutputObject.class);
-    }
 }

@@ -12,7 +12,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @date 2020/2/23 15:54
  **/
 @SpringBootApplication(scanBasePackages = {"com.zkwp.system"})
-@EnableEurekaClient
 @EnableDiscoveryClient
 @EnableCircuitBreaker
 @EnableFeignClients

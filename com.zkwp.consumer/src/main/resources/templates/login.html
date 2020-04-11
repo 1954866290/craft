@@ -1,138 +1,296 @@
 <!DOCTYPE html>
-<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>手工艺品推广平台</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://unpkg.com/font-awesome@4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="icon" href="img/login.ico" type="image/x-icon">
+    <link rel="Shortcut Icon" href="img/login.ico" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
     <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
-
-    <link rel="stylesheet" type="text/css" href="../css/login.css"/>
-
+    <title>登录|注册</title>
 </head>
 <body>
-<canvas id="canvas"></canvas>
-<div class="outer">
-    <div class="inner">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <ul class="nav nav-tabs nav-justified" role="tablist">
-                    <li role="presentation" class="active"><a href="#phone" aria-controls="phone" role="tab"
-                                                              aria-expanded="true"
-                                                              data-toggle="tab">手机号</a></li>
-                    <li role="presentation"><a href="#email" aria-controls="email" role="tab"
-                                               data-toggle="tab">邮箱</a>
-                    </li>
-                </ul>
-            </div>
+
+<img id="img" src="image/bg.png" alt="">
+<div class="container">
+    <div>
+        <h2>XXXX系统</h2>
+    </div>
+    <div class="form row">
+        <div class="form-horizontal col-md-offset-3" id="login_form">
+            <h3 class="form-title">用户登录</h3>
+            <form id="form" action="">
+                <div class="col-md-9">
+                    <div class="form-group">
+                        <i class="fa fa-user fa-lg"></i>
+                        <input class="form-control required" type="text" placeholder="请输入手机号" id="phone" name="phone" autofocus="autofocus" maxlength="20"/>
+                    </div>
+                    <div class="form-group">
+                        <i class="fa fa-lock fa-lg"></i>
+                        <input class="form-control required" type="text" placeholder="请输入短信验证码" id="verifyCodePhone" name="verifyCodePhone" maxlength="8"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox pull-left">
+                            <input type="button" id="btnPhone" class="btn btn-info" value="获取验证码"  />
+                        </label>
+                    </div>
+                    <div class="form-group col-md-offset-9">
+                        <button type="submit" class="btn btn-success pull-right" id="phone_submit" name="submit">登录/注册</button>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="tab-content">
-            <div role="tabpanel" class="tab-pane" id="phone">
-                <form id="phoneform" class="form-inline">
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label for="inputPhone">手机号</label>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="tel" class="form-control" id="inputPhone" maxlength="11"
-                                       regex="^[1][3,4,5,7,8][0-9]{9}$" placeholder="手机号">
-                            </div>
-                        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<!--
+
+<main>
+    <div class="flip-modal phone">
+        <div class="modal modal-phone">
+            <a class="close" href="#">
+                <i class="fa fa-close"></i>
+            </a>
+            <div class="tabs">
+                <a class="phone active "href="#">手机号</a>
+                <a class="email" href="#">邮箱</a>
+            </div>
+            <div class="content">
+                <div class="errormsg"></div>
+                <form id="phone_from" method="post">
+                    <div class="input-field">
+                        <i class="fa fa-user-o"></i>
+                        <input id="phone" name="phone" type="text" placeholder="手机号">
                     </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label for="verificationPhone">验证码</label>
-                            </div>
-                            <div class="col-md-3">
-                                <input type="text" class="form-control" id="verificationPhone" style="width:80px"
-                                       maxlength="6"
-                                       placeholder="验证码">
-                            </div>
-                            <div class="col-md-4">
-                                <input class="sendV phone" type="button" value="获取验证码" style="margin-left: 10px"
-                                       onclick="btnPhoneCheck()">
-                            </div>
-                        </div>
+                    <div class="input-field">
+                        <i class="fa fa-lock"></i>
+                        <input id="verifyCodePhone" name="verifyCodePhone" type="text" placeholder="验证码">
                     </div>
-                    <br/>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-8">
-                            </div>
-                            <div class="col-md-4 col-md-offset-8">
-                                <button type="button" class="btn btn-default" onclick="btnSubmitPhone()">登录/注册</button>
-                            </div>
-                        </div>
+                    <div class="input-field">
+                        <input id="phone_submit" type="button"  value="登录/注册">
                     </div>
                 </form>
             </div>
-            <div role="tabpanel" class="tab-pane" id="email">
-                <form id="emailform" class="form-inline">
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label for="inputEmail">邮&nbsp;&nbsp;&nbsp;&nbsp;箱</label>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="tel" class="form-control" id="inputEmail" maxlength="11"
-                                       regex="^[1][3,4,5,7,8][0-9]{9}$" placeholder="邮箱">
-                            </div>
-                        </div>
+        </div>
+        <div class="modal modal-email">
+            <a class="close fa fa-close" href="#"></a>
+            <div class="tabs">
+                <a class="phone" href="#">手机号</a>
+                <a class="email active" href="#">邮箱</a>
+            </div>
+            <div class="content">
+                <div class="errormsg"></div>
+                <form id="email_from" method="post">
+                    <div class="input-field">
+                        <i class="fa fa-user-o"></i>
+                        <input id="email" name="email" type="text" placeholder="邮箱">
+                        <input type="button" id="btnEmail" value="获取验证码"  />
                     </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label for="verificationEmail">验证码</label>
-                            </div>
-                            <div class="col-md-3">
-                                <input type="text" class="form-control" id="verificationEmail" style="width:80px"
-                                       maxlength="6"
-                                       placeholder="验证码">
-                            </div>
-                            <div class="col-md-4">
-                                <input class="sendV email" type="button" value="获取验证码" style="margin-left: 10px"
-                                       onclick="btnEmailCheck()">
-                            </div>
-                        </div>
+                    <div class="input-field">
+                        <i class="fa fa-lock"></i>
+                        <input id="verifyCodeEmail" name="verifyCodeEmail" type="text" placeholder="验证码">
                     </div>
-                    <br/>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-8">
-                            </div>
-                            <div class="col-md-4 col-md-offset-8">
-                                <button type="button" class="btn btn-default" onclick="btnSubmitEmail()">登录/注册</button>
-                            </div>
-                        </div>
+                    <div class="input-field">
+                        <input id="email_submit" type="button" value="登录/注册">
                     </div>
                 </form>
             </div>
         </div>
     </div>
-</div>
-</div>
+</main>
+-->
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+
+<div class="modal fade" id="showMessage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">提示</h4>
-            </div>
-            <div class="modal-body">
-                <p id="message"></p>
+                <message id="message"></message>
             </div>
         </div>
     </div>
 </div>
 
-<script src="../js/login.js"></script>
+<script type="text/javascript" src="js/login.js"></script>
+<script type="text/javascript">
+    $(function () {
+        bindSubmit();
+        bindEmailSendCode();
+        bindPhoneSendCode();
+    })
+    function showMessage(message) {
+        $("#showMessage").modal({
+            backdrop: "static"
+        });
+        $("#message").val(message)
+
+    }
+    function bindSubmit() {
+        $("#phone_submit").click(function () {
+            var phone = $("#phone").val();
+            var verifyCodePhone = $("#verifyCodePhone").val();
+            if((phone!='' &&phone!=undefined)&&(verifyCodePhone!='' &&verifyCodePhone!=undefined)){
+                var postParam={
+                    "phone":phone,
+                    "verify":verifyCodePhone,
+                    "type":"phone"
+                }
+                var url = "../consumer/system/login/dologin";
+                $.post(url,postParam,function (data) {
+                    if(data.status=="200"){
+                        var message = "发送成功,请留意手机短信";
+                        showMessage(message);
+                    }else{
+                        var message = "发送失败,请稍后再试";
+                        showMessage(message);
+                    }
+                })
+            }else if((phone!='' &&phone!=undefined)){
+                var message = "手机号为空"
+                showMessage(message)
+                return;
+            }else{
+                var message = "验证码为空"
+                showMessage(message)
+                return;
+            }
+        })
+
+        $("#email_submit").click(function () {
+            var email = $("#email").val();
+            var verifyCodeEmail = $("#verifyCodeEmail").val();
+            if((email!='' &&email!=undefined)&&(verifyCodeEmail!='' &&verifyCodeEmail!=undefined)){
+                var postParam={
+                    "email":email,
+                    "verify":verifyCodeEmail,
+                    "type":"email"
+                }
+                var url = "../consumer/system/login/dologin";
+                $.post(url,postParam,function (data) {
+                    if(data.status=="200"){
+                        window.location.href="../craft/consumer/index";
+                    }else{
+                        var message = "登录失败,请稍后再试";
+                        showMessage(message);
+                    }
+                })
+            }else if((phone!='' &&phone!=undefined)){
+                var message = "邮箱为空"
+                showMessage(message)
+                return;
+            }else{
+                var message = "验证码为空"
+                showMessage(message)
+                return;
+            }
+        })
+    }
+    var countdown=60;
+
+    function bindPhoneSendCode() {
+        $("#btnPhone").click(function () {
+            var obj = $("#btnPhone");
+            var phone = $("#phone").val();
+            var regx = /^[1][3,4,5,7,8][0-9]{9}$/
+            if(!regx.test(phone)){
+                var message = "请正确填写手机号"
+                showMessage(message)
+                return;
+            }
+            settimePhone(obj);
+            var postParam={
+                "phone":phone,
+                "type":"phone"
+            }
+            var url = "../consumer/system/login/sendCode";
+            $.post(url,postParam,function (data) {
+                if(data.status=="200"){
+                    var message = "发送成功,请留意手机短信";
+                    showMessage(message);
+                }else{
+                    var message = "发送失败,请稍后再试";
+                    showMessage(message);
+                }
+            })
+        })
+    }
+    function settimePhone(obj) { //发送验证码倒计时
+        if (countdown == 0) {
+            obj.attr('disabled',false);
+            obj.val("获取验证码");
+            $("#btnPhone").css("background","#00bc12")
+            countdown = 60;
+            return;
+        } else {
+            obj.attr('disabled',true);
+            obj.val("(" + countdown + ")S");
+            countdown--;
+            $("#btnPhone").css("background","#ccc")
+        }
+        setTimeout(function() {
+                settimePhone(obj) }
+            ,1000)
+    }
+    function bindEmailSendCode() {
+        $("#btnEmail").click(function () {
+            var obj = $("#btnEmail");
+            var email = $("#email").val();
+            var regx = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
+            if(!regx.test(email)){
+                var message = "请正确填写邮箱"
+                showMessage(message)
+                return;
+            }
+            settimeEmail(obj);
+            var postParam={
+                "email":email,
+                "type":"email"
+            }
+            var url = "../consumer/system/login/sendCode";
+            $.post(url,postParam,function (data) {
+                if(data.status=="200"){
+                    var message = "发送成功,请留意邮箱";
+                    showMessage(message);
+                }else{
+                    var message = "发送失败,请稍后再试";
+                    showMessage(message);
+                }
+            })
+        })
+    }
+    function settimeEmail(obj) { //发送验证码倒计时
+        if (countdown == 0) {
+            obj.attr('disabled',false);
+            obj.val("获取验证码");
+            $("#btnEmail").css("background","#00bc12")
+            countdown = 60;
+            return;
+        } else {
+            obj.attr('disabled',true);
+            obj.val("(" + countdown + ")S");
+            countdown--;
+            $("#btnEmail").css("background","#ccc")
+        }
+        setTimeout(function() {
+                settimeEmail(obj) }
+            ,1000)
+    }
+
+
+</script>
 
 </body>
 </html>

@@ -14,7 +14,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * @date 2020/2/15 10:44
  **/
 @SpringBootApplication(scanBasePackages = "com.zkwp.issue")
-@EnableEurekaClient
 @EnableScheduling
 @EnableDiscoveryClient
 @EnableCircuitBreaker

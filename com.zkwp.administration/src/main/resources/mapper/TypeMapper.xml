@@ -6,13 +6,13 @@
     </select>
     <insert id="insertType" parameterType="com.zkwp.api.bean.Type">
         insert into sys_type
-        (name,code,description,seq)
+        (name,code,description,seq,parentCode)
         values
-        (#{type.name},#{type.code},#{type.description},#{type.seq})
+        (#{type.name},#{type.code},#{type.description},#{type.seq}, #{type.parentCode})
     </insert>
     <update id="updateType" parameterType="com.zkwp.api.bean.Type">
         update sys_type
-             set   code = #{type.code} , description = #{type.description} ,seq = #{type.seq}
+             set   code = #{type.code} , description = #{type.description} ,seq = #{type.seq},pcode = #{type.parentCode}
         where  id = #{type.id}
     </update>
 
@@ -35,5 +35,9 @@
 
     <select id="checkNameExit" parameterType="java.lang.String" resultType="java.lang.Integer">
         select count(*) from sys_type where name =#{name} and delflag != 1
+    </select>
+
+    <select id="getTypeListByPCode" parameterType="String" resultType="com.zkwp.api.bean.Type">
+        select * from sys_type where pcode = #{pcode} and delflag != 1
     </select>
 </mapper>
