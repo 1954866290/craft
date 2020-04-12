@@ -1,5 +1,6 @@
 package com.zkwp.consumer.feign;
 
+import com.zkwp.api.bean.User;
 import com.zkwp.api.utils.CommonResult;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,4 +20,7 @@ public interface SystemFeignService {
 
     @PostMapping(value = "/login/doLogin")
     CommonResult doLogin(@RequestParam("type")String type,@RequestParam("code")String code,@RequestParam("verify")String verify,@RequestParam("ip")String ip);
+
+    @PostMapping(value = "/User/getUserById")
+    CommonResult getUserById(@RequestParam("userid")String userid);
 }

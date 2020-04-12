@@ -5,21 +5,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.github.pagehelper.PageInfo;
 import com.zkwp.administration.util.ImageUtil;
+import com.zkwp.api.utils.CommonResult;
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.zkwp.administration.service.ImageService;
 import com.zkwp.api.bean.SystemImage;
 
@@ -31,7 +28,7 @@ import com.zkwp.api.bean.SystemImage;
  **/
 
 @Controller
-@RequestMapping("/system/image")
+@RequestMapping("/system")
 public class ImageController {
 
     private Logger logger = LoggerFactory.getLogger(ImageController.class);
@@ -41,6 +38,62 @@ public class ImageController {
 
     @Autowired
     private ImageUtil imageUtil;
+
+
+
+    @RequestMapping(value = "/image")
+    public String Image(@RequestParam(value = "pageNumber", defaultValue = "1") Integer pageNumber,
+                       @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+                       Model model) {
+        PageInfo<SystemImage> pageInfo = imageService.queryImages(pageNumber, pageSize);
+        model.addAttribute("pageInfo", pageInfo);
+        return "Image";
+    }
+
+
+    @RequestMapping(value = "/image/queryImages", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public CommonResult queryImages(@RequestParam(value = "pageNumber", defaultValue = "1") Integer pageNumber,
+                                   @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+                                   Model model) {
+        PageInfo<SystemImage> pageInfo = imageService.queryImages(pageNumber,pageSize);
+        Map result = new HashMap();
+        result.put("pageInfo",pageInfo);
+        return CommonResult.success(result);
+    }
+
+    @RequestMapping(value =  "/image/insertImage",method ={RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE,RequestMethod.PUT})
+    @ResponseBody
+    public CommonResult insertImage(SystemImage image) {
+        int res = imageService.insertImage(image);
+        if (res > 0)
+            return CommonResult.success(res);
+        else
+            return CommonResult.failed();
+    }
+
+    @RequestMapping(value =  "/image/checkNameExit",method ={RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE,RequestMethod.PUT})
+    @ResponseBody
+    public CommonResult checkNameExit(@Param("name") String name){
+        boolean isExit = imageService.checkNameExit(name);
+        if(isExit)
+            return CommonResult.failed();
+        else
+            return CommonResult.success(isExit);
+    }
+
+    @RequestMapping(value = "/image/deleteImage/{id}",method ={RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE,RequestMethod.PUT})
+    @ResponseBody
+    public CommonResult deleteImage(@PathVariable("id") Integer id) {
+        int res = imageService.deleteImage(id);
+        if (res > 0)
+            return CommonResult.success(res);
+        else
+            return CommonResult.failed();
+    }
+
+
+
 
     @GetMapping("/manager")
     public String systemImageManager(Model model){

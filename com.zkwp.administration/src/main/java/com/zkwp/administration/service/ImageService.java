@@ -1,5 +1,7 @@
 package com.zkwp.administration.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zkwp.administration.dao.ImageDao;
 import com.zkwp.api.bean.SystemImage;
 import com.zkwp.api.utils.StringUtil;
@@ -8,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +26,29 @@ public class ImageService {
     @Autowired
     private ImageDao imageDao;
 
+    public PageInfo<SystemImage> queryImages(Integer pageNumber, Integer pageSize){
+        PageHelper.startPage(pageNumber,pageSize);
+        List<SystemImage> Images = imageDao.queryImages();
+        // 5表示设置连续显示的页号数目 1 2 3 4 5
+        return new PageInfo<>(Images,5);
+    }
+
+
+    public int insertImage(SystemImage Image){
+        return imageDao.insertImage(Image);
+    }
+
+    public int deleteImage(Integer id){
+        return imageDao.deleteImage(id);
+    }
+
+
+    public Boolean checkNameExit(String name){
+        if(imageDao.checkNameExit(name)==1) return true;
+        else return false;
+    }
+
+    
     public int uploadImage(String path,String fileName) throws Exception{
         SystemImage systemImage = new SystemImage();
         systemImage.setCreatetime(StringUtil.dateToString(new Date()));

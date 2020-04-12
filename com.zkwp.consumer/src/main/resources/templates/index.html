@@ -1,0 +1,373 @@
+<!DOCTYPE html  >
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <base href="<%=basePath%>">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>哔哩哔哩-首页</title>
+    <link href ="css/index.css">
+    <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/jquery.min.js"></script>
+</head>
+<body>
+<div th:include="header.html"></div>
+<div id="banner">
+    <div class="page-width clearfix">
+        <div class="slider fl">
+            <div class="slider-img">
+                <a href="#" slider-title="pic1"><img
+                        src="http://116.62.114.28:8080/group1/M00/00/00/wKgAC15WWEuAOoqfAADPclMoiFY77..jpg"
+                        alt="#"></a> <a href="#" slider-title="pic2"><img
+                    src="http://116.62.114.28:8080/group1/M00/00/00/wKgAC15WWDGAe9gxAAEkeagQLFU02..jpg"
+                    alt="#"></a> <a href="#" slider-title="pic3"><img
+                    src="http://116.62.114.28:8080/group1/M00/00/00/wKgAC15WV9qAEDNhAAC-x_mnEYk21..jpg"
+                    alt="#"></a> <a href="#" slider-title="pic4"><img
+                    src="http://116.62.114.28:8080/group1/M00/00/00/wKgAC15bkzCAOvK_AAEbRt3hSSs12..jpg"
+                    alt="#"></a>
+            </div>
+            <div class="slider-title">
+                <p>pic1</p>
+            </div>
+            <div class="slider-btn">
+                <span class="cur"></span> <span></span> <span></span> <span></span>
+            </div>
+            <a href="#" class="slider-more">More</a>
+        </div>
+        <div class="banner-list fr">
+            <ul th:each="issue:${drawIssues}">
+                <li><a th:href="'video?dizhi='+${issue.id}">
+                    <img  th:src="@{${issue.oneimagepath}}"
+                         alt="#">
+                    <div class="info">
+                        <p class="title" th:text="${issue.title}"></p>
+                        <p class="author" th:text="'作者'+${issue.author}"></p>
+                        <p class="play" th:text="'播放:'+${issue.viewcount}"></p>
+                    </div>
+                </a></li>
+            </ul>
+            <!--<ul>
+                <c:forEach items="${fuck }" var="fuck">
+                    <li><a
+                            href="video.sf?dizhi=${fuck.videoAddress}&shipingID=${fuck.videoID}">
+                        <img src="<%=request.getContextPath()%>${fuck.videoImage}"
+                             alt="#">
+                        <div class="info">
+                            <p class="title">${fuck.videoName}</p>
+                            <p class="author">up主：admin</p>
+                            <p class="play">播放：${fuck.videolookTime}</p>
+                        </div>
+                    </a></li>
+                </c:forEach>
+            </ul>-->
+            <a href="#" class="btn btn-prev">昨日</a> <a href="#"
+                                                       class="btn btn-next">一周</a>
+        </div>
+    </div>
+</div>
+
+<div id="main">
+    <div class="page-width">
+        <!-- 推广 -->
+        <div th:each="issues:${typeIssues}">
+            <div class="mainCont clearfix" id="dance" js-move="true">
+                <div class="pic-list fl" js-tab="true">
+                    <div class="pic-list__title">
+                        <i class="icon icon-dance"></i>
+                        <h2 th:text="${issues.type}"></h2>
+                        <div class="tab-title">
+                            <a href="#" class="cur">有新动态</a>
+
+                        </div>
+                        <div class="more-wrap">
+                            <a href="#" class="dynamic" id="shuaxin"><i></i>392条新动态</a>
+                        </div>
+                    </div>
+                    <ul class="pic-list__wrapper clearfix tab-cont__item tab-cont__cur">
+                        <!-- 这里开始遍历 -->
+                        <div th:each="issue:${issuesStat}">
+                            <li class="item"><a
+                                    th:href="'video?issueid='+${issue.id}" class="img-link"
+                            > <img
+                                    th:src="@{${issue.oneimagepath}}" alt="#">
+                                <span class="mask"></span> <span class="time" th:text="23'"></span>
+                            </a>
+                                <div class="img-info">
+                                    <a
+                                            th:href="'video?issueid='+${issue.id}" th:text="${issue.title}">${list.videoName }</a>
+                                    <div class="btm">
+                                        <div class="user">
+                                            <i th:text="${issue.author}"></i>
+                                        </div>
+                                        <div class="online">
+                                            <i th:text="${issue.viewcount}"></i></div>
+                                    </div>
+                                </div></li>
+                        </div>
+                    </ul>
+                </div>
+                <div class="main-side fr" js-tab="true">
+                    <div class="main-side__title">
+                        <div class="rank-t">
+                            <h3>排行</h3>
+                        </div>
+                        <div class="tab-title">
+                            <a href="#" class="cur">全部</a>
+                        </div>
+                        <!-- <div class="side-select">
+              <span>三日</span>
+              <i></i>
+            </div> -->
+                    </div>
+                    <div class="main-side__cont">
+                        <div class="tab-cont">
+                            <ul class="tab-cont__item main-rank" id="did2">
+                                <!-- ajax -->
+                            </ul>
+                        </div>
+                        <button type="button" class="more" id="chakan">
+                            查看更多<i></i>
+                        </button>
+
+                        <script type="text/javascript">
+
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 舞蹈 -->
+        <div class="mainCont clearfix" id="dance" js-move="true">
+            <div class="pic-list fl" js-tab="true">
+                <div class="pic-list__title">
+                    <i class="icon icon-dance"></i>
+                    <h2>动画</h2>
+                    <div class="tab-title">
+                        <a href="#" class="cur">有新动态</a>
+
+                    </div>
+
+                    <div class="more-wrap">
+                        <a href="#" class="dynamic" id="shuaxin"><i></i>392条新动态</a>
+
+                    </div>
+                </div>
+                <ul class="pic-list__wrapper clearfix tab-cont__item tab-cont__cur">
+                    <!-- 这里开始遍历 -->
+                    <c:forEach items="${list}" var="list">
+                        <li class="item"><a
+                                href="video.sf?dizhi=${list.videoAddress}&shipingID=${list.videoID}"
+                                class="img-link"> <img
+                                src="<%=request.getContextPath()%>${list.videoImage}" alt="#">
+                            <span class="mask"></span> <span class="time">${list.videoTime}</span>
+                        </a>
+                            <div class="img-info">
+                                <a
+                                        href="video.sf?dizhi=${list.videoAddress}&shipingID=${list.videoID}">${list.videoName }</a>
+                                <div class="btm">
+                                    <div class="user">
+                                        <i></i>admin
+                                    </div>
+                                    <div class="online">
+                                        <i></i>${list.videolookTime}</div>
+                                </div>
+                            </div></li>
+                    </c:forEach>
+                </ul>
+            </div>
+            <div class="main-side fr" js-tab="true">
+                <div class="main-side__title">
+                    <div class="rank-t">
+                        <h3>排行</h3>
+                    </div>
+                    <div class="tab-title">
+                        <a href="#" class="cur">全部</a>
+                    </div>
+                    <!-- <div class="side-select">
+          <span>三日</span>
+          <i></i>
+        </div> -->
+                </div>
+                <div class="main-side__cont">
+                    <div class="tab-cont">
+                        <ul class="tab-cont__item main-rank" id="did2">
+                            <!-- ajax -->
+                        </ul>
+                    </div>
+                    <button type="button" class="more" id="chakan">
+                        查看更多<i></i>
+                    </button>
+
+                    <script type="text/javascript">
+
+                    </script>
+                </div>
+            </div>
+        </div>
+
+        <!-- 游戏 -->
+        <div class="mainCont clearfix" id="game" js-move="true">
+            <div class="pic-list fl" js-tab="true">
+                <div class="pic-list__title">
+                    <i class="icon icon-game"></i>
+                    <h2>MAD</h2>
+                    <div class="tab-title">
+                        <a href="#" class="cur">有新动态</a>
+                    </div>
+                    <div class="more-wrap">
+                        <a href="#" class="dynamic" id="shuaxin1"><i></i>392条新动态</a>
+                    </div>
+                </div>
+                <ul class="pic-list__wrapper clearfix tab-cont__item tab-cont__cur">
+
+                    <c:forEach items="${list2}" var="list2">
+                        <li class="item"><a
+                                href="video.sf?dizhi=${list2.videoAddress}&shipingID=${list2.videoID}"
+                                class="img-link"> <img
+                                src="<%=request.getContextPath()%>${list2.videoImage}" alt="#">
+                            <span class="mask"></span> <span class="time">${list2.videoTime}</span>
+                        </a>
+                            <div class="img-info">
+                                <a
+                                        href="video.sf?dizhi=${list2.videoAddress}&shipingID=${list2.videoID}">${list2.videoName }</a>
+                                <div class="btm">
+                                    <div class="user">
+                                        <i></i>admin
+                                    </div>
+                                    <div class="online">
+                                        <i></i>${list2.videolookTime}</div>
+                                </div>
+                            </div></li>
+                    </c:forEach>
+                </ul>
+            </div>
+            <div class="main-side fr" js-tab="true">
+                <div class="main-side__title">
+                    <div class="rank-t">
+                        <h3>排行</h3>
+                    </div>
+                    <div class="tab-title">
+                        <a href="#" class="cur">全部</a>
+                    </div>
+                    <!-- 						<div class="side-select">
+                        <span>三日</span> <i></i>
+                    </div> -->
+                </div>
+                <div class="main-side__cont">
+                    <div class="tab-cont">
+                        <ul class="tab-cont__item main-rank" id="did3">
+
+                        </ul>
+
+                    </div>
+                    <button type="button" class="more" id="chakan3">
+                        查看更多<i></i>
+                    </button>
+                    <script type="text/javascript">
+
+
+                    </script>
+                </div>
+            </div>
+        </div>
+
+        <!-- 科技 -->
+        <div class="mainCont clearfix" id="technology" js-move="true">
+            <div class="pic-list fl" js-tab="true">
+                <div class="pic-list__title">
+                    <i class="icon icon-technology"></i>
+                    <h2>动漫</h2>
+                    <div class="tab-title">
+                        <a href="#" class="cur">有新动态</a>
+                    </div>
+                    <div class="more-wrap">
+                        <a href="#" class="dynamic" id="shuaxin2"><i></i>392条新动态</a>
+                    </div>
+                </div>
+                <ul class="pic-list__wrapper clearfix tab-cont__item tab-cont__cur">
+
+                    <c:forEach items="${list3}" var="list3">
+                        <li class="item"><a
+                                href="video.sf?dizhi=${list3.videoAddress}&shipingID=${list3.videoID}"
+                                class="img-link"> <img
+                                src="<%=request.getContextPath()%>${list3.videoImage}" alt="#">
+                            <span class="mask"></span> <span class="time">${list3.videoTime}</span>
+                        </a>
+                            <div class="img-info">
+                                <a
+                                        href="video.sf?dizhi=${list3.videoAddress}&shipingID=${list3.videoID}">${list3.videoName }</a>
+                                <div class="btm">
+                                    <div class="user">
+                                        <i></i>admin
+                                    </div>
+                                    <div class="online">
+                                        <i></i>${list3.videolookTime}</div>
+                                </div>
+                            </div></li>
+                    </c:forEach>
+                </ul>
+            </div>
+            <div class="main-side fr" js-tab="true">
+                <div class="main-side__title">
+                    <div class="rank-t">
+                        <h3>排行</h3>
+                    </div>
+                    <div class="tab-title">
+                        <a href="#" class="cur">全部</a>
+                    </div>
+                    <!-- <div class="side-select">
+                        <span>三日</span> <i></i>
+                    </div> -->
+                </div>
+                <div class="main-side__cont">
+                    <div class="tab-cont">
+                        <ul class="tab-cont__item main-rank" id=did4>
+
+                        </ul>
+
+                    </div>
+                    <button type="button" class="more" id="chakan4">
+                        查看更多<i></i>
+                    </button>
+
+
+
+                    <!-- 这里是AJAX 提交 后台刷新数据 -->
+                    <script
+                            src="<%=request.getContextPath()%>/static/adminjs/adminjs.js"></script>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+
+
+<div id="sideBar">
+    <div class="sideBar-list">
+
+        <br> <a href="#">动漫</a> <a href="#">动画</a> <a href="#">番剧</a> <br>
+        <a href="#"><i></i>排序</a>
+    </div>
+    <br>
+    <button id="closemusic" type="button">关闭音乐</button>
+    <div class="sideBar-line"></div>
+    <a href="#" class="sideBar-toTop" id="backTop"></a>
+</div>
+
+
+<!-- 背景音乐
+
+        <EMBED  id="music" src="/static/The Truth That You Leave.mp3"  HIDDEN="true" volume="10"  controller="true" autostart="true" loop="true">
+        <script type="text/javascript">
+        $("#closemusic").click(function(){
+            /* $("#music").playOrPause(); */
+            document.embeds('music').stop();
+        })
+
+        </script>
+-->
+</body>
+</html>

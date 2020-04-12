@@ -33,7 +33,7 @@ public class TypeController {
     TypeService typeService;
 
 
-    @RequestMapping(value = "/type")
+    @RequestMapping(value = "/type",method ={RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE,RequestMethod.PUT})
     public String type(@RequestParam(value = "pageNumber", defaultValue = "1") Integer pageNumber,
                        @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                        Model model) {
@@ -43,7 +43,7 @@ public class TypeController {
     }
 
 
-    @RequestMapping(value = "/type/queryTypes", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/type/queryTypes", method ={RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE,RequestMethod.PUT})
     @ResponseBody
     public CommonResult queryTypes(@RequestParam(value = "pageNumber", defaultValue = "1") Integer pageNumber,
                                    @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
@@ -54,7 +54,7 @@ public class TypeController {
             return CommonResult.success(result);
     }
 
-    @PostMapping(value = "/type/insertType")
+    @RequestMapping(value =  "/type/insertType",method ={RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE,RequestMethod.PUT})
     @ResponseBody
     public CommonResult insertType(Type type) {
         int res = typeService.insertType(type);
@@ -64,7 +64,7 @@ public class TypeController {
             return CommonResult.failed();
     }
 
-    @PostMapping(value = "/type/checkNameExit")
+    @RequestMapping(value =  "/type/checkNameExit",method ={RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE,RequestMethod.PUT})
     @ResponseBody
     public CommonResult checkNameExit(@Param("name") String name){
         boolean isExit = typeService.checkNameExit(name);
@@ -74,7 +74,7 @@ public class TypeController {
             return CommonResult.success(isExit);
     }
 
-    @GetMapping(value = "/type/getType/{id}")
+    @RequestMapping(value =  "/type/getType/{id}",method ={RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE,RequestMethod.PUT})
     @ResponseBody
     public CommonResult getType(@PathVariable("id") Integer id) {
         Type type = typeService.getTypeById(id);
@@ -84,7 +84,7 @@ public class TypeController {
             return CommonResult.failed();
     }
 
-    @DeleteMapping(value = "/type/deleteType/{id}")
+    @RequestMapping(value =  "/type/deleteType/{id}",method ={RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE,RequestMethod.PUT})
     @ResponseBody
     public CommonResult deleteType(@PathVariable("id") Integer id) {
         int res = typeService.deleteType(id);
@@ -94,7 +94,7 @@ public class TypeController {
             return CommonResult.failed();
     }
 
-    @DeleteMapping(value = "/type/deleteTypes/{ids}")
+    @RequestMapping(value =  "/type/deleteTypes/{ids}",method ={RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE,RequestMethod.PUT})
     @ResponseBody
     public CommonResult deleteTypes(@PathVariable("ids") String ids) {
         int res = typeService.deleteTypes(ids);
@@ -105,9 +105,7 @@ public class TypeController {
     }
 
 
-
-
-    @PutMapping(value = "/type/updateType/{id}")
+    @RequestMapping(value =  "/type/updateType/{id}",method ={RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE,RequestMethod.PUT})
     @ResponseBody
     public CommonResult updateType(Type type) {
         int res = typeService.updateType(type);

@@ -67,9 +67,41 @@
         </div>
         <div class="row" >
             <div class="col-md-6" id="page_info_area">
+
             </div>
             <div class="col-md-6" id="nav_info_area">
-            </div>
+         <!--       <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        <li th:if="${pageInfo.isFirstPage == true}"><a href="#">首页</a></li>
+                        <li th:if="${pageInfo.isFirstPage == false}"><a
+                                th:href="@{../../administration/system/type(pageNumber=1)}">首页</a></li>
+                        <li th:if="${pageInfo.hasPreviousPage == true}">
+                            <a th:href="@{../../administration/system/type(pageNumber=${pageInfo.pageNum-1})}"
+                               aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="active" th:each="num:${pageInfo.navigatepageNums}"
+                            th:if="${pageInfo.pageNum == num}"><a href="#" th:text="${num}"></a></li>
+                        <li th:each="num:${pageInfo.navigatepageNums}" th:if="${pageInfo.pageNum != num}"><a
+                                th:href="@{../../administration/system/type(pageNumber=${num})}"
+                                th:text="${num}"></a></li>
+
+                        <li th:if="${pageInfo.hasNextPage == true}">
+                            <a th:href="@{../../administration/system/type(pageNumber=${pageInfo.pageNum+1})}"
+                               aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                        <li th:if="${pageInfo.isLastPage == true}">
+                            <a href="#">尾页</a>
+                        </li>
+                        <li th:if="${pageInfo.isLastPage == false}">
+                            <a th:href="@{../../administration/system/type(pageNumber=${pageInfo.pages})}">尾页</a>
+                        </li>
+                    </ul>
+                </nav>
+        -->    </div>
         </div>
     </div>
 </div>
@@ -177,7 +209,7 @@
                     <div class="form-group">
                         <label for="type_add_parentCode" class="col-sm-2 control-label">父级编码</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" name="code" id="type_add_parentCode" placeholder="">
+                            <input type="text" class="form-control" name="parentCode" id="type_add_parentCode" placeholder="">
                             <span id="helpBlock15" class="help-block"></span>
                         </div>
                     </div>

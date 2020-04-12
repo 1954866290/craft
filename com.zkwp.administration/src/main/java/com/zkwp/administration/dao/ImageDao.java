@@ -18,4 +18,14 @@ public interface ImageDao {
     List<SystemImage> getImages();
     
     List<SystemImage> getSwiperDataByImageName(String imageName);
+
+    List<SystemImage> queryImages();
+
+    
+    int insertImage(@Param("Image")SystemImage Image);
+
+    int deleteImage(@Param("id")Integer id);
+
+    int checkNameExit(@Param("name") String name);
+
 }

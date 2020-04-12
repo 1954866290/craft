@@ -1,7 +1,10 @@
 package com.zkwp.consumer.service;
 
 import com.zkwp.api.bean.Type;
+import com.zkwp.api.bean.User;
+import com.zkwp.api.utils.CommonResult;
 import com.zkwp.consumer.feign.AdministrationFeignService;
+import com.zkwp.consumer.feign.SystemFeignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +20,15 @@ public class PageService {
     @Autowired
     AdministrationFeignService administrationFeignService;
 
+    @Autowired
+    SystemFeignService systemFeignService;
+
     public List<Type> getTypeListByPCode(String pcode) {
         return administrationFeignService.getTypeListByPCode(pcode);
     }
 
+    public User getUserById(String userid) {
+        CommonResult commonResult = systemFeignService.getUserById(userid);
+        return (User) commonResult.getData();
+    }
 }

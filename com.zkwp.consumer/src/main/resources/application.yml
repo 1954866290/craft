@@ -29,7 +29,7 @@ spring:
       max-file-size: 300MB
   redis:
     database: 0
-    host: 121.36.43.57
+    host: 116.62.114.28
     port: 6379
     password:
     lettuce:

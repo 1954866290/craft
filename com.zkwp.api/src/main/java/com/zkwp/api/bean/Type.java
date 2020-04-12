@@ -21,5 +21,6 @@ public class Type {
     private int seq;
     private int delflag;
     private String parentCode;
+    private String createtime;
     private List list;
 }

@@ -4,10 +4,12 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zkwp.administration.dao.TypeDao;
 import com.zkwp.api.bean.Type;
+import com.zkwp.api.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +31,7 @@ public class TypeService {
     }
 
     public int insertType(Type type){
+        type.setCreatetime(StringUtil.dateToString(new Date()));
         return typeDao.insertType(type);
     }
 

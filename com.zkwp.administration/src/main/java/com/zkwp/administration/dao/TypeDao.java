@@ -14,10 +14,10 @@ import java.util.Map;
  **/
 @Mapper
 public interface TypeDao {
+    List<Type> queryTypes(@Param("type")Type type);
 
     int insertType(@Param("type")Type type);
 
-    List<Type> queryTypes(@Param("type")Type type);
 
     Type getTypeById(@Param("id")Integer id);
 

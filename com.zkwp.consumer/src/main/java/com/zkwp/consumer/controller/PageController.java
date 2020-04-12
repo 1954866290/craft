@@ -2,12 +2,15 @@ package com.zkwp.consumer.controller;
 
 import com.zkwp.api.bean.SystemType;
 import com.zkwp.api.bean.Type;
+import com.zkwp.api.bean.User;
 import com.zkwp.api.utils.CommonListResult;
 import com.zkwp.api.utils.RestUtil;
+import com.zkwp.api.utils.StringUtil;
 import com.zkwp.consumer.feign.AdministrationFeignService;
 import com.zkwp.consumer.service.PageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +29,6 @@ import java.util.Map;
 @Controller
 @RequestMapping("")
 public class PageController {
-
 
     @Value("${SYSTEM_REST_URL_PREFIX}")
     private String SYSTEM_REST_URL_PREFIX;
@@ -41,9 +44,23 @@ public class PageController {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Autowired
+    PageService pageService;
+
+    @Value("ProductionType")
+    String ProductionType;
+
     @RequestMapping("/index")
-    public String index(){
-        return "index";
+    public ModelAndView index(HttpServletRequest request, HttpSession session){
+        ModelAndView modelAndView = new ModelAndView();
+        Map params = RestUtil.getParameterMap(request);
+        List<Type> types = pageService.getTypeListByPCode(ProductionType);
+        String userid = StringUtil.objToString(session.getAttribute("userid"));
+        User user = pageService.getUserById(userid);
+        modelAndView.addObject("types",types);
+        modelAndView.addObject("user",user);
+        modelAndView.setViewName("index");
+        return modelAndView;
     }
 
     @RequestMapping("/login")
@@ -51,8 +68,7 @@ public class PageController {
         return "login";
     }
 
-    @Autowired
-    PageService pageService;
+
     @RequestMapping(value = "/issue")
     public ModelAndView issue(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView();

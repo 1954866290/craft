@@ -33,8 +33,7 @@ public class LoginService {
     private static String sendCodeArea = "cn-hangzhou";// 发送短信地区
     private static String AccessKeyID = "";// 短信服务KeyID
     private static String AccessKeySecret = "";// 短信服务KeySecret
-    @Autowired
-    private UserService userService;
+
     @Autowired
     private RedisUtils redisUtils;
     @Autowired
@@ -111,7 +110,7 @@ public class LoginService {
         request.putBodyParameter("TemplateParam", "{ \"code\":\"" + code + "\"}");
         try {
             CommonResponse response = client.getCommonResponse(request);
-            if ("200".equals(response.getHttpStatus())) {// 200表示短信发送成功
+            if ("200".equals(response.getHttpStatus())) {// 200表示w短信发送成功
                 out.setReturnCode(CacheConstant.SEND_CODE_SUCCESS_RETURN_CODE);
                 out.setReturnMessage(CacheConstant.SEND_CODE_SUCCESS_RETURN_MESSAGE);
             } else {

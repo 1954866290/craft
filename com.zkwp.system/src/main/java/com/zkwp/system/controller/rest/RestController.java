@@ -1,7 +1,9 @@
 package com.zkwp.system.controller.rest;
 
+import com.zkwp.api.bean.User;
 import com.zkwp.api.utils.CommonResult;
 import com.zkwp.system.service.LoginService;
+import com.zkwp.system.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +21,8 @@ public class RestController {
     @Autowired
     LoginService loginService;
 
+    @Autowired
+    UserService userService;
 
     @PostMapping(value = "/login/sendCode")
     public CommonResult sendCode(@RequestParam("type")String type, @RequestParam("code")String code, @RequestParam("ip")String ip){
@@ -38,4 +42,12 @@ public class RestController {
         }
     }
 
+    @PostMapping(value = "/User/getUserById")
+    public CommonResult getUserById(@RequestParam("userid")String userid){
+        try{
+            return userService.getUserById(userid);
+        }catch (Exception e){
+            return CommonResult.failed();
+        }
+    }
 }

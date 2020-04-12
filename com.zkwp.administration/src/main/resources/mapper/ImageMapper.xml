@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.zkwp.administration.dao.ImageDao" >
+<mapper namespace="com.zkwp.administration.dao.ImageDao">
     <insert id="uploadImage" parameterType="com.zkwp.api.bean.SystemImage" >
         insert into sys_image
         (filepath,imagename,createtime,delflag)
@@ -15,4 +15,24 @@
     <select id="getSwiperDataByImageName" parameterType="String" resultType="com.zkwp.api.bean.SystemImage">
     select * from sys_image where imagename = #{imageName}
     </select>
+
+    <select id="queryImages" resultType="com.zkwp.api.bean.SystemImage">
+         select * from sys_image where delflag = 0 order by createtime desc
+    </select>
+
+    <insert id="insertImage" parameterType="com.zkwp.api.bean.SystemImage">
+        insert into sys_image
+        (filepath,createtime,imagename)
+        values
+        (#{Image.filepath},#{Image.createtime},#{Image.imagename})
+    </insert>
+
+    <delete id="deleteImage" parameterType="java.lang.Integer">
+        update sys_image set delflag = 1 where id = #{id}
+    </delete>
+
+    <select id="checkNameExit" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(*) from sys_image where imagename = #{name} and delflag != 1
+    </select>
+
 </mapper>
