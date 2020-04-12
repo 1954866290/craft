@@ -51,7 +51,7 @@ public class IssueController extends BaseController {
     @RequestMapping(value = "/issueIndex/uploadImgFile" ,method ={RequestMethod.POST})
     @ResponseBody
     public CommonMapResult uploadImgFile(HttpServletRequest request){
-        MultiValueMap param = RestUtil.getParameterMap(request);
+        MultiValueMap param = (MultiValueMap) RestUtil.getParameterMap(request);
         try{
             return CommonMapResult.success(issueService.uploadImgFile(param));
         }catch (Exception e){
@@ -63,7 +63,7 @@ public class IssueController extends BaseController {
     @RequestMapping(value = "/issueIndex/uploadFile",method = {RequestMethod.POST})
     @ResponseBody
     public CommonResult uploadFile(HttpServletRequest request){
-        MultiValueMap param = RestUtil.getParameterMap(request);
+        MultiValueMap param = (MultiValueMap) RestUtil.getParameterMap(request);
         try{
             return CommonResult.success(issueService.uploadFile(param));
         }catch (Exception e){
@@ -74,7 +74,7 @@ public class IssueController extends BaseController {
     @RequestMapping(value = "/issueIndex/issueCraft",method = {RequestMethod.POST})
     @ResponseBody
     public CommonResult issueCraft(HttpServletRequest request){
-        MultiValueMap param = RestUtil.getParameterMap(request);
+        MultiValueMap param = (MultiValueMap) RestUtil.getParameterMap(request);
         try{
             return CommonResult.success(issueService.issueCraft(param));
         }catch (Exception e){

@@ -43,8 +43,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 	private static int CodeExpireTime = 60;   // redis中存储的短信验证码过期时间60s
 	private static String sendCodeArea = "cn-hangzhou";// 发送短信地区
-	private static String AccessKeyID = "";// 短信服务KeyID
-	private static String AccessKeySecret = "";// 短信服务KeySecret
+	private static String AccessKeyID = "LTAI4Fj7ZYbW2ZYAbTdWjopT";// 短信服务KeyID
+	private static String AccessKeySecret = "O9xGVOyW1CpS2g9oSfYqF0Ds18uALg";// 短信服务KeySecret
     @Autowired
     private UserService userService;
     @Autowired
