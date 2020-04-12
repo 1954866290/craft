@@ -43,11 +43,11 @@ public class RestController {
     }
 
     @PostMapping(value = "/User/getUserById")
-    public CommonResult getUserById(@RequestParam("userid")String userid){
+    public User getUserById(@RequestParam("userid")String userid){
         try{
             return userService.getUserById(userid);
         }catch (Exception e){
-            return CommonResult.failed();
+            return null;
         }
     }
 }

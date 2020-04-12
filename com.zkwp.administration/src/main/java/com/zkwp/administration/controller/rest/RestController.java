@@ -15,7 +15,7 @@ import java.util.List;
  * @date 2020/4/11 11:04
  **/
 
-@Controller
+@org.springframework.web.bind.annotation.RestController
 @RequestMapping(value = { "/feign-api" })
 public class RestController {
 

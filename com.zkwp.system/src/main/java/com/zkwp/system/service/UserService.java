@@ -1,5 +1,6 @@
 package com.zkwp.system.service;
 
+import com.zkwp.api.bean.User;
 import com.zkwp.api.utils.CommonResult;
 import com.zkwp.system.dao.IUserDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ public class UserService {
 
     @Autowired
     IUserDao iUserDao;
-    public CommonResult getUserById(String userid){
-        return CommonResult.success(iUserDao.getUserById(userid));
+    public User getUserById(String userid){
+        return iUserDao.getUserById(userid);
     }
 }

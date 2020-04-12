@@ -33,7 +33,7 @@ header {
     display: inline-block;
     width: 46px;
     height: 64px;
-    background: url(../images/page_icons.png) no-repeat;
+    background: url(http://116.62.114.28:8080/group1/M00/00/00/wKgAC16TIvSAOlXbAAEu6vK3BoU048.png) no-repeat;
 }
 .pic-list__title h2 {
     display: inline-block;
@@ -118,7 +118,7 @@ header {
     vertical-align: top;
 }
 .pic-list__wrapper > .img-info .user i {
-    background-image: url(../images/page_icons.png);
+    background-image: url(http://116.62.114.28:8080/group1/M00/00/00/wKgAC16TIvSAOlXbAAEu6vK3BoU048.png);
     background-repeat: no-repeat;
     background-position: -282px -154px;
 }
@@ -126,7 +126,7 @@ header {
     float: left;
 }
 .pic-list__wrapper > .img-info .online i {
-    background: url(../images/live_online.png) no-repeat;
+    background: url(http://116.62.114.28:8080/group1/M00/00/00/wKgAC16TI1GAWhpxAAEu6vK3BoU181.png) no-repeat;
 }
 .main-gg {
     display: block;
@@ -168,7 +168,7 @@ header {
 .more-wrap .more i {
     display: inline-block;
     height: 22px;
-    background: url(../images/page_icons.png) no-repeat;
+    background: url(http://116.62.114.28:8080/group1/M00/00/00/wKgAC16TIvSAOlXbAAEu6vK3BoU048.png) no-repeat;
     vertical-align: top;
 }
 .more-wrap .dynamic i {
@@ -202,7 +202,7 @@ header {
     display: inline-block;
     width: 22px;
     height: 26px;
-    background: url(../images/page_icons.png) no-repeat -665px -1107px;
+    background: url(http://116.62.114.28:8080/group1/M00/00/00/wKgAC16TIvSAOlXbAAEu6vK3BoU048.png) no-repeat -665px -1107px;
     vertical-align: top;
 }
 .pic-list .tab-cont__item {
@@ -351,7 +351,7 @@ header {
 .side-select i {
     width: 12px;
     height: 6px;
-    background: url(../images/page_icons.png) -475px -157px no-repeat;
+    background: url(http://116.62.114.28:8080/group1/M00/00/00/wKgAC16TIvSAOlXbAAEu6vK3BoU048.png) -475px -157px no-repeat;
 }
 /* main-rank */
 .main-rank {
@@ -431,14 +431,14 @@ header {
     position: absolute;
     width: 20px;
     height: 22px;
-    background: url(../images/page_icons.png) no-repeat -473px -211px;
+    background: url(http://116.62.114.28:8080/group1/M00/00/00/wKgAC16TIvSAOlXbAAEu6vK3BoU048.png) no-repeat -473px -211px;
 }
 
 /* ====== header ====== */
 #header {
     position: relative;
     z-index: 999;
-    background: url(../images/header_bg.jpg) no-repeat center -10px;
+    background: url(http://116.62.114.28:8080/group1/M00/00/00/wKgAC16TI9mAM6QMAAETfuIhP14678.jpg) no-repeat center -10px;
 }
 /* page_top */
 #page_top {
@@ -456,7 +456,7 @@ header {
     top: -10px;
     width: 100%;
     height: 62px;
-    background: url(../images/header_bg.jpg) no-repeat center 0;
+    background: url(http://116.62.114.28:8080/group1/M00/00/00/wKgAC16TI9mAM6QMAAETfuIhP14678.jpg) no-repeat center 0;
 
     filter: blur(5px);
     -webkit-filter: blur(5px);
@@ -495,7 +495,7 @@ header {
 .header-top__nav .item-home a {
     width: 50px;
     padding: 0 0 0 20px;
-    background: url(../images/page_icons.png) no-repeat -845px -74px;
+    background: url(http://116.62.114.28:8080/group1/M00/00/00/wKgAC16TIvSAOlXbAAEu6vK3BoU048.png) no-repeat -845px -74px;
 }
 .header-top__user {
     float: right;
@@ -536,10 +536,10 @@ header {
     text-align: center;
     line-height: 42px;
     color: #fff;
-    background: url(../images/user_post.png) no-repeat;
+    background: url(http://116.62.114.28:8080/group1/M00/00/00/wKgAC16TJDmAQZFmAAAB3kOKAPg656.png) no-repeat;
 }
 .header-top__user .user-post .link:hover {
-    background: url(../images/user_post_hover.png) no-repeat;
+    background: url(http://116.62.114.28:8080/group1/M00/00/00/wKgAC16TJF-APmTOAAABvkn3prI442.png) no-repeat;
 }
 .header-hover {
     display: none;
@@ -586,7 +586,7 @@ header {
     line-height: 30px;
     border-radius: 4px;
     color: #fff;
-    background: url(../images/shadow.png) repeat-x;
+    background: url(http://116.62.114.28:8080/group1/M00/00/00/wKgAC16TJOiAWVJvAAABHeXUxMc780.png) repeat-x;
 }
 .game-center .game-img {
     width: 264px;
@@ -613,7 +613,7 @@ header {
 .game-center .game-list {
     width: 194px;
     padding-left: 6px;
-    background: url(../images/game-center__shadow.png) no-repeat;
+    background: url(http://116.62.114.28:8080/group1/M00/00/00/wKgAC16TJOiAWVJvAAABHeXUxMc780.png) no-repeat;
 }
 .game-center .game-list .title {
     position: relative;

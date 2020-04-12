@@ -22,5 +22,5 @@ public interface SystemFeignService {
     CommonResult doLogin(@RequestParam("type")String type,@RequestParam("code")String code,@RequestParam("verify")String verify,@RequestParam("ip")String ip);
 
     @PostMapping(value = "/User/getUserById")
-    CommonResult getUserById(@RequestParam("userid")String userid);
+    User getUserById(@RequestParam("userid")String userid);
 }
