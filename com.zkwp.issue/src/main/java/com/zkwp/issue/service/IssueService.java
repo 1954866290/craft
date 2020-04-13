@@ -1,6 +1,7 @@
 package com.zkwp.issue.service;
 
 import com.zkwp.api.bean.SystemType;
+import com.zkwp.api.utils.CommonResult;
 import com.zkwp.api.utils.StringUtil;
 import com.zkwp.issue.dao.IssueDao;
 import com.zkwp.issue.util.ImageUtil;
@@ -20,6 +21,7 @@ public class IssueService {
 
     private Logger logger = LoggerFactory.getLogger(IssueService.class);
 
+    private final String pathPre = "http://116.62.114.28:8080/";
     @Autowired
     private IssueDao issueDao;
 
@@ -27,14 +29,17 @@ public class IssueService {
     ImageUtil imageUtil;
 
 
+    public CommonResult uploadImages(MultipartFile[] multipartFiles, Map params) {
+        List<String> pathList = new ArrayList<>();
+        for (MultipartFile multipartFile : multipartFiles) {
+            String path = imageUtil.uploadFile(multipartFile);
+            path = pathPre + path;
+            //* 做插入 biz_issue
 
-   /* @Scheduled(cron = "")
-    public void checkIssue(){
+            pathList.add(path);
 
-    }*/
-
-    public List<SystemType> getTypes(String code) {
-        return issueDao.getTypes(code);
+        }
+        return CommonResult.success(1);
     }
 
 
@@ -80,9 +85,9 @@ public class IssueService {
         return result;
     }
 
-    public Map issueCraft(Map param) throws Exception{
-        param.put("createtime",StringUtil.dateToString(new Date()));
-        param.put("updatetime",StringUtil.dateToString(new Date()));
+    public Map issueCraft(Map param) throws Exception {
+        param.put("createtime", StringUtil.dateToString(new Date()));
+        param.put("updatetime", StringUtil.dateToString(new Date()));
         issueDao.issueCraft(param);
         return param;
     }
