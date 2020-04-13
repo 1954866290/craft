@@ -13,7 +13,7 @@ import java.util.List;
  * @date 2020/4/11 11:12
  **/
 
-@FeignClient(value = "craft-administration")
+@FeignClient(value = "craft-administration" ,path = "/craft/administration")
 @RequestMapping(value = "/feign-api")
 public interface AdministrationFeignService {
 

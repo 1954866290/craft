@@ -12,7 +12,7 @@
     </insert>
     <update id="updateType" parameterType="com.zkwp.api.bean.Type">
         update sys_type
-             set   code = #{type.code} , description = #{type.description} ,seq = #{type.seq},pcode = #{type.parentCode}
+             set   code = #{type.code} , description = #{type.description} ,seq = #{type.seq},parentCode = #{type.parentCode}
         where  id = #{type.id}
     </update>
 
@@ -38,6 +38,6 @@
     </select>
 
     <select id="getTypeListByPCode" parameterType="String" resultType="com.zkwp.api.bean.Type">
-        select * from sys_type where pcode = #{pcode} and delflag != 1 order by seq
+        select * from sys_type where parentCode = #{pcode} and delflag != 1 order by seq
     </select>
 </mapper>

@@ -28,7 +28,6 @@ public class PageService {
     }
 
     public User getUserById(String userid) {
-        CommonResult commonResult = systemFeignService.getUserById(userid);
-        return (User) commonResult.getData();
+        return systemFeignService.getUserById(userid);
     }
 }

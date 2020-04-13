@@ -112,6 +112,7 @@ public class ImageController {
         String path =imageUtil.uploadFile(file);
         //ImageUtils.uploadFile(fileBytes, ext, null);
         logger.info("-------------图片上传结束--------path:"+path);
+        path = "http://116.62.114.28:8080/"+path;
         int i = imageService.uploadImage(path, fileName);
         return i == 1 ? "上传成功" : "上传失败";
     }

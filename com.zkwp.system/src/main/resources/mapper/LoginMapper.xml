@@ -11,7 +11,7 @@
 
     <insert id="createUser" parameterType="com.zkwp.api.bean.User">
         insert into sys_user
-        (phone,email,nickname,createdtime,status)
+        (phone,email,nickname,createdtime,state)
         values
         (#{phone},#{email},#{nickname},#{usercreatetime},'1')
     </insert>
