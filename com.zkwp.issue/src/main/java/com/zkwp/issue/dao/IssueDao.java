@@ -1,5 +1,6 @@
 package com.zkwp.issue.dao;
 
+import com.zkwp.api.bean.Issue;
 import com.zkwp.api.bean.SystemType;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -21,4 +22,8 @@ public interface IssueDao {
     int insertTempImage(Map param);
 
     int issueCraft(Map param);
+
+    int insertIssueRecord(@Param("issue")Issue issue);
+
+    List<Issue> getIssueListByTypeCode(@Param("code")String code);
 }

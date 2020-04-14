@@ -1,5 +1,6 @@
 package com.zkwp.consumer.controller;
 
+import com.zkwp.api.bean.Issue;
 import com.zkwp.api.bean.SystemType;
 import com.zkwp.api.bean.Type;
 import com.zkwp.api.bean.User;
@@ -57,7 +58,12 @@ public class PageController {
         List<Type> types = pageService.getTypeListByPCode(ProductionType);
         String userid = StringUtil.objToString(session.getAttribute("userid"));
         User user = pageService.getUserById(userid);
-        modelAndView.addObject("types",types);
+        for(int i = 1; i<=types.size();i++){
+            Type type = types.get(i-1);
+            modelAndView.addObject("type"+i,type);
+            List<Issue> issueList = pageService.getIssueListByTypeCode(type.getCode());
+            modelAndView.addObject("issueList"+i,issueList);
+        }
         modelAndView.addObject("user",user);
         modelAndView.setViewName("index");
         return modelAndView;

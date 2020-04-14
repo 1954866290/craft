@@ -12,6 +12,8 @@ import java.io.Serializable;
 public class Issue implements Serializable {
     private static final long serialVersionUID = 4L;
     private String worksid;
+    private String id;
+    private String userid;
     private String title;
     private String discription;
     private String viewcount;
