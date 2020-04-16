@@ -1,9 +1,11 @@
 package com.zkwp.issue.service;
 
+import com.zkwp.api.bean.Issue;
 import com.zkwp.api.bean.SystemType;
 import com.zkwp.api.utils.CommonResult;
 import com.zkwp.api.utils.StringUtil;
 import com.zkwp.issue.dao.IssueDao;
+import com.zkwp.issue.feign.SystemFeignService;
 import com.zkwp.issue.util.ImageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +30,9 @@ public class IssueService {
     @Autowired
     ImageUtil imageUtil;
 
+    @Autowired
+    SystemFeignService systemFeignService;
+
 
     public CommonResult uploadImages(MultipartFile[] multipartFiles, Map params) {
         List<String> pathList = new ArrayList<>();
@@ -42,6 +47,36 @@ public class IssueService {
         return CommonResult.success(1);
     }
 
+
+    public CommonResult doIssue(MultipartFile video, MultipartFile cover, Map params) {
+        String videoPath = imageUtil.uploadFile(video);
+        videoPath = pathPre + videoPath;
+        String coverPath = imageUtil.uploadFile(cover);
+        coverPath = pathPre + coverPath;
+        String userid = StringUtil.objToString(params.get("userid"));
+        Issue issue = new Issue();
+        issue.setIssueCreatedTime(StringUtil.dateToString(new Date()));
+        issue.setOneimagepath(coverPath);
+        issue.setTitle(StringUtil.objToString(params.get("title")));
+        issue.setDiscription(StringUtil.objToString(params.get("description")));
+        issue.setUserid(userid);
+        issue.setDelflag("0");
+        issue.setCharmingcount("0");
+        issue.setPrice(StringUtil.objToString(params.get("price")));
+        issue.setType(StringUtil.objToString(params.get("type")));
+        issue.setViewcount("0");
+        issue.setVideopath(videoPath);
+        issue.setIssueUpdatedTime(StringUtil.dateToString(new Date()));
+        return CommonResult.success(issueDao.insertIssueRecord(issue));
+    }
+
+    public List<Issue> getIssueListByTypeCode(String code){
+        return issueDao.getIssueListByTypeCode(code);
+    }
+
+    public Issue getIssueById(String issueId){
+        return  issueDao.getIssueById(issueId);
+    }
 
     public Map uploadImgFile(Map param) throws Exception {
         MultipartFile[] uploadImgFiles = (MultipartFile[]) param.get("uploadImgFile");
@@ -67,28 +102,4 @@ public class IssueService {
     }
 
 
-    public Map uploadFile(Map param) throws Exception {
-        MultipartFile multipartFile = (MultipartFile) param.get("uploadFile");
-        String ipAddress = StringUtil.objToString(param.get("ipAddress"));
-        UUID uuid = UUID.randomUUID();
-        byte[] fileBytes = multipartFile.getBytes();
-        String originFileName = multipartFile.getOriginalFilename();
-        String ext = originFileName.substring(originFileName.lastIndexOf("."));
-        String path = imageUtil.uploadFile(multipartFile);
-        Map insertTempImageMap = new HashMap();
-        insertTempImageMap.put("uuid", uuid);
-        insertTempImageMap.put("ipAddress", ipAddress);
-        insertTempImageMap.put("path", path);
-        issueDao.insertTempImage(insertTempImageMap);
-        Map<String, Object> result = new HashMap<>();
-        result.put("uuid", uuid.toString());
-        return result;
-    }
-
-    public Map issueCraft(Map param) throws Exception {
-        param.put("createtime", StringUtil.dateToString(new Date()));
-        param.put("updatetime", StringUtil.dateToString(new Date()));
-        issueDao.issueCraft(param);
-        return param;
-    }
 }

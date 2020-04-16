@@ -1,29 +1,23 @@
 package com.zkwp.consumer.controller.issue;
 
-import com.alibaba.fastjson.JSONObject;
-import com.sun.xml.internal.rngom.parse.host.Base;
-import com.zkwp.api.bean.SystemType;
-import com.zkwp.api.controller.BaseController;
-import com.zkwp.api.utils.CommonListResult;
-import com.zkwp.api.utils.CommonMapResult;
 import com.zkwp.api.utils.CommonResult;
 import com.zkwp.api.utils.RestUtil;
+import com.zkwp.api.utils.StringUtil;
+import com.zkwp.consumer.service.issue.IssueService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.List;
+import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 /**
  * @auther zhangkun
@@ -32,6 +26,8 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/issue")
 public class IssueController  {
+
+    private Logger logger = LoggerFactory.getLogger(IssueController.class);
 
     @Value("${SYSTEM_REST_URL_PREFIX}")
     private String SYSTEM_REST_URL_PREFIX;
@@ -47,10 +43,22 @@ public class IssueController  {
     @Autowired
     private RestTemplate restTemplate;
 
-    @RequestMapping(value = "/issueCenter/issue")
+    @Autowired
+    IssueService issueService;
+
+    @RequestMapping(value = "/doIssue")
     @ResponseBody
-    public String issue() {
-        return "";
+    public CommonResult doIssue(HttpServletRequest request, HttpSession session, @RequestParam("cover")MultipartFile cover,@RequestParam("video") MultipartFile video) {
+        Map params  = RestUtil.getParameterMap(request);
+
+        String userid = StringUtil.objToString(session.getAttribute("userid"));
+        params.put("userid",userid);
+        try{
+            return CommonResult.success(issueService.doIssue(video,cover,params));
+        }catch (Exception e){
+            logger.error("IssueController::doIssue throws exception",e);
+            return CommonResult.failed();
+        }
     }
 
 }

@@ -20,4 +20,25 @@
         (#{userid},#{title},#{discrition},#{type},#{oneimagepath},#{videopath},#{price},#{state},#{createdtime},#{updatedtime})
     </insert>
 
+    <insert id="insertIssueRecord" parameterType="com.zkwp.api.bean.Issue">
+          insert into biz_issue
+        (userid,title,discrition,type,oneimagepath,videopath,price,createdtime,updatedtime)
+        values
+        (#{issue.userid},#{issue.title},#{issue.discrition},#{issue.type},#{issue.oneimagepath},#{issue.videopath},#{issue.price},,#{issue.createdtime},#{issue.updatedtime})
+
+    </insert>
+
+    <select id="getIssueListByTypeCode" parameterType="String" resultType="com.zkwp.api.bean.Issue">
+        select a.*
+        from biz_issue a
+        where type =#{code}
+        order by veiwCount desc
+        limit 9
+    </select>
+
+    <select id="getIssueById" parameterType="String" resultType="com.zkwp.api.bean.Issue">
+        select a.*
+        from biz_issue a
+        where id = #{issueId}
+    </select>
 </mapper>

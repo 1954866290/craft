@@ -1,5 +1,6 @@
 package com.zkwp.consumer.feign;
 
+import com.zkwp.api.bean.BizSightHistory;
 import com.zkwp.api.bean.User;
 import com.zkwp.api.utils.CommonResult;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -23,4 +24,7 @@ public interface SystemFeignService {
 
     @PostMapping(value = "/User/getUserById")
     User getUserById(@RequestParam("userid")String userid);
+
+    @PostMapping(value = "/History/addHistory")
+    CommonResult addHistoryService(@RequestParam("history")BizSightHistory bizSightHistory);
 }
