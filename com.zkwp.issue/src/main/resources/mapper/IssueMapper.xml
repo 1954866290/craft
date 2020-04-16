@@ -35,4 +35,10 @@
         order by veiwCount desc
         limit 9
     </select>
+
+    <select id="getIssueById" parameterType="String" resultType="com.zkwp.api.bean.Issue">
+        select a.*
+        from biz_issue a
+        where id = #{issueId}
+    </select>
 </mapper>

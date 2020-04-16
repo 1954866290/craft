@@ -26,4 +26,6 @@ public interface IssueDao {
     int insertIssueRecord(@Param("issue")Issue issue);
 
     List<Issue> getIssueListByTypeCode(@Param("code")String code);
+
+    Issue getIssueById(@Param("issueId")String issueId);
 }

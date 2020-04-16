@@ -74,6 +74,9 @@ public class IssueService {
         return issueDao.getIssueListByTypeCode(code);
     }
 
+    public Issue getIssueById(String issueId){
+        return  issueDao.getIssueById(issueId);
+    }
 
     public Map uploadImgFile(Map param) throws Exception {
         MultipartFile[] uploadImgFiles = (MultipartFile[]) param.get("uploadImgFile");

@@ -45,4 +45,15 @@ public class RestController {
             return null;
         }
     }
+
+
+    @PostMapping("/issue/getIssueById")
+    public Issue getIssueById(@RequestParam("issueid")String issueId){
+        try{
+            return issueService.getIssueById(issueId);
+        }catch (Exception e){
+            return null;
+        }
+    }
+
 }

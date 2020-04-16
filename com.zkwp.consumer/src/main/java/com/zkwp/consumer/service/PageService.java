@@ -3,7 +3,6 @@ package com.zkwp.consumer.service;
 import com.zkwp.api.bean.Issue;
 import com.zkwp.api.bean.Type;
 import com.zkwp.api.bean.User;
-import com.zkwp.api.utils.CommonResult;
 import com.zkwp.consumer.feign.AdministrationFeignService;
 import com.zkwp.consumer.feign.IssueFeignService;
 import com.zkwp.consumer.feign.SystemFeignService;
