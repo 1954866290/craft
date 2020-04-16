@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.support.StandardMultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -48,9 +49,11 @@ public class IssueController  {
 
     @RequestMapping(value = "/doIssue")
     @ResponseBody
-    public CommonResult doIssue(HttpServletRequest request, HttpSession session, @RequestParam("cover")MultipartFile cover,@RequestParam("video") MultipartFile video) {
+    public CommonResult doIssue(StandardMultipartHttpServletRequest request1,HttpServletRequest request, HttpSession session) {
         Map params  = RestUtil.getParameterMap(request);
-
+        Map<String,MultipartFile> multipartFileMap = request1.getFileMap();
+        MultipartFile cover = multipartFileMap.get("cover");
+        MultipartFile video = multipartFileMap.get("video");
         String userid = StringUtil.objToString(session.getAttribute("userid"));
         params.put("userid",userid);
         try{
