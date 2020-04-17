@@ -5,6 +5,7 @@ import com.zkwp.api.utils.CommonResult;
 import com.zkwp.issue.service.IssueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,9 +30,9 @@ public class RestController {
     }
 
     @PostMapping("/issue/doIssue")
-    public CommonResult doIssue(@RequestParam("video")MultipartFile video,@RequestParam("cover")MultipartFile cover, Map params){
+    public CommonResult doIssue(@RequestBody Map params){
         try{
-            return CommonResult.success(issueService.doIssue(video,cover,params));
+            return CommonResult.success(issueService.doIssue(params));
         }catch (Exception e){
             return CommonResult.failed();
         }

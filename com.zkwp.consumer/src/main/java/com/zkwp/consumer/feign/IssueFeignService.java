@@ -21,12 +21,10 @@ import java.util.Map;
 @RequestMapping(value = "/feign-api")
 public interface IssueFeignService {
     @PostMapping("/issue/doIssue")
-    CommonResult doIssue(@RequestParam("video") MultipartFile video, @RequestParam("cover") MultipartFile cover, @RequestBody Map params);
+    CommonResult doIssue(@RequestBody Map params);
 
     @PostMapping("/issue/getIssueListByTypeCode")
     List<Issue> getIssueListByTypeCode(@RequestParam("code") String code);
-
-
 
     @PostMapping("/issue/getIssueById")
     Issue getIssueById(@RequestParam("issueid")String issueId);

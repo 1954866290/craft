@@ -48,17 +48,15 @@ public class IssueService {
     }
 
 
-    public CommonResult doIssue(MultipartFile video, MultipartFile cover, Map params) {
-        String videoPath = imageUtil.uploadFile(video);
-        videoPath = pathPre + videoPath;
-        String coverPath = imageUtil.uploadFile(cover);
-        coverPath = pathPre + coverPath;
+    public CommonResult doIssue(Map params) {
+        String videoPath = StringUtil.objToString(params.get("videoPath"));
+        String coverPath = StringUtil.objToString(params.get("coverPath"));
         String userid = StringUtil.objToString(params.get("userid"));
         Issue issue = new Issue();
         issue.setIssueCreatedTime(StringUtil.dateToString(new Date()));
         issue.setOneimagepath(coverPath);
         issue.setTitle(StringUtil.objToString(params.get("title")));
-        issue.setDiscription(StringUtil.objToString(params.get("description")));
+        issue.setDescription(StringUtil.objToString(params.get("description")));
         issue.setUserid(userid);
         issue.setDelflag("0");
         issue.setCharmingcount("0");
@@ -67,7 +65,8 @@ public class IssueService {
         issue.setViewcount("0");
         issue.setVideopath(videoPath);
         issue.setIssueUpdatedTime(StringUtil.dateToString(new Date()));
-        return CommonResult.success(issueDao.insertIssueRecord(issue));
+        int i = issueDao.insertIssueRecord(issue);
+        return CommonResult.success(i);
     }
 
     public List<Issue> getIssueListByTypeCode(String code){

@@ -15,17 +15,16 @@
 
     <insert id="issueCraft" parameterType="Map">
         insert into biz_issue
-        (userid,title,discrition,type,oneimagepath,videopath,price,state,createdtime,updatedtime)
+        (userid,title,description,type,oneimagepath,videopath,price,state,createdtime,updatedtime)
         values
-        (#{userid},#{title},#{discrition},#{type},#{oneimagepath},#{videopath},#{price},#{state},#{createdtime},#{updatedtime})
+        (#{userid},#{title},#{description},#{type},#{oneimagepath},#{videopath},#{price},#{state},#{createdtime},#{updatedtime})
     </insert>
 
     <insert id="insertIssueRecord" parameterType="com.zkwp.api.bean.Issue">
-          insert into biz_issue
-        (userid,title,discrition,type,oneimagepath,videopath,price,createdtime,updatedtime)
+        insert into biz_issue
+        (userid,title,description,type,oneimagepath,videopath,price,createdtime)
         values
-        (#{issue.userid},#{issue.title},#{issue.discrition},#{issue.type},#{issue.oneimagepath},#{issue.videopath},#{issue.price},,#{issue.createdtime},#{issue.updatedtime})
-
+        (#{issue.userid},#{issue.title},#{issue.description},#{issue.type},#{issue.oneimagepath},#{issue.videopath},#{issue.price},#{issue.issueCreatedTime})
     </insert>
 
     <select id="getIssueListByTypeCode" parameterType="String" resultType="com.zkwp.api.bean.Issue">

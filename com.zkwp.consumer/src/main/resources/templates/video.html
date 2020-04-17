@@ -10,9 +10,102 @@
 </style>
 <body>
 
-<div class="embed-responsive embed-responsive-4by3">
-    <iframe class="embed-responsive-item" src="..."></iframe>
+<div th:include="navbar.html"></div>
+<script>
+    var jq=jQuery.noConflict();
+</script>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+    var $=jQuery.noConflict();
+</script>
+
+<div class="video" style="margin-left: 15%;width: 70%">
+    <div style="text-align: center;" class="embed-responsive embed-responsive-4by3">
+        <iframe th:src="@{${issue.oneimagepath}}"
+                allowfullscreen="" class="embed-responsive-item" frameborder="0" height="498" width="510"></iframe>
+    </div>
 </div>
+
+<div class="comment" style="margin-left: 15%;width: 70%; margin-top: 10%">
+
+    <div class="input-group" style="margin-top: 50px">
+        <div class="input-group-prepend">
+            <span class="input-group-text">With textarea</span>
+        </div>
+        <textarea class="form-control" aria-label="With textarea"></textarea>
+    </div>
+    <button type="button" class="btn btn-outline-secondary">提交评论</button>
+    <div class="media">
+        <img src="..." class="align-self-start mr-3" alt="...">
+        <div class="media-body">
+            <h5 class="mt-0">Top-aligned media</h5>
+            <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras
+                purus
+                odio,
+                vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate
+                fringilla.
+                Donec
+                lacinia congue felis in faucibus.</p>
+            <p>Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque
+                penatibus et
+                magnis dis parturient montes, nascetur ridiculus mus.</p>
+            <p>
+                <svg class="bi bi-heart-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                          d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"
+                          clip-rule="evenodd"/>
+                </svg>
+                <svg class="bi bi-heart" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                          d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"
+                          clip-rule="evenodd"/>
+                </svg>
+                <svg class="bi bi-exclamation-triangle-fill" width="1em" height="1em" viewBox="0 0 16 16"
+                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                          d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 5zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"
+                          clip-rule="evenodd"/>
+                </svg>
+                <svg class="bi bi-exclamation-triangle" width="1em" height="1em" viewBox="0 0 16 16"
+                     fill="currentColor"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                          d="M7.938 2.016a.146.146 0 0 0-.054.057L1.027 13.74a.176.176 0 0 0-.002.183c.016.03.037.05.054.06.015.01.034.017.066.017h13.713a.12.12 0 0 0 .066-.017.163.163 0 0 0 .055-.06.176.176 0 0 0-.003-.183L8.12 2.073a.146.146 0 0 0-.054-.057A.13.13 0 0 0 8.002 2a.13.13 0 0 0-.064.016zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"
+                          clip-rule="evenodd"/>
+                    <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"/>
+                </svg>
+            </p>
+        </div>
+    </div>
+</div>
+
+
+<div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
+    <!-- Position it -->
+    <div style="position: absolute; top: 0; right: 0;">
+
+        <!-- Then put toasts within -->
+        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <img src="..." class="rounded mr-2" alt="...">
+                <strong class="mr-auto">Bootstrap</strong>
+                <small class="text-muted">just now</small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                See? Just like this.
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
 </body>
 <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
 <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>

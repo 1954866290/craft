@@ -55,15 +55,5 @@ eureka:
     prefer-ip-address: true
 
 
-fdfs:
-  so-timeout: 1500
-  connect-timeout: 600
-  thumb-image:
-    width: 150
-    height: 150
-  tracker-list:
-    - 116.62.114.28:22122
-  jmx-enabled: false
-
 
 

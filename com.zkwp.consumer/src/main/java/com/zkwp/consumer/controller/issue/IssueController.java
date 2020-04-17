@@ -4,6 +4,7 @@ import com.zkwp.api.utils.CommonResult;
 import com.zkwp.api.utils.RestUtil;
 import com.zkwp.api.utils.StringUtil;
 import com.zkwp.consumer.service.issue.IssueService;
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,11 +50,8 @@ public class IssueController  {
 
     @RequestMapping(value = "/doIssue")
     @ResponseBody
-    public CommonResult doIssue(StandardMultipartHttpServletRequest request1,HttpServletRequest request, HttpSession session) {
+    public CommonResult doIssue(HttpServletRequest request, HttpSession session, @RequestParam("cover")MultipartFile cover, @Param("video")MultipartFile video) {
         Map params  = RestUtil.getParameterMap(request);
-        Map<String,MultipartFile> multipartFileMap = request1.getFileMap();
-        MultipartFile cover = multipartFileMap.get("cover");
-        MultipartFile video = multipartFileMap.get("video");
         String userid = StringUtil.objToString(session.getAttribute("userid"));
         params.put("userid",userid);
         try{

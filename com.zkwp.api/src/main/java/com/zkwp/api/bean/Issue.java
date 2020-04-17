@@ -15,7 +15,7 @@ public class Issue implements Serializable {
     private String id;
     private String userid;
     private String title;
-    private String discription;
+    private String description;
     private String viewcount;
     private String charmingcount ;
     private String type;

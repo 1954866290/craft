@@ -5,6 +5,7 @@ import com.zkwp.api.utils.CommonResult;
 import com.zkwp.api.utils.StringUtil;
 import com.zkwp.consumer.controller.issue.IssueController;
 import com.zkwp.consumer.feign.IssueFeignService;
+import com.zkwp.consumer.util.ImageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +27,24 @@ public class IssueService {
     @Autowired
     IssueFeignService issueFeignService;
 
-    public CommonResult doIssue(MultipartFile video ,MultipartFile cover,Map params){
-        return CommonResult.success(issueFeignService.doIssue(video,cover,params));
+    @Autowired
+    ImageUtil imageUtil;
+
+    private final String pathPre = "http://116.62.114.28:8080/";
+
+    public CommonResult doIssue(MultipartFile video, MultipartFile cover, Map params) {
+        String coverPath = imageUtil.uploadFile(cover);
+        coverPath = pathPre + coverPath;
+        String videoPath = imageUtil.uploadFile(video);
+        videoPath = pathPre + videoPath;
+        params.put("coverPath", coverPath);
+        params.put("videoPath", videoPath);
+        return CommonResult.success(issueFeignService.doIssue(params));
     }
 
-    public Issue getIssueById(Map params){
+    public Issue getIssueById(Map params) {
         String issueid = StringUtil.objToString(params.get("issueid"));
-        Issue issue =  issueFeignService.getIssueById(issueid);
-        return  issue;
+        Issue issue = issueFeignService.getIssueById(issueid);
+        return issue;
     }
 }

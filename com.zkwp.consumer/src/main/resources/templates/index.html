@@ -9,6 +9,13 @@
 </head>
 <body>
 <div th:include="navbar.html"></div>
+<script>
+    var jq=jQuery.noConflict();
+</script>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+    var $=jQuery.noConflict();
+</script>
 <div class="container">
     <h4 id="cards-with-equal-height1" th:text="${type1.name}"></h4>
     <br>
@@ -19,7 +26,7 @@
                 <div class="card-body">
                     <h4 class="card-title" th:text="${issue.title}"></h4>
                     <p class="card-text" th:text="${issue.description}"></p>
-                    <a href="#" class="btn btn-primary"></a>
+                    <a th:href="@{../../consumer/video(issueid=${issue.id})}" class="btn btn-primary"></a>
                 </div>
             </div>
         </div>
@@ -36,7 +43,7 @@
                 <div class="card-body">
                     <h4 class="card-title" th:text="${issue.title}"></h4>
                     <p class="card-text" th:text="${issue.description}"></p>
-                    <a href="#" class="btn btn-primary"></a>
+                    <a th:href="@{../../consumer/video(issueid=${issue.id})}" class="btn btn-primary"></a>
                 </div>
             </div>
         </div>
@@ -47,12 +54,12 @@
     <br>
     <div class="row">
         <div class="col-md-4 col-sm-6 jQueryEqualHeight1">
-            <div class="card" th:each="issue:${issueList32}">
+            <div class="card" th:each="issue:${issueList3}">
                 <img class="card-img-top" style="width: 180px;height: 318px" th:src=@{${issue.oneimagepath}} alt="Card image cap">
                 <div class="card-body">
                     <h4 class="card-title" th:text="${issue.title}"></h4>
                     <p class="card-text" th:text="${issue.description}"></p>
-                    <a href="#" class="btn btn-primary"></a>
+                    <a th:href="@{../../consumer/video(issueid=${issue.id})}" class="btn btn-primary"></a>
                 </div>
             </div>
         </div>
@@ -69,7 +76,7 @@
                 <div class="card-body">
                     <h4 class="card-title" th:text="${issue.title}"></h4>
                     <p class="card-text" th:text="${issue.description}"></p>
-                    <a href="#" class="btn btn-primary"></a>
+                    <a th:href="@{../../consumer/video(issueid=${issue.id})}" class="btn btn-primary"></a>
                 </div>
             </div>
         </div>
@@ -86,7 +93,7 @@
                 <div class="card-body">
                     <h4 class="card-title" th:text="${issue.title}"></h4>
                     <p class="card-text" th:text="${issue.description}"></p>
-                    <a href="#" class="btn btn-primary"></a>
+                    <a th:href="@{../../consumer/video(issueid=${issue.id})}" class="btn btn-primary"></a>
                 </div>
             </div>
         </div>

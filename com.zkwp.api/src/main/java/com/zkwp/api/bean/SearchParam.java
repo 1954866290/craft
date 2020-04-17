@@ -11,7 +11,7 @@ import lombok.ToString;
 @Data
 @ToString
 public class SearchParam implements Serializable{
-	private String keyword;//关键字可以为username,title,discription
+	private String keyword;//关键字可以为username,title,description
 	private String type;//分类
 	private String price_min;// 价格区间
 	private String price_max;

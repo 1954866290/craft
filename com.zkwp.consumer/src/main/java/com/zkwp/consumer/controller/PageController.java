@@ -6,6 +6,7 @@ import com.zkwp.api.utils.RestUtil;
 import com.zkwp.api.utils.StringUtil;
 import com.zkwp.consumer.feign.AdministrationFeignService;
 import com.zkwp.consumer.service.PageService;
+import com.zkwp.consumer.service.chat.ChatService;
 import com.zkwp.consumer.service.issue.IssueService;
 import com.zkwp.consumer.service.system.HistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,9 @@ public class PageController {
     @Autowired
     IssueService issueService;
 
+    @Autowired
+    ChatService chatService;
+
     @Value("ProductionType")
     String ProductionType;
 
@@ -101,6 +105,8 @@ public class PageController {
         params.put("userid",userid);
         historyService.addHistoryService(params);
         Issue issue = issueService.getIssueById(params);
+        List<BizComment> comments = chatService.getCommentsTop5(params);
+        modelAndView.addObject("comments",comments);
         modelAndView.addObject("issue",issue);
         modelAndView.setViewName("video");
         return modelAndView;

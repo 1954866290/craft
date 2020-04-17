@@ -55,8 +55,8 @@ update biz_user_public_info
         <if test="title != null and title != ''">
         title=#{title},
         </if>
-        <if test="discription != null and discription != ''">
-        discription=#{discription},
+        <if test="description != null and description != ''">
+        description=#{description},
         </if>
         <if test="viewcount != null and viewcount != ''">
         viewcount=#{viewcount},
@@ -139,8 +139,8 @@ where worksid=#{worksid}
         <if test="title != null and title != '' ">
         title,
         </if>
-        <if test="discription != null and discription != '' ">
-        discription,
+        <if test="description != null and description != '' ">
+        description,
         </if>
         <if test="viewcount != null and viewcount != '' ">
         viewcount,
@@ -222,8 +222,8 @@ where worksid=#{worksid}
          <if test="title != null and title != '' ">
         #{title},
         </if>
-         <if test="discription != null and discription != '' ">
-        #{discription},
+         <if test="description != null and description != '' ">
+        #{description},
         </if>
          <if test="viewcount != null and viewcount != '' ">
         #{viewcount},

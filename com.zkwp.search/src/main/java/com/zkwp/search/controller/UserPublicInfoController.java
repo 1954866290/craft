@@ -96,7 +96,7 @@ public class UserPublicInfoController {
 		BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
 		// 5.设置搜索条件 根据关键字搜索
 		if (StringUtil.isNotBlank(searchParam.getKeyword())) {
-			MultiMatchQueryBuilder multiMatchQueryBuilder = QueryBuilders.multiMatchQuery(searchParam.getKeyword(), "username","title","discription")
+			MultiMatchQueryBuilder multiMatchQueryBuilder = QueryBuilders.multiMatchQuery(searchParam.getKeyword(), "username","title","description")
 			.minimumShouldMatch("70%")
 			.field("title",10);
 			boolQueryBuilder.must(multiMatchQueryBuilder);
@@ -132,8 +132,8 @@ public class UserPublicInfoController {
 				userPublic.setUsername(username);
 				String title = (String) sourceAsMap.get("title");
 				userPublic.setTitle(title);
-				String discription = (String) sourceAsMap.get("discription");
-				userPublic.setDiscription(discription);
+				String description = (String) sourceAsMap.get("description");
+				userPublic.setdescription(description);
 				String viewcount = (String) sourceAsMap.get("viewcount");
 				userPublic.setViewcount(viewcount);
 				String charmingcount = (String) sourceAsMap.get("charmingcount");
