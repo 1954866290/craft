@@ -8,7 +8,6 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
- * @auther zhangkun
  * @date 2020/2/15 10:53
  **/
 @SpringBootApplication(scanBasePackages = "com.zkwp.search")

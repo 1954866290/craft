@@ -17,5 +17,10 @@ public class SmallRoutineServiceImpl implements SmallRoutineService{
 		// TODO Auto-generated method stub
 		return this.smallRoutineDao.getSwiperDataByImageName(imageName);
 	}
+	@Override
+	public UserPublic getWorksInfo(String goodsId) {
+		// TODO Auto-generated method stub
+		return this.smallRoutineDao.getWorksInfo(goodsId);
+	}
 
 }

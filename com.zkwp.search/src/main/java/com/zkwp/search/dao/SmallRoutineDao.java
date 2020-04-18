@@ -10,5 +10,6 @@ import com.zkwp.api.bean.UserPublic;
 public interface SmallRoutineDao {
 	//获取小程序首页轮播图及导航栏信息
 	List<UserPublic> getSwiperDataByImageName(String imageName);
-
+    // 根据作品id获取作品详细信息
+	UserPublic getWorksInfo(String goodsId);
 }

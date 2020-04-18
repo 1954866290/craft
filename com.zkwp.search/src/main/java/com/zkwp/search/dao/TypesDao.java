@@ -11,5 +11,7 @@ public interface TypesDao {
 	List<Type> getTypeList(String bigSortName);
 	SystemImage getImageSrcBySmallTypeName(String imageSrcName);
 	List<SystemImage> getImageAll();
+	// 根据用户输入关键字进行搜索
+	List<Type> searchInfo(String searchKeyword);
 
 }

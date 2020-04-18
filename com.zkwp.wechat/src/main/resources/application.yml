@@ -1,6 +1,17 @@
 spring:
   application:
     name: craft-wechat
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://121.36.43.57:3306/craft?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false
+    username: root
+    password: root
+    dbcp2:
+      min-idle: 5
+      initial-size: 5
+      max-total: 5
+      max-wait-millis: 200
   servlet:
     multipart:
       max-request-size: 300MB
@@ -12,7 +23,7 @@ mybatis:
 
 
 server:
-  port: 8007
+  port: 0627
   servlet:
     context-path: /craft/wechat
 

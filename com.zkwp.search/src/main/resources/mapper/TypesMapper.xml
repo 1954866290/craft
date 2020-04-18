@@ -10,4 +10,7 @@
     <select id="getImageAll" resultType="com.zkwp.api.bean.SystemImage">
     select * from sys_image
     </select>
+    <select id="searchInfo" parameterType="String" resultType="com.zkwp.api.bean.Type">
+    select * from sys_type where name like CONCAT('%',#{searchKeyword},'%')
+</select>
 </mapper>
