@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>手工艺品推广平台</title>
-    <meta http-equiv="Content-Type" content="multipart/form-data; charset=utf-8" />
+    <meta http-equiv="description-Type" description="multipart/form-data; charset=utf-8" />
 
 </head>
 <style>
@@ -62,9 +62,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="content" class="col-sm-1 control-label">描述</label>
+                    <label for="description" class="col-sm-1 control-label">描述</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" id="content" name="content" rows="3" placeholder="请描述发布作品"></textarea>
+                        <textarea class="form-control" id="description" name="description" rows="3" placeholder="请描述发布作品"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -125,14 +125,14 @@
     function bindSubmit() {
         $("#submit").click(function(){
             var title = $("#title").val();
-            var content = $("#content").val();
+            var description = $("#description").val();
             var price = $("#price").val();
             var type = $("#type").attr("value");
             var form = document.getElementById("issue_form");
             if(title == '' || title == undefined){
                 return;
             }
-            if(content == '' || content == undefined){
+            if(description == '' || description == undefined){
                 return;
             }
             if(type == '' || type == undefined){
@@ -192,7 +192,9 @@
                 processData: false,
                 success: function (data) {
                     if(data.status=="200"){
-
+                        window.location.href="../consumer/issueSuccess?title="+data.message;
+                    }else{
+                        alert("发布失败")
                     }
                 }
             });

@@ -22,9 +22,9 @@
 
     <insert id="insertIssueRecord" parameterType="com.zkwp.api.bean.Issue">
         insert into biz_issue
-        (userid,title,description,type,oneimagepath,videopath,price,createdtime)
+        (userid,title,description,type,oneimagepath,videopath,price,createdtime,code)
         values
-        (#{issue.userid},#{issue.title},#{issue.description},#{issue.type},#{issue.oneimagepath},#{issue.videopath},#{issue.price},#{issue.issueCreatedTime})
+        (#{issue.userid},#{issue.title},#{issue.description},#{issue.type},#{issue.oneimagepath},#{issue.videopath},#{issue.price},#{issue.issueCreatedTime},#{issue.code})
     </insert>
 
     <select id="getIssueListByTypeCode" parameterType="String" resultType="com.zkwp.api.bean.Issue">
@@ -35,9 +35,9 @@
         limit 9
     </select>
 
-    <select id="getIssueById" parameterType="String" resultType="com.zkwp.api.bean.Issue">
+    <select id="getIssueByCode" parameterType="String" resultType="com.zkwp.api.bean.Issue">
         select a.*
         from biz_issue a
-        where id = #{issueId}
+        where code = #{issuecode}
     </select>
 </mapper>

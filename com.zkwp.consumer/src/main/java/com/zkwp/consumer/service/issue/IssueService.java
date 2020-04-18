@@ -42,9 +42,9 @@ public class IssueService {
         return CommonResult.success(issueFeignService.doIssue(params));
     }
 
-    public Issue getIssueById(Map params) {
-        String issueid = StringUtil.objToString(params.get("issueid"));
-        Issue issue = issueFeignService.getIssueById(issueid);
+    public Issue getIssueByCode(Map params) {
+        String issuecode = StringUtil.objToString(params.get("issuecode"));
+        Issue issue = issueFeignService.getIssueByCode(issuecode);
         return issue;
     }
 }

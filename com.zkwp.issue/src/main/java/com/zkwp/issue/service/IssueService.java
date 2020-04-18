@@ -65,16 +65,23 @@ public class IssueService {
         issue.setViewcount("0");
         issue.setVideopath(videoPath);
         issue.setIssueUpdatedTime(StringUtil.dateToString(new Date()));
+        issue.setCode(creatCode());
         int i = issueDao.insertIssueRecord(issue);
         return CommonResult.success(i);
     }
-
+    private String creatCode(){
+        //生成唯一id
+        String code= UUID.randomUUID().toString();
+        //替换uuid中的"-"
+        code=code.replace("-", "");
+        return code;
+    }
     public List<Issue> getIssueListByTypeCode(String code){
         return issueDao.getIssueListByTypeCode(code);
     }
 
-    public Issue getIssueById(String issueId){
-        return  issueDao.getIssueById(issueId);
+    public Issue getIssueByCode(String issuecode){
+        return  issueDao.getIssueByCode(issuecode);
     }
 
     public Map uploadImgFile(Map param) throws Exception {

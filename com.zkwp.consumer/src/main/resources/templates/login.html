@@ -29,29 +29,28 @@
                 <div class="col-md-9">
                     <div class="form-group">
                         <i class="fa fa-user fa-lg"></i>
-                        <input class="form-control required" type="text" placeholder="请输入手机号" id="phone" name="phone" autofocus="autofocus" maxlength="20"/>
+                        <input class="form-control required" type="text" placeholder="请输入手机号" id="phone" name="phone"
+                               autofocus="autofocus" maxlength="20"/>
                     </div>
                     <div class="form-group">
                         <i class="fa fa-lock fa-lg"></i>
-                        <input class="form-control required" type="text" placeholder="请输入短信验证码" id="verifyCodePhone" name="verifyCodePhone" maxlength="8"/>
+                        <input class="form-control required" type="text" placeholder="请输入短信验证码" id="verifyCodePhone"
+                               name="verifyCodePhone" maxlength="8"/>
                     </div>
                     <div class="form-group">
                         <label class="checkbox pull-left">
-                            <input type="button" id="btnPhone" class="btn btn-info" value="获取验证码"  />
+                            <input type="button" id="btnPhone" class="btn btn-info" value="获取验证码"/>
                         </label>
                     </div>
                     <div class="form-group col-md-offset-9">
-                        <button type="button" class="btn btn-success pull-right" id="phone_submit" name="submit">登录/注册</button>
+                        <button type="button" class="btn btn-success pull-right" id="phone_submit" name="submit">登录/注册
+                        </button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
-
-
-
 
 
 <!--
@@ -112,13 +111,20 @@
 -->
 
 
-<div class="modal fade" id="showMessage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal" tabindex="-1" role="dialog" id="showMessage">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                <h5 class="modal-title">提示</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
                 </button>
-                <message id="message"></message>
+            </div>
+            <div class="modal-body" id="typeModel">
+               <p id="message"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
             </div>
         </div>
     </div>
@@ -131,22 +137,24 @@
         bindEmailSendCode();
         bindPhoneSendCode();
     })
+
     function showMessage(message) {
         $("#showMessage").modal({
             backdrop: "static"
         });
-        $("#message").val(message)
+        $("#message").text(message)
 
     }
+
     function bindSubmit() {
         $("#phone_submit").click(function () {
             var phone = $("#phone").val();
             var verifyCodePhone = $("#verifyCodePhone").val();
-            if((phone!='' &&phone!=undefined)&&(verifyCodePhone!='' &&verifyCodePhone!=undefined)){
-                var postParam={
-                    "phone":phone,
-                    "verify":verifyCodePhone,
-                    "type":"phone"
+            if ((phone != '' && phone != undefined) && (verifyCodePhone != '' && verifyCodePhone != undefined)) {
+                var postParam = {
+                    "phone": phone,
+                    "verify": verifyCodePhone,
+                    "type": "phone"
                 }
                 var url = "../consumer/system/login/dologin";
                 $.ajax({
@@ -155,23 +163,23 @@
                     data: postParam,
                     success: function (result) {
                         if (result.status == "200") {
-                            window.location.href="../consumer/index";
+                            window.location.href = "../consumer/index";
                         }
                     }
                 });
-              /*  $.post(url,postParam,function (data) {
-                    if(data.status=="200"){
-                        window.location.href="../craft/consumer/index";
-                    }else{
-                        var message = "登录失败,请稍后再试";
-                        showMessage(message);
-                    }
-                })*/
-            }else if((phone!='' &&phone!=undefined)){
+                /*  $.post(url,postParam,function (data) {
+                      if(data.status=="200"){
+                          window.location.href="../craft/consumer/index";
+                      }else{
+                          var message = "登录失败,请稍后再试";
+                          showMessage(message);
+                      }
+                  })*/
+            } else if ((phone != '' && phone != undefined)) {
                 var message = "手机号为空"
                 showMessage(message)
                 return;
-            }else{
+            } else {
                 var message = "验证码为空"
                 showMessage(message)
                 return;
@@ -181,121 +189,127 @@
         $("#email_submit").click(function () {
             var email = $("#email").val();
             var verifyCodeEmail = $("#verifyCodeEmail").val();
-            if((email!='' &&email!=undefined)&&(verifyCodeEmail!='' &&verifyCodeEmail!=undefined)){
-                var postParam={
-                    "email":email,
-                    "verify":verifyCodeEmail,
-                    "type":"email"
+            if ((email != '' && email != undefined) && (verifyCodeEmail != '' && verifyCodeEmail != undefined)) {
+                var postParam = {
+                    "email": email,
+                    "verify": verifyCodeEmail,
+                    "type": "email"
                 }
                 var url = "../consumer/system/login/dologin";
-                $.post(url,postParam,function (data) {
-                    if(data.status=="200"){
-                        window.location.href="../craft/consumer/index";
-                    }else{
+                $.post(url, postParam, function (data) {
+                    if (data.status == "200") {
+                        window.location.href = "../craft/consumer/index";
+                    } else {
                         var message = "登录失败,请稍后再试";
                         showMessage(message);
                     }
                 })
-            }else if((phone!='' &&phone!=undefined)){
+            } else if ((phone != '' && phone != undefined)) {
                 var message = "邮箱为空"
                 showMessage(message)
                 return;
-            }else{
+            } else {
                 var message = "验证码为空"
                 showMessage(message)
                 return;
             }
         })
     }
-    var countdown=60;
+
+    var countdown = 60;
 
     function bindPhoneSendCode() {
         $("#btnPhone").click(function () {
             var obj = $("#btnPhone");
             var phone = $("#phone").val();
             var regx = /^[1][3,4,5,7,8][0-9]{9}$/
-            if(!regx.test(phone)){
+            if (!regx.test(phone)) {
                 var message = "请正确填写手机号"
                 showMessage(message)
                 return;
             }
             settimePhone(obj);
-            var postParam={
-                "phone":phone,
-                "type":"phone"
+            var postParam = {
+                "phone": phone,
+                "type": "phone"
             }
             var url = "../consumer/system/login/sendCode";
-            $.post(url,postParam,function (data) {
-                if(data.status=="200"){
+            $.post(url, postParam, function (data) {
+                if (data.status == "200") {
                     var message = "发送成功,请留意手机短信";
                     showMessage(message);
-                }else{
+                } else {
                     var message = "发送失败,请稍后再试";
                     showMessage(message);
                 }
             })
         })
     }
+
     function settimePhone(obj) { //发送验证码倒计时
         if (countdown == 0) {
-            obj.attr('disabled',false);
+            obj.attr('disabled', false);
             obj.val("获取验证码");
-            $("#btnPhone").css("background","#00bc12")
+            $("#btnPhone").css("background", "#00bc12")
             countdown = 60;
             return;
         } else {
-            obj.attr('disabled',true);
+            obj.attr('disabled', true);
             obj.val("(" + countdown + ")S");
             countdown--;
-            $("#btnPhone").css("background","#ccc")
+            $("#btnPhone").css("background", "#ccc")
         }
-        setTimeout(function() {
-                settimePhone(obj) }
-            ,1000)
+        setTimeout(function () {
+                settimePhone(obj)
+            }
+            , 1000)
     }
+
     function bindEmailSendCode() {
         $("#btnEmail").click(function () {
             var obj = $("#btnEmail");
             var email = $("#email").val();
             var regx = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
-            if(!regx.test(email)){
+            if (!regx.test(email)) {
                 var message = "请正确填写邮箱"
                 showMessage(message)
                 return;
             }
             settimeEmail(obj);
-            var postParam={
-                "email":email,
-                "type":"email"
+            var postParam = {
+                "email": email,
+                "type": "email"
             }
             var url = "../consumer/system/login/sendCode";
-            $.post(url,postParam,function (data) {
-                if(data.status=="200"){
+            $.post(url, postParam, function (data) {
+                if (data.status == "200") {
                     var message = "发送成功,请留意邮箱";
                     showMessage(message);
-                }else{
+                } else {
                     var message = "发送失败,请稍后再试";
                     showMessage(message);
                 }
             })
         })
     }
+
     function settimeEmail(obj) { //发送验证码倒计时
         if (countdown == 0) {
-            obj.attr('disabled',false);
+            obj.attr('disabled', false);
             obj.val("获取验证码");
-            $("#btnEmail").css("background","#00bc12")
+            $("#btnEmail").css("background", "#00bc12")
             countdown = 60;
             return;
         } else {
-            obj.attr('disabled',true);
+            obj.attr('disabled', true);
             obj.val("(" + countdown + ")S");
             countdown--;
-            $("#btnEmail").css("background","#ccc")
+            $("#btnEmail").css("background", "#ccc")
         }
-        setTimeout(function() {
-                settimeEmail(obj) }
-            ,1000)
+        setTimeout(function () {
+                settimeEmail(obj)
+            }
+            , 1000)
     }
 </script>
 

@@ -27,5 +27,5 @@ public interface IssueDao {
 
     List<Issue> getIssueListByTypeCode(@Param("code")String code);
 
-    Issue getIssueById(@Param("issueId")String issueId);
+    Issue getIssueByCode(@Param("issuecode")String issueId);
 }

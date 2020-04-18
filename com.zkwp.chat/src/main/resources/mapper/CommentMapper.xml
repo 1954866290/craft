@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zkwp.chat.dao.comment.ICommentDao" >
+
+  <select id="findLikeRecond" parameterType="Map" resultType="Map">
+      select count(*) as count from biz_comment where userid=#{userid} and issueid = #{issueid}
+  </select>
+
+    <select id="getCommentsTop5" parameterType="Map" resultType="Map">
+        select ifnull(b.headurl,'') as headurl, b.nickname as nickname,a.content as content,a.likeCount as likecount
+        ,a.commenttime as commenttime,ifnull(islike,0) as islike
+        from biz_comment a
+        left join sys_user b on a.userid = b.userid
+        left join (
+            select count(issueid) as islike, issueid
+            from  biz_comment
+            where userid = #{userid}
+            and delflag = 0
+            group by issueid
+        ) c on c.issueid = a.issueid
+        where delflag =0
+        and a.issueid = #{issueid}
+        order by likecount desc
+        limit 5
+    </select>
+
+    <insert id="insertCommentRecord" parameterType="Map" >
+        insert into biz_comment
+        (issueid,userid,content,likecount,status,commenttime,delflag)
+        values
+        (#{issueid},#{userid},#{content},#{likecount},#{status},#{commenttime},#{delflag})
+    </insert>
+</mapper>

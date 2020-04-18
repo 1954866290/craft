@@ -48,10 +48,10 @@ public class RestController {
     }
 
 
-    @PostMapping("/issue/getIssueById")
-    public Issue getIssueById(@RequestParam("issueid")String issueId){
+    @PostMapping("/issue/getIssueByCode")
+    public Issue getIssueByCode(@RequestParam("issuecode")String issuecode){
         try{
-            return issueService.getIssueById(issueId);
+            return issueService.getIssueByCode(issuecode);
         }catch (Exception e){
             return null;
         }

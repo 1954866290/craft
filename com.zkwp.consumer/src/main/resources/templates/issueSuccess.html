@@ -1,0 +1,45 @@
+<!DOCTYPE html  >
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <base href="<%=basePath%>">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>手工艺品推广平台</title>
+    <link href ="css/index.css">
+    <script src="js/index.js"></script>
+</head>
+<body>
+<div th:include="navbar.html"></div>
+<script>
+    var jq=jQuery.noConflict();
+</script>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+    var $=jQuery.noConflict();
+</script>
+    <div class="jumbotron">
+        <h1 class="display-4">发布成功!</h1>
+        <p class="lead">您发布的<span th:text="${title}"></span>经过审核后会自动放入展区.</p>
+        <hr class="my-4">
+        <p>在我的历史可以观看审核进度哦.</p>
+        <a class="btn btn-primary btn-lg" href="../../craft/consumer/issue" role="button">再发一条</a>
+    </div>
+<script src="js/jquery-1.11.0.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/jquery-equal-height.min.js"></script>
+<script type="text/javascript">
+    function equal_height() {
+        // Equal Card Height
+        $('.jQueryEqualHeight1').jQueryEqualHeight();
+    }
+    $(window).on('load', function(event) {
+        equal_height();
+    });
+    $(window).resize(function(event) {
+        equal_height();
+    });
+</script>
+
+<div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';">
+    <p>手工艺品推广平台</p>
+</div>
+</body>
+</html>

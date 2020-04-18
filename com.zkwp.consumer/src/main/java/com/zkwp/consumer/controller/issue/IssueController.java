@@ -54,8 +54,11 @@ public class IssueController  {
         Map params  = RestUtil.getParameterMap(request);
         String userid = StringUtil.objToString(session.getAttribute("userid"));
         params.put("userid",userid);
+        String title = StringUtil.objToString(params.get("title"));
         try{
-            return CommonResult.success(issueService.doIssue(video,cover,params));
+            CommonResult commonResult = new CommonResult();
+            commonResult.setMessage(title);
+            return commonResult.success(issueService.doIssue(video,cover,params));
         }catch (Exception e){
             logger.error("IssueController::doIssue throws exception",e);
             return CommonResult.failed();

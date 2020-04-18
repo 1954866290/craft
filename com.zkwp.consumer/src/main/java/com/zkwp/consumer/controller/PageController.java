@@ -1,19 +1,16 @@
 package com.zkwp.consumer.controller;
 
 import com.zkwp.api.bean.*;
-import com.zkwp.api.utils.CommonListResult;
 import com.zkwp.api.utils.RestUtil;
 import com.zkwp.api.utils.StringUtil;
-import com.zkwp.consumer.feign.AdministrationFeignService;
 import com.zkwp.consumer.service.PageService;
-import com.zkwp.consumer.service.chat.ChatService;
+import com.zkwp.consumer.service.chat.CommentService;
 import com.zkwp.consumer.service.issue.IssueService;
 import com.zkwp.consumer.service.system.HistoryService;
+import com.zkwp.consumer.service.system.SystemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
@@ -58,7 +55,10 @@ public class PageController {
     IssueService issueService;
 
     @Autowired
-    ChatService chatService;
+    CommentService commentService;
+
+    @Autowired
+    SystemService systemSevice;
 
     @Value("ProductionType")
     String ProductionType;
@@ -103,13 +103,23 @@ public class PageController {
         Map params = RestUtil.getParameterMap(request);
         String userid = StringUtil.objToString(session.getAttribute("userid"));
         params.put("userid",userid);
-        historyService.addHistoryService(params);
-        Issue issue = issueService.getIssueById(params);
-        List<BizComment> comments = chatService.getCommentsTop5(params);
+        User user = systemSevice.getUserById(userid);
+        //historyService.addHistoryService(params);
+        Issue issue = issueService.getIssueByCode(params);
+        List<Map> comments = commentService.getCommentsTop5(params);
+        int islike = commentService.findLikeRecond(userid,issue.getId());
+        modelAndView.addObject("islike",islike);
+        modelAndView.addObject("user",user);
         modelAndView.addObject("comments",comments);
         modelAndView.addObject("issue",issue);
         modelAndView.setViewName("video");
         return modelAndView;
     }
 
+    @RequestMapping(value = "/issueSuccess")
+    public ModelAndView issueSuccess(HttpServletRequest request ,HttpSession session ){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("issueSuccess");
+        return modelAndView;
+    }
 }
