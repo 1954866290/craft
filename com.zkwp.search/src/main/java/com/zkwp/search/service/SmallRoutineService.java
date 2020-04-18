@@ -6,5 +6,5 @@ import com.zkwp.api.bean.UserPublic;
 
 public interface SmallRoutineService {
 	List<UserPublic> getSwiperDataByImageName(String imageName);
-
+	UserPublic getWorksInfo(String goodsId);
 }

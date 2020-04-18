@@ -9,4 +9,5 @@ public interface TypesService {
 	List<Type> getTypeList(String bigSortName);
 	SystemImage getImageSrcBySmallTypeName(String imageSrcName);
 	List<SystemImage> getImageAll();
+	List<Type> searchInfo(String searchKeyword);
 }

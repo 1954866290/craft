@@ -4,4 +4,7 @@
 <select id="getSwiperDataByImageName" parameterType="String" resultType="com.zkwp.api.bean.UserPublic">
     select * from biz_user_public_info where imagename = #{imageName}
 </select>
+<select id="getWorksInfo" parameterType="String" resultType="com.zkwp.api.bean.UserPublic">
+    select * from biz_user_public_info where goods_id = #{goodsId}
+</select>
 </mapper>

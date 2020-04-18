@@ -1,5 +1,7 @@
 package com.zkwp.api.bean;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -41,4 +43,5 @@ public class UserPublic {
     private String image_src;//图片路径
     private String goods_id;//商品id
     private String imagename;//图片名称
+    private List imageList;// 图片数组
 }

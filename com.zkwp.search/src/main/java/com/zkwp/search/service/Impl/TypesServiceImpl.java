@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.zkwp.api.bean.SystemImage;
 import com.zkwp.api.bean.Type;
+import com.zkwp.api.bean.UserPublic;
 import com.zkwp.search.dao.TypesDao;
 import com.zkwp.search.service.TypesService;
 @Service
@@ -30,6 +31,12 @@ public class TypesServiceImpl implements TypesService{
 	public List<SystemImage> getImageAll() {
 		// TODO Auto-generated method stub
 		return this.typesDao.getImageAll();
+	}
+
+	@Override
+	public List<Type> searchInfo(String searchKeyword) {
+		// TODO Auto-generated method stub
+		return this.typesDao.searchInfo(searchKeyword);
 	}
 
 }

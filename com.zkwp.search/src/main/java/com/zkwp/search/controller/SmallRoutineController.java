@@ -38,6 +38,7 @@ public class SmallRoutineController {
 	@Autowired
 	private UserPublicInfoService userPublicInfoService;
 	private static String BIG_SORT = "bigSort";
+	private static String TYPES_FOR_USER = "ProductionType";
      /* 
      * 根据图片名称获取图片信息，主要用于获取小程序首页轮播图和导航栏图片信息
      */
@@ -73,7 +74,6 @@ public class SmallRoutineController {
     public OutputObject getSortPageInfo() {
     	OutputObject out = new OutputObject();
     	List resultList = new ArrayList();
-    	List resultList1 = new ArrayList();
     	List<Type> types = typesService.getTypeList(BIG_SORT);
     	for (int i = 0; i < types.size(); i++) {
     		Type type = types.get(i);
@@ -114,6 +114,54 @@ public class SmallRoutineController {
     	System.out.println(file.getOriginalFilename());
     	OutputObject out = new OutputObject();
         return out;
+    }
+    
+    /**
+     * 小程序根据作品id获取作品详情
+     */
+    @RequestMapping(value = "/getDetailsByGoodsId", method = RequestMethod.GET)
+    @ResponseBody
+    public String getDetailsByGoodsId(HttpServletRequest request) {
+    	OutputObject out = new OutputObject();
+    	String goodsId = request.getParameter("goods_id");
+    	UserPublic worksInfo = smallRoutineService.getWorksInfo(goodsId);
+    	List list = new ArrayList<>();
+    	list.add(worksInfo.getOneimagepath());
+    	list.add(worksInfo.getTwoimagepath());
+    	list.add(worksInfo.getThreeimagepath());
+    	list.add(worksInfo.getFourimagepath());
+    	worksInfo.setImageList(list);
+        return JSON.toJSONString(worksInfo);
+    }
+    /**
+     * 获取用户发布作品时需要选择的分类信息
+     * @return
+     */
+    @RequestMapping(value = "/getTypesInfo", method = RequestMethod.GET)
+    @ResponseBody
+    public OutputObject getTypesInfo() {
+    	OutputObject out = new OutputObject();
+    	List<Type> types = typesService.getTypeList(TYPES_FOR_USER);
+    	List<String> typeList = new ArrayList<String>();
+    	for (Type type : types) {
+			String sortName = type.getName();
+			typeList.add(sortName);
+		}
+    	out.setReturnList(typeList);
+    	return out;
+    }
+    
+    /**
+     * 根据关键字进行作品类别搜索
+     */
+    @RequestMapping(value = "/getSearchInfo", method = RequestMethod.GET)
+    @ResponseBody
+    public OutputObject getSearchInfo(HttpServletRequest request) {
+    	OutputObject out = new OutputObject();
+    	String searchKeyword = request.getParameter("query");
+    	List<Type> types = typesService.searchInfo(searchKeyword);
+    	out.setReturnList(types);
+    	return out;
     }
 
 }
