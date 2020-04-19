@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>手工艺品推广平台</title>
+</head>
+
+<style>
+    body {
+        min-height: 100%;
+        margin: 0;
+        padding: 0;
+        position: relative;
+    }
+</style>
+<body>
+<div th:include="navbar.html"></div>
+<script>
+    var jq = jQuery.noConflict();
+</script>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+    var $ = jQuery.noConflict();
+</script>
+<div>
+    <div class="row">
+        <div class="col-3">
+            <div class="list-group" id="list-tab" role="tablist">
+                <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list"
+                   href="#list-home" role="tab" aria-controls="home">修改个人信息</a>
+                <a class="list-group-item list-group-item-action" id="list-issue-list" data-toggle="list"
+                   href="#list-issue" role="tab" aria-controls="profile">我的发布</a>
+                <a class="list-group-item list-group-item-action" id="list-comment-list" data-toggle="list"
+                   href="#list-comment" role="tab" aria-controls="messages">我的评论</a>
+                <a class="list-group-item list-group-item-action" id="list-sight-list" data-toggle="list"
+                   href="#list-sight" role="tab" aria-controls="settings">我的观看</a>
+                <a class="list-group-item list-group-item-action" id="list-fan-list" data-toggle="list"
+                   href="#list-fan" role="tab" aria-controls="settings">我的粉丝</a>
+                <a class="list-group-item list-group-item-action" id="list-attention-list" data-toggle="list"
+                   href="#list-attention" role="tab" aria-controls="settings">我的关注</a>
+            </div>
+        </div>
+        <div class="col-9">
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+                    <form>
+                        <div style="position: relative;border: 5px solid lightblue;width: 150px;height:150px;margin: 5px auto;border-radius: 50%;">
+                            <img th:src="${user.headurl}" alt="选择并上传头像" id="avatar_img"
+                                 style="width: 140px;height: 140px;left:0;top: 0;border-radius: 50%;"/> <input
+                                type="file" id="avatar_file" name="avatar_file" accept="image/jpg,image/png,image/gif"
+                                style="width: 100%;height:100%;opacity: 0;position: absolute;left:0;top: 0;"/></div>
+                        <br/>
+                        <div class="input-group input-group-sm mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-sm1">昵称</span>
+                            </div>
+                            <input type="text" class="form-control" name="title" id="nickname"
+                                   aria-label="Sizing example input" style="width: 350px"
+                                   th:attr="value=${user.nickname}"
+                                   aria-describedby="inputGroup-sizing-sm">
+                        </div>
+                        <div class="input-group input-group-sm mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-sm1">简介</span>
+                            </div>
+                            <input type="text" class="form-control" name="title" id="introdution"
+                                   aria-label="Sizing example input" style="width: 350px"
+                                   th:if="${user.introduction==null}" value="您还没有填写哦"
+                                   aria-describedby="inputGroup-sizing-sm">
+                            <input type="text" class="form-control" name="title" id="introdution"
+                                   aria-label="Sizing example input" style="width: 350px"
+                                   th:if="${user.introduction!=null}" th:attr="value=${user.introduction}"
+                                   aria-describedby="inputGroup-sizing-sm">
+                        </div>
+                        <div class="input-group input-group-sm mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-sm1">地区</span>
+                            </div>
+                            <input type="text" class="form-control" name="title" id="region"
+                                   aria-label="Sizing example input" style="width: 350px"
+                                   th:if="${user.region==null}" value="您还没有填写哦"
+                                   aria-describedby="inputGroup-sizing-sm">
+                            <input type="text" class="form-control" name="title" id="region"
+                                   aria-label="Sizing example input" style="width: 350px"
+                                   th:attr="value=${user.region}" th:if="${user.region!=null}"
+                                   aria-describedby="inputGroup-sizing-sm">
+                        </div>
+                        <div class="input-group input-group-sm mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-sm1">邮箱</span>
+                            </div>
+                            <input type="text" class="form-control" name="title" id="email"
+                                   aria-label="Sizing example input" style="width: 350px"
+                                   th:if="${user.email==null}" value="您还没有填写哦"
+                                   aria-describedby="inputGroup-sizing-sm">
+                            <input type="text" class="form-control" name="title" id="email"
+                                   aria-label="Sizing example input" style="width: 350px"
+                                   th:if="${user.email!=null}" th:attr="value=${user.email}"
+                                   aria-describedby="inputGroup-sizing-sm">
+                        </div>
+                        <div class="input-group input-group-sm mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-sm1">性别</span>
+                            </div>
+                            <input type="text" class="form-control" name="title" id="email"
+                                   aria-label="Sizing example input" style="width: 350px"
+                                   th:if="${user.gender==null}" value="您还没有填写哦"
+                                   aria-describedby="inputGroup-sizing-sm">
+                            <input type="text" class="form-control" name="title" id="gender"
+                                   aria-label="Sizing example input" style="width: 350px"
+                                   th:if="${user.gender!=null}" th:attr="value=${user.gender}"
+                                   aria-describedby="inputGroup-sizing-sm">
+                        </div>
+
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="list-issue" role="tabpanel" aria-labelledby="list-issue-list">
+                    <ul class="list-group" th:if="${issueList == null}">
+                        <li class="list-group-item">
+                            <h3 style="text-align: center">您还没有任何发布哦</h3>
+                        </li>
+                    </ul>
+                    <ul class="list-unstyled" th:if="${issueList != null}">
+                        <li class="media" th:each="issue:${issueList}">
+                            <img th:src="${issue.oneimagepath}" class="mr-3" alt="封面">
+                            <div class="media-body">
+                                <h5 class="mt-0 mb-1" th:text="${issue.title}">List-based media object</h5>
+                                <p th:text="${issue.createtime}"></p>
+                                <a th:href="@{../../craft/consumer/video(issuecode=${issue.code})}"
+                                   class="btn btn-primary">观看</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-pane fade" id="list-comment" role="tabpanel" aria-labelledby="list-comment-list">
+                    <ul class="list-group">
+                        <li class="list-group-item" th:if="${commentList == null}">
+                            <h3 style="text-align: center">您还没有任何评论哦</h3>
+                        </li>
+                        <li class="list-group-item" th:if="${commentList != null}" th:each="comment:${commentList}">
+
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-pane fade" id="list-sight" role="tabpanel" aria-labelledby="list-sight-list">
+                    <ul class="list-group" th:if="${sightList == null}">
+                        <li class="list-group-item">
+                            <h3 style="text-align: center">您还没有任何观看哦</h3>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-pane fade  " id="list-fan" role="tabpanel" aria-labelledby="list-fan-list">
+                    <ul class="list-group" th:if="${fanList== null}">
+                        <li class="list-group-item">
+                            <h3 style="text-align: center">您还没有任何粉丝哦</h3>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-pane fade  " id="list-attention" role="tabpanel" aria-labelledby="list-attention-list">
+                    <ul class="list-group" th:if="${attentionList == null}">
+                        <li class="list-group-item">
+                            <h3 style="text-align: center">您还没有任何关注哦</h3>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<div th:include="foot.html"></div>--><script>    // 头像预览
+$("#avatar_file").change(function () {
+    // 获取上传文件对象
+    var file = $(this)[0].files[0];
+    // 读取文件URL
+    var reader = new FileReader();
+    reader.readAsDataURL(file);        // 阅读文件完成后触发的事件
+    reader.onload = function () {            // 读取的URL结果：this.result
+        $("#avatar_img").attr("src", this.headurl);
+    }
+});
+</script>
+
+</body>
+</html>

@@ -28,4 +28,7 @@ public interface ChatFeignService {
 
     @PostMapping("/Comment/doComment")
     CommonResult doComment(@RequestBody Map params);
+
+    @PostMapping("/Comment/getCommentsByUserId")
+    List<Map> getCommentsByUserId(@RequestParam("userid")String userid);
 }

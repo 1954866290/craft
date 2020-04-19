@@ -8,7 +8,7 @@
 
     <select id="getCommentsTop5" parameterType="Map" resultType="Map">
         select ifnull(b.headurl,'') as headurl, b.nickname as nickname,a.content as content,a.likeCount as likecount
-        ,a.commenttime as commenttime,ifnull(islike,0) as islike
+        ,date_format(a.commenttime,'%Y-%m-%d %H:%i:%S') as commenttime,ifnull(islike,0) as islike
         from biz_comment a
         left join sys_user b on a.userid = b.userid
         left join (

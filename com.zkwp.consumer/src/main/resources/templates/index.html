@@ -11,6 +11,13 @@
     .row > div {
         margin-bottom: 30px;
     }
+
+    body {
+        min-height: 100%;
+        margin: 0;
+        padding: 0;
+        position: relative;
+    }
 </style>
 
 <body>
@@ -19,8 +26,8 @@
     <h4 id="cards-with-equal-height1" th:text="${type1.name}"></h4>
     <br>
     <div class="row">
-        <div class="col-md-4 col-sm-6 jQueryEqualHeight1"  th:each="issue:${issueList1}">
-            <div class="card" >
+        <div class="col-md-4 col-sm-6 jQueryEqualHeight1" th:each="issue:${issueList1}">
+            <div class="card">
                 <img class="card-img-top" style="width: 349px;height: 250px" th:src=@{${issue.oneimagepath}}
                      alt="Card image cap">
                 <div class="card-body">
@@ -36,9 +43,9 @@
 
     <h4 id="cards-with-equal-height2" th:text="${type2.name}"></h4>
     <br>
-    <div class="row" >
+    <div class="row">
         <div class="col-md-4 col-sm-6 jQueryEqualHeight1" th:each="issue:${issueList2}">
-            <div class="card" >
+            <div class="card">
                 <img class="card-img-top" style="width: 349px;height: 250px" th:src=@{${issue.oneimagepath}}
                      alt="Card image cap">
                 <div class="card-body">
@@ -53,9 +60,9 @@
     <br>
     <h4 id="cards-with-equal-height3" th:text="${type3.name}"></h4>
     <br>
-    <div class="row" >
+    <div class="row">
         <div class="col-md-4 col-sm-6 jQueryEqualHeight1" th:each="issue:${issueList3}">
-            <div class="card" >
+            <div class="card">
                 <img class="card-img-top" style="width: 349px;height: 250px" th:src=@{${issue.oneimagepath}}
                      alt="Card image cap">
                 <div class="card-body">
@@ -71,11 +78,12 @@
 
     <h4 id="cards-with-equal-height4" th:text="${type4.name}"></h4>
     <br>
-    <div class="row" >
+    <div class="row">
         <div class="col-md-4 col-sm-6 jQueryEqualHeight1" th:each="issue:${issueList4}">
-            <div class="card" >
-                <img class="card-img-top" style="width: 349px;height: 250px" th:src=@{${issue.oneimagepath}}
-                     alt="Card image cap">
+            <div class="card">
+                <img class="card-img-top img-circle" style="width: 349px;height: 250px"
+                     th:src="@{${issue.oneimagepath}}"
+                     alt="头像">
                 <div class="card-body">
                     <h4 class="card-title" th:text="${issue.title}"></h4>
                     <p class="card-text" th:text="${issue.description}"></p>
@@ -89,9 +97,9 @@
 
     <h4 id="cards-with-equal-height5" th:text="${type5.name}"></h4>
     <br>
-    <div class="row" >
+    <div class="row">
         <div class="col-md-4 col-sm-6 jQueryEqualHeight1" th:each="issue:${issueList5}">
-            <div class="card" >
+            <div class="card">
                 <img class="card-img-top" style="width: 349px;height: 250px" th:src=@{${issue.oneimagepath}}
                      alt="Card image cap">
                 <div class="card-body">
@@ -139,6 +147,5 @@
     var $ = jQuery.noConflict();
 </script>
 
-<div th:include="foot.html"></div>
-</body>
+<!--<div th:include="foot.html"></div>--></body>
 </html>
