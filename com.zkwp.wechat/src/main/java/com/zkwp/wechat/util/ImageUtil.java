@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.zkwp.wechat.config.FastDFSClientWrapper;
 
+import javax.mail.Multipart;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -43,6 +44,26 @@ public class ImageUtil {
         System.out.println(originalFileName + "==" + fileName + "==" + fileSize + "==" + extension + "==" + bytes.length);
         return fastDFSClientWrapper.uploadFile(bytes, fileSize, extension);
     }
+    /**
+     * 文件上传，微信小程序
+     */
+    public String uploadFileWechat(Multipart file) {
+        byte[] bytes = new byte[0];
+        try {
+            bytes = ((MultipartFile) file).getBytes();
+        } catch (IOException e) {
+            logger.error("获取文件错误");
+            e.printStackTrace();
+        }        //获取源文件名称
+        String originalFileName = ((MultipartFile) file).getOriginalFilename();
+        //获取文件后缀--.doc
+        String extension = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
+        String fileName = ((Logger) file).getName();        //获取文件大小
+        long fileSize = ((MultipartFile) file).getSize();
+        System.out.println(originalFileName + "==" + fileName + "==" + fileSize + "==" + extension + "==" + bytes.length);
+        return fastDFSClientWrapper.uploadFile(bytes, fileSize, extension);
+    }
+
 
     /**
      * 文件下载     * @param fileUrl 当前对象文件名称     * @param response   HttpServletResponse 内置对象     * @throws IOException

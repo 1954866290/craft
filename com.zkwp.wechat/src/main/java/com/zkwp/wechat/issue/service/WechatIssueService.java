@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.zkwp.api.bean.Issue;
+import com.zkwp.api.bean.OutputObject;
 import com.zkwp.api.utils.CommonResult;
 import com.zkwp.api.utils.StringUtil;
 import com.zkwp.wechat.feign.IssueFeignService;
+import com.zkwp.wechat.feign.UserLoginFeign;
 import com.zkwp.wechat.issue.controller.WechatIssueController;
 import com.zkwp.wechat.util.ImageUtil;
 @Service
@@ -20,23 +22,32 @@ public class WechatIssueService {
 
 	    @Autowired
 	    IssueFeignService issueFeignService;
+	    
+	    @Autowired
+	    UserLoginFeign userLoginFeign;
 
 	    @Autowired
 	    ImageUtil imageUtil;
 
 	    private final String pathPre = "http://116.62.114.28:8080/";
 
-	    public CommonResult videoIssue(MultipartFile video, Map params) {
+	    public OutputObject videoIssue(MultipartFile video, Map params) {
 	        String videoPath = imageUtil.uploadFile(video);
 	        videoPath = pathPre + videoPath;
 	        params.put("videoPath", videoPath);
-	        return CommonResult.success(issueFeignService.doIssue(params));
+	        OutputObject out = issueFeignService.doIssue(params);
+	        return out;
 	    }
-
-	    public Issue getIssueByCode(Map params) {
-	        String issuecode = StringUtil.objToString(params.get("issuecode"));
-	        Issue issue = issueFeignService.getIssueByCode(issuecode);
-	        return issue;
+        
+	    public OutputObject userLoginWechat(String phone) {
+	    	OutputObject out = new OutputObject();
+			out = userLoginFeign.wechatUserLogin(phone);
+			return out;
+		}
+	    
+	    public OutputObject checkRandomCode(String phone, String code) {
+	    	OutputObject out = new OutputObject();
+	    	out = userLoginFeign.randomCodeCheck(phone, code);
+	    	return out;
 	    }
-
 }

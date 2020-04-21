@@ -7,7 +7,7 @@ package com.zkwp.system.constant;
 public class CacheConstant {
 	public static final String SEND_CODE_SUCCESS_RETURN_CODE="0000";
 	public static final String SEND_CODE_SUCCESS_RETURN_MESSAGE="短信验证码发送成功";
-	public static final String SEND_CODE_FAIL_RETURN_CODE="0000";
+	public static final String SEND_CODE_FAIL_RETURN_CODE="9999";
 	public static final String SEND_CODE_FAIL_RETURN_MESSAGE="短信验证码发送失败";
 	public static final String LOGIN_SUCCESS_RETURN_CODE="0000";
 	public static final String LOGIN_SUCCESS_RETURN_MESSAGE="登陆成功";

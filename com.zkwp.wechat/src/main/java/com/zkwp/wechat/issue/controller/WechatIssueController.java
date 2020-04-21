@@ -1,5 +1,6 @@
 package com.zkwp.wechat.issue.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,14 +13,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.zkwp.api.utils.CommonResult;
-import com.zkwp.api.utils.RestUtil;
-import com.zkwp.api.utils.StringUtil;
+import com.alibaba.fastjson.JSON;
+import com.zkwp.api.bean.OutputObject;
 import com.zkwp.wechat.issue.service.WechatIssueService;
+import com.zkwp.wechat.util.JsonUtil;
 @Controller
 public class WechatIssueController {
 	private Logger logger = LoggerFactory.getLogger(WechatIssueController.class);
@@ -40,22 +42,66 @@ public class WechatIssueController {
 
     @Autowired
     WechatIssueService issueService;
-
+    
+    /**
+     * 视频发布
+     * @param request
+     * @param session
+     * @param video
+     * @return
+     */
     @RequestMapping(value = "/videoIssue")
     @ResponseBody
-    public CommonResult videoIssue(HttpServletRequest request, HttpSession session,  @Param("video")MultipartFile video) {
-        Map params  = RestUtil.getParameterMap(request);
+    public OutputObject videoIssue(HttpServletRequest request, HttpSession session,  @Param("video")MultipartFile video) {
+       OutputObject out = new OutputObject();
+       String title = request.getParameter("issueTitle");
+       String description = request.getParameter("description");
+       String types = request.getParameter("types");
+       Map<String, String> params = new HashMap<String, String>();
+       params.put("title", title);
+       params.put("description", description);
+       params.put("type", types);
 //        String userid = StringUtil.objToString(session.getAttribute("userid"));
-//        params.put("userid",userid);
+        params.put("userid","12");
+        params.put("coverPath","1111");
+        params.put("price","100");
 //        String title = StringUtil.objToString(params.get("title"));
         try{
-            CommonResult commonResult = new CommonResult();
-            //commonResult.setMessage(title);
-            return commonResult.success(issueService.videoIssue(video,params));
+            out = issueService.videoIssue(video, params);
         }catch (Exception e){
             logger.error("IssueController::doIssue throws exception",e);
-            return CommonResult.failed();
         }
+        return out;
+    }
+    
+    /**
+     * 获取短信验证码
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/weChatSendCode", method = RequestMethod.GET)
+    @ResponseBody
+    public OutputObject UserLogin(HttpServletRequest request) {
+    	OutputObject out = new OutputObject();
+    	String phone = request.getParameter("phone");
+    	out = issueService.userLoginWechat(phone);
+    	return out;
+    }
+    /**
+     * 校验短信验证码及用户身份信息
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/weChatCheckCode", method = RequestMethod.GET)
+    @ResponseBody
+    public OutputObject weChatCheckCode(HttpServletRequest request) {
+    	OutputObject out = new OutputObject();
+    	String userInfo = request.getParameter("userInfo");
+    	Map<String, String> userMap = (Map<String, String>) JsonUtil.convertJson2Object(userInfo, Map.class);
+    	String phone = userMap.get("phone");
+    	String code = userMap.get("code");
+    	out = issueService.checkRandomCode(phone, code);
+    	return out;
     }
 
 

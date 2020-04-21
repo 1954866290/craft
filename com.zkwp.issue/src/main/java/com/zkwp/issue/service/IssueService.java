@@ -50,6 +50,7 @@ public class IssueService {
 
     public CommonResult doIssue(Map params) {
         String videoPath = StringUtil.objToString(params.get("videoPath"));
+        System.out.println(videoPath);
         String coverPath = StringUtil.objToString(params.get("coverPath"));
         String userid = StringUtil.objToString(params.get("userid"));
         Issue issue = new Issue();

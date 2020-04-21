@@ -52,29 +52,5 @@ public class ImageUtil {
         return fastDFSClientWrapper.uploadFile(bytes, fileSize, extension);
     }
 
-    /**
-     * 文件下载     * @param fileUrl 当前对象文件名称     * @param response   HttpServletResponse 内置对象     * @throws IOException
-     */
-    public void downloadFile(String fileUrl, HttpServletResponse response) throws IOException {
-        byte[] bytes = fastDFSClientWrapper.downloadFile(fileUrl);
-        // 这里只是为了整合fastdfs，所以写死了文件格式。需要在上传的时候保存文件名。下载的时候使用对应的格式
-        response.setHeader("Content-disposition", "attachment;filename=" + URLEncoder.encode("sb.xlsx", "UTF-8"));
-        response.setCharacterEncoding("UTF-8");
-        ServletOutputStream outputStream = null;
-        try {
-            outputStream = response.getOutputStream();
-            outputStream.write(bytes);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                outputStream.flush();
-                outputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
 
 }

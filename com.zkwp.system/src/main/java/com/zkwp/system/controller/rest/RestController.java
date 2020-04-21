@@ -27,6 +27,7 @@ public class RestController {
     @PostMapping(value = "/login/sendCode")
     public CommonResult sendCode(@RequestParam("type")String type, @RequestParam("code")String code, @RequestParam("ip")String ip){
        try{
+    	   System.out.println(code);
            return loginService.sendCode(type,code,ip);
        }catch (Exception e){
            return CommonResult.failed();
