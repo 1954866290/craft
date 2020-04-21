@@ -39,9 +39,9 @@ public class RestController {
     }
 
     @PostMapping("/issue/getIssueListByTypeCode")
-    public List<Issue> getIssueListByTypeCode(@RequestParam("code") String code){
+    public List<Issue> getIssueListByTypeCode(@RequestParam("type") String type,@RequestParam("code") String code){
         try{
-            return issueService.getIssueListByTypeCode(code);
+            return issueService.getIssueListByTypeCode(type,code);
         }catch (Exception e){
             return null;
         }

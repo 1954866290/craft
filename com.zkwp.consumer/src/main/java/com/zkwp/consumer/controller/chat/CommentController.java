@@ -33,7 +33,7 @@ public class CommentController {
 
     @RequestMapping(value = "/Comment/doComment")
     @ResponseBody
-    public CommonResult doComment(HttpServletRequest request, HttpSession session, @RequestParam("cover") MultipartFile cover, @Param("video")MultipartFile video) {
+    public CommonResult doComment(HttpServletRequest request, HttpSession session) {
         Map params  = RestUtil.getParameterMap(request);
         String userid = StringUtil.objToString(session.getAttribute("userid"));
         params.put("userid",userid);

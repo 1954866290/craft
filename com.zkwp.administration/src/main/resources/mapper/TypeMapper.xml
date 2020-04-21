@@ -40,4 +40,8 @@
     <select id="getTypeListByPCode" parameterType="String" resultType="com.zkwp.api.bean.Type">
         select * from sys_type where parentCode = #{pcode} and delflag != 1 order by seq
     </select>
+
+    <select id="getTypeByCode" parameterType="String" resultType="com.zkwp.api.bean.Type">
+        select * from sys_type where code = #{code} and delflag = 0
+    </select>
 </mapper>

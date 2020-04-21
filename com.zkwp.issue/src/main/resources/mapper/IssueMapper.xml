@@ -32,7 +32,12 @@
         from biz_issue a
         where type =#{code}
         order by veiwCount desc
-        limit 9
+        <if test="type =='index'">
+            limit 9
+        </if>
+        <if test="type == 'typeindex'">
+            limit 45
+        </if>
     </select>
 
     <select id="getIssueByCode" parameterType="String" resultType="com.zkwp.api.bean.Issue">

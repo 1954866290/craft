@@ -63,4 +63,8 @@ public class TypeService {
     public List<Type> getTypeListByPCode(String code){
         return typeDao.getTypeListByPCode(code);
     }
+
+    public Type getTypeByCode(String code){
+        return typeDao.getTypeByCode(code);
+    }
 }

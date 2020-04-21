@@ -3,81 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <title>手工艺品推广平台</title>
-    <meta http-equiv="description-Type" description="multipart/form-data; charset=utf-8" />
+    <meta http-equiv="description-Type" description="multipart/form-data; charset=utf-8"/>
 
 </head>
 <style>
     input[type="text"] {
-        height:20px;
-        border:none;
-        border-bottom:1px solid #ccc;
-        width:150px;
-        margin-right:10px;
-        outline:none;
-        height:25px;
+        height: 20px;
+        border: none;
+        border-bottom: 1px solid #ccc;
+        width: 150px;
+        margin-right: 10px;
+        outline: none;
+        height: 25px;
 
     }
+
     .file {
         outline: none;
-        border:none;
+        border: none;
         background: #67BEF4;
         border-radius: 4px;
         padding: 4px 12px;
-        cursor:pointer;
+        cursor: pointer;
         color: #fff;
-        font-size:18px;
+        font-size: 18px;
         line-height: 20px;
         vertical-align: middle;
     }
-    input.file  {
-        margin-left:-245px;
-        font-size:22px;
-        cursor:pointer;
-        filter:alpha(opacity=0);
-        opacity:0;
+
+    input.file {
+        margin-left: -245px;
+        font-size: 22px;
+        cursor: pointer;
+        filter: alpha(opacity=0);
+        opacity: 0;
     }
+
     /*取消点击时的虚线框*/
-    input.file  {
-        outline:none;/*ff*/
-        hide-focus:expression(this.hideFocus=true);/*ie*/
+    input.file {
+        outline: none; /*ff*/
+        hide-focus: expression(this.hideFocus=true); /*ie*/
+    }
+
+    body {
+        min-height: 100%;
+        margin: 0;
+        padding: 0;
+        position: relative;
     }
 </style>
 <body>
 <div th:include="navbar.html"></div>
 <script>
-    var jq=jQuery.noConflict();
+    var jq = jQuery.noConflict();
 </script>
 <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 <script>
-    var $=jQuery.noConflict();
+    var $ = jQuery.noConflict();
 </script>
 <div>
     <div class="box" style="width: 80%;margin-left: 15%">
         <div class="issue_body" style="clear: both;">
             <form class="form-horizontal" id="issue_form" enctype="multipart/form-data">
-                <div class="form-group">
-                    <label for="title" class="col-sm-1 control-label">标题</label>
-                    <div class="col-sm-10">
-                        <input type="title" class="form-control" name="title" id="title" placeholder="标题">
+                <!-- <div class="form-group">
+                     <label for="title" class="col-sm-1 control-label"></label>
+                     <div class="col-sm-10">
+                         <input type="title" class="form-control"  placeholder="标题">
+                     </div>
+                 </div>-->
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm1">标题</span>
                     </div>
+                    <input type="text" class="form-control" style="width: 730px;" name="title" id="title" aria-label="Sizing example input"
+                           aria-describedby="inputGroup-sizing-sm">
                 </div>
-                <div class="form-group">
-                    <label for="description" class="col-sm-1 control-label">描述</label>
-                    <div class="col-sm-10">
-                        <textarea class="form-control" id="description" name="description" rows="3" placeholder="请描述发布作品"></textarea>
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm2">描述</span>
                     </div>
+                    <input type="text" class="form-control"  style="width: 730px;"  id="description" name="description"
+                           aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
                 </div>
-                <div class="form-group">
-                    <label for="price" class="col-sm-1 control-label">预售价格</label>
+                <!--<div class="form-group">
+                    <label for="description" class="col-sm-1 control-label"></label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" id="price" name="price" placeholder="请输入预售价格">
+                        <textarea class="form-control" rows="3" placeholder="请描述发布作品"></textarea>
                     </div>
+                </div>-->
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm3">预售价格</span>
+                    </div>
+                    <input type="text" class="form-control" id="price"  style="width: 700px;"  name="price" aria-label="Sizing example input"
+                           aria-describedby="inputGroup-sizing-sm">
                 </div>
+                <!--  <div class="form-group">
+                      <label for="price" class="col-sm-1 control-label"></label>
+                      <div class="col-sm-10">
+                          <input type="number" class="form-control" placeholder="请输入预售价格">
+                      </div>
+                  </div>-->
                 <div class="form-group">
                     <label for="type" class="col-sm-1 control-label">请选择类型</label>
-                    <div class="col-sm-10">
-                        <select  id="type" name="type" class="form-control" value="sel" onchange="selectOnchang(this)">
-                            <option value="" >请选择</option>
+                    <div class="col-sm-12">
+                        <select id="type" name="type" class="form-control" value="sel" onchange="selectOnchang(this)">
+                            <option value="">请选择</option>
                             <option th:each="type : ${types}"
                                     th:value="${type.code}" th:attr="value=${type.code}" th:text="${type.name}">
                             </option>
@@ -87,103 +118,118 @@
                 <div class="form-group">
                     <label for="image" class="col-md-auto control-label">请选择封面</label>
                     <div class="col-md-auto">
-                        <svg onclick="image.click();" id="cover" class="bi bi-image-fill"  width="5em" height="5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2V3zm1 9l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094L15.002 9.5V13a1 1 0 0 1-1 1h-12a1 1 0 0 1-1-1v-1zm5-6.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" clip-rule="evenodd"/>
+                        <svg onclick="image.click();" id="cover" class="bi bi-image-fill" width="5em" height="5em"
+                             viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2V3zm1 9l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094L15.002 9.5V13a1 1 0 0 1-1 1h-12a1 1 0 0 1-1-1v-1zm5-6.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
+                                  clip-rule="evenodd"/>
                         </svg>
-                        <input type="file" class="file" id="image"  style="width:190px;" name="cover"  onchange="coverchange();"><br>
+                        <input type="file" class="file" id="image" style="width:190px;" name="cover"
+                               onchange="coverchange();"><br>
                     </div>
-                </div>
-                <div class="form-group">
                     <label for="video" class="col-md-auto control-label">
                         上传视频</label>
                     <div class="col-md-auto">
-                        <svg onclick="video.click();" id="videoSvg" onchange="videoChange();" class="bi bi-camera-video" width="5em" height="5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M2.667 3.5c-.645 0-1.167.522-1.167 1.167v6.666c0 .645.522 1.167 1.167 1.167h6.666c.645 0 1.167-.522 1.167-1.167V4.667c0-.645-.522-1.167-1.167-1.167H2.667zM.5 4.667C.5 3.47 1.47 2.5 2.667 2.5h6.666c1.197 0 2.167.97 2.167 2.167v6.666c0 1.197-.97 2.167-2.167 2.167H2.667A2.167 2.167 0 0 1 .5 11.333V4.667z" clip-rule="evenodd"/>
-                            <path fill-rule="evenodd" d="M11.25 5.65l2.768-1.605a.318.318 0 0 1 .482.263v7.384c0 .228-.26.393-.482.264l-2.767-1.605-.502.865 2.767 1.605c.859.498 1.984-.095 1.984-1.129V4.308c0-1.033-1.125-1.626-1.984-1.128L10.75 4.785l.502.865z" clip-rule="evenodd"/>
+                        <svg onclick="video.click();" id="videoSvg" onchange="videoChange();" class="bi bi-camera-video"
+                             width="5em" height="5em" viewBox="0 0 16 16" fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M2.667 3.5c-.645 0-1.167.522-1.167 1.167v6.666c0 .645.522 1.167 1.167 1.167h6.666c.645 0 1.167-.522 1.167-1.167V4.667c0-.645-.522-1.167-1.167-1.167H2.667zM.5 4.667C.5 3.47 1.47 2.5 2.667 2.5h6.666c1.197 0 2.167.97 2.167 2.167v6.666c0 1.197-.97 2.167-2.167 2.167H2.667A2.167 2.167 0 0 1 .5 11.333V4.667z"
+                                  clip-rule="evenodd"/>
+                            <path fill-rule="evenodd"
+                                  d="M11.25 5.65l2.768-1.605a.318.318 0 0 1 .482.263v7.384c0 .228-.26.393-.482.264l-2.767-1.605-.502.865 2.767 1.605c.859.498 1.984-.095 1.984-1.129V4.308c0-1.033-1.125-1.626-1.984-1.128L10.75 4.785l.502.865z"
+                                  clip-rule="evenodd"/>
                         </svg>
                         <input type="file" class="file" id="video" style="width:190px;" name="video"><br>
                     </div>
+                    <br>
                 </div>
-                <button type="button" id="submit" class="btn btn-default" style="margin: auto">提交</button>
+                <div class="form-group">
+                    <button style="text-align: center" type="button" id="submit" class="btn btn-default">提交</button>
+                </div>
             </form>
         </div>
     </div>
 </div>
-<script  type="text/javascript">
+<script type="text/javascript">
     var type = '';
-    function selectOnchang(obj){
-        $("#type").attr("value",'');
+
+    function selectOnchang(obj) {
+        $("#type").attr("value", '');
         type = obj.value;
-        $("#type").attr("value",type);
+        $("#type").attr("value", type);
     }
+
     function videoChange() {
-        window.document.getElementById("video").value=window.document.getElementById("videoSvg").value;
+        window.document.getElementById("video").value = window.document.getElementById("videoSvg").value;
     }
+
     function coverchange() {
-        window.document.getElementById("image").value=window.document.getElementById("cover").value;
+        window.document.getElementById("image").value = window.document.getElementById("cover").value;
     }
+
     function bindSubmit() {
-        $("#submit").click(function(){
+        $("#submit").click(function () {
             var title = $("#title").val();
             var description = $("#description").val();
             var price = $("#price").val();
             var type = $("#type").attr("value");
             var form = document.getElementById("issue_form");
-            if(title == '' || title == undefined){
+            if (title == '' || title == undefined) {
                 return;
             }
-            if(description == '' || description == undefined){
+            if (description == '' || description == undefined) {
                 return;
             }
-            if(type == '' || type == undefined){
+            if (type == '' || type == undefined) {
                 return;
             }
             var video = $("#video").val();
-            if(video == "") {
+            if (video == "") {
                 alert("请上传投稿的视频");
                 return false;
             } else {
-                if(!/\.(mp4)$/.test(video)) {
+                if (!/\.(mp4)$/.test(video)) {
                     alert("视频格式必须为.MP4格式")
                     return false;
                 }
                 //判断图片
                 var iamge = $("#image").val();
-                if(iamge == "") {
+                if (iamge == "") {
                     alert("请选择图片");
                     return false;
                 } else {
-                    if(!/\.(gif|jpg|jpeg|png|GIF|JPG|PNG)$/.test(iamge)) {
+                    if (!/\.(gif|jpg|jpeg|png|GIF|JPG|PNG)$/.test(iamge)) {
                         alert("图片类型必须是.gif,jpeg,jpg,png中的一种")
                         return false;
                     }
                 }
                 //判断文件总大小 不能超1g
                 //用户上传的视频
-                var videoProp =$("#video").prop('files');
-                var fileSize=0;
-                for(var i=0;i<videoProp.length;i++){
-                    fileSize=$(videoProp)[i].size;
+                var videoProp = $("#video").prop('files');
+                var fileSize = 0;
+                for (var i = 0; i < videoProp.length; i++) {
+                    fileSize = $(videoProp)[i].size;
                 }
                 //用户上传的图片
-                var imageProp =$("#image").prop('files');
-                var fileSize2=0;
-                for(var i=0;i<imageProp.length;i++){
-                    fileSize2=$(imageProp)[i].size;
+                var imageProp = $("#image").prop('files');
+                var fileSize2 = 0;
+                for (var i = 0; i < imageProp.length; i++) {
+                    fileSize2 = $(imageProp)[i].size;
                 }
 
-                var total = fileSize+fileSize2;
+                var total = fileSize + fileSize2;
                 var max = 1073741824;
-                if(total>max){
+                if (total > max) {
                     return false;
                 }
 
             }
             //判断结束
-            $("#submit").attr('disabled',true); //将button变成不可点击
+            $("#submit").attr('disabled', true); //将button变成不可点击
             var formData = new FormData($("#issue_form")[0]);
             $.ajax({
-                url: '../consumer/issue/doIssue' ,
+                url: '../consumer/issue/doIssue',
                 type: 'POST',
                 data: formData,
                 async: true,  //设置为同步
@@ -191,9 +237,9 @@
                 contentType: false,
                 processData: false,
                 success: function (data) {
-                    if(data.status=="200"){
-                        window.location.href="../consumer/issueSuccess?title="+data.message;
-                    }else{
+                    if (data.status == "200") {
+                            window.location.href = "../consumer/issueSuccess?title=" + data.message;
+                    } else {
                         alert("发布失败")
                     }
                 }
@@ -201,7 +247,7 @@
         })
     }
 
-    $(function(){
+    $(function () {
         bindSubmit();
     })
 </script>

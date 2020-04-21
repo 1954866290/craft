@@ -35,7 +35,11 @@ public class PageService {
         return systemFeignService.getUserById(userid);
     }
 
-    public List<Issue> getIssueListByTypeCode(String code){
-        return issueFeignService.getIssueListByTypeCode(code);
+    public List<Issue> getIssueListByTypeCode(String type,String code){
+        return issueFeignService.getIssueListByTypeCode(type,code);
+    }
+
+    public Type getTypeByCode(String code){
+        return  administrationFeignService.getTypeByCode(code);
     }
 }

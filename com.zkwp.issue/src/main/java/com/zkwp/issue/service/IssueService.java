@@ -77,8 +77,8 @@ public class IssueService {
         code=code.replace("-", "");
         return code;
     }
-    public List<Issue> getIssueListByTypeCode(String code){
-        return issueDao.getIssueListByTypeCode(code);
+    public List<Issue> getIssueListByTypeCode(String type,String code){
+        return issueDao.getIssueListByTypeCode(type,code);
     }
 
     public Issue getIssueByCode(String issuecode){

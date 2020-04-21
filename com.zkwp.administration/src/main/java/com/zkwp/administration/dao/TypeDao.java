@@ -31,4 +31,6 @@ public interface TypeDao {
 
     List<Type> getTypeListByPCode(@Param("pcode")String pcode);
 
+    Type getTypeByCode(@Param("code")String code);
+
 }

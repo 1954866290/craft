@@ -19,4 +19,7 @@ public interface AdministrationFeignService {
 
     @PostMapping(value = "/Type/getTypeListByPCode")
     List<Type> getTypeListByPCode(@RequestParam("pcode")String pcode);
+
+    @PostMapping(value = "/Type/getTypeByCode")
+    Type getTypeByCode(@RequestParam("code")String code);
 }

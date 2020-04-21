@@ -1,7 +1,7 @@
 package com.zkwp.administration.configBean;
 
-import com.github.tobato.fastdfs.domain.StorePath;
-import com.github.tobato.fastdfs.proto.storage.DownloadByteArray;
+import com.github.tobato.fastdfs.domain.fdfs.StorePath;
+import com.github.tobato.fastdfs.domain.proto.storage.DownloadByteArray;
 import com.github.tobato.fastdfs.service.FastFileStorageClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

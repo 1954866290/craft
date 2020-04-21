@@ -31,4 +31,8 @@ public class CommentService {
         return chatFeignService.doComment(param);
     }
 
+    public List<Map> getCommentsByUserId(String userId){
+        return chatFeignService.getCommentsByUserId(userId);
+    }
+
 }

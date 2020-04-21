@@ -16,6 +16,7 @@ import com.zkwp.system.constant.CacheConstant;
 import com.zkwp.system.dao.ILoginDao;
 import com.zkwp.system.util.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,6 +42,9 @@ public class LoginService {
 
     @Autowired
     private ILoginDao iLoginDao;
+
+    @Value("user.default.headurl")
+    private String userHeadUrl;
 
     public CommonResult sendCode(String type, String code, String ip) {
         OutputObject out = new OutputObject();
@@ -70,6 +74,7 @@ public class LoginService {
                     user = new User();
                     user.setEmail(code);
                     user.setPhone(" ");
+                    user.setHeadurl(userHeadUrl);
                     user.setNickname("###" + randomCode);
                     user.setUsercreatetime(StringUtil.dateToString(new Date()));
                     iLoginDao.createUser(user);
@@ -81,6 +86,7 @@ public class LoginService {
                     user = new User();
                     user.setPhone(code);
                     user.setEmail(" ");
+                    user.setHeadurl(userHeadUrl);
                     user.setNickname("###" + randomCode);
                     user.setUsercreatetime(StringUtil.dateToString(new Date()));
                     int res = iLoginDao.createUser(user);
