@@ -24,7 +24,7 @@ public interface IssueFeignService {
     CommonResult doIssue(@RequestBody Map params);
 
     @PostMapping("/issue/getIssueListByTypeCode")
-    List<Issue> getIssueListByTypeCode(@RequestParam("code") String code);
+    List<Issue> getIssueListByTypeCode(@RequestParam("type") String type,@RequestParam("code") String code);
 
     @PostMapping("/issue/getIssueByCode")
     Issue getIssueByCode(@RequestParam("issuecode")String issuecode);

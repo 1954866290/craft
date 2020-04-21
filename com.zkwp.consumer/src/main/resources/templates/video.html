@@ -85,7 +85,7 @@
         </div>
         <div th:each="map:${Maps}">
             <div class="media">
-                <img th:src="${map.headurl}" class="align-self-start mr-3 img-circle" th:attr="alt=${map.nickname}">
+                <img th:src="${map.headurl}" style="width: 50px;height: 50px;border-radius: 50%" class="align-self-start mr-3 img-circle" th:attr="alt=${map.nickname}">
                 <div class="media-body">
                     <h5 class="mt-0" th:text="${map.nickname}"></h5>
                     <p th:text="${map.content}"></p>
@@ -128,8 +128,6 @@
 
 <script>
     var issueid = '[(${issue.id})]';
-
-
     function showMessage(message){
 
     }

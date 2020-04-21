@@ -24,5 +24,7 @@ public class User implements Serializable {
     private String headurl;
     private String usercreatetime;
     private String userupdatetime;
+    private String province;
+    private String city;
 
 }

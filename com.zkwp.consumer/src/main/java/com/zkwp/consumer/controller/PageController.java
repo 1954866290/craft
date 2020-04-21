@@ -8,6 +8,7 @@ import com.zkwp.consumer.service.chat.CommentService;
 import com.zkwp.consumer.service.issue.IssueService;
 import com.zkwp.consumer.service.system.HistoryService;
 import com.zkwp.consumer.service.system.SystemService;
+import org.bouncycastle.math.raw.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -73,12 +74,29 @@ public class PageController {
         for (int i = 1; i <= types.size(); i++) {
             Type type = types.get(i - 1);
             modelAndView.addObject("type" + i, type);
-            List<Issue> issueList = pageService.getIssueListByTypeCode(type.getCode());
+            List<Issue> issueList = pageService.getIssueListByTypeCode("index",type.getCode());
             modelAndView.addObject("issueList" + i, issueList);
         }
         modelAndView.addObject("user", user);
+        modelAndView.addObject("types", types);
         modelAndView.setViewName("index");
         return modelAndView;
+    }
+
+    @RequestMapping("/typeindex")
+    public ModelAndView typeindex(HttpServletRequest request,HttpSession session){
+        ModelAndView modelAndView = new ModelAndView();
+        Map params = RestUtil.getParameterMap(request);
+        List<Type> types = pageService.getTypeListByPCode(ProductionType);
+        String code = StringUtil.objToString(params.get("type"));
+        String userid = StringUtil.objToString(session.getAttribute("userid"));
+        List<Issue> issueList = pageService.getIssueListByTypeCode("typeindex",code);
+        Type type = pageService.getTypeByCode(code);
+        modelAndView.addObject("issueList",issueList);
+        modelAndView.addObject("type",type);
+        modelAndView.addObject("types",types);
+        modelAndView.setViewName("typeindex");
+        return  modelAndView;
     }
 
     @RequestMapping("/login")
@@ -112,6 +130,8 @@ public class PageController {
         modelAndView.addObject("user", user);
         modelAndView.addObject("Maps", comments);
         modelAndView.addObject("issue", issue);
+        List<Type> types = pageService.getTypeListByPCode(ProductionType);
+        modelAndView.addObject("types", types);
         modelAndView.setViewName("video");
         return modelAndView;
     }
@@ -120,6 +140,8 @@ public class PageController {
     public ModelAndView issueSuccess(HttpServletRequest request, HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("issueSuccess");
+        List<Type> types = pageService.getTypeListByPCode(ProductionType);
+        modelAndView.addObject("types", types);
         return modelAndView;
     }
 
@@ -129,6 +151,8 @@ public class PageController {
         User user = systemSevice.getUserById(userid);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("user", user);
+        List<Type> types = pageService.getTypeListByPCode(ProductionType);
+        modelAndView.addObject("types", types);
         // List<Map> commentList = commentService.getCommentsByUserId(userid);
         return modelAndView;
     }
@@ -142,6 +166,8 @@ public class PageController {
         modelAndView.addObject("issueCount",issueCount);
         String scanCount = systemSevice.getScanCount();*/
         modelAndView.setViewName("introduction");
+        List<Type> types = pageService.getTypeListByPCode(ProductionType);
+        modelAndView.addObject("types", types);
         return modelAndView;
     }
 }

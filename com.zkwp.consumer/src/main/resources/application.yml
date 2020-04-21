@@ -58,7 +58,3 @@ eureka:
   instance:
     instance-id: consumer
     prefer-ip-address: true
-
-
-
-

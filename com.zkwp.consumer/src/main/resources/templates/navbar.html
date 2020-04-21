@@ -78,7 +78,7 @@
             </div>
             <div class="modal-body" id="typeModel">
                 <div th:each="type:${types}">
-                    <a th:href="@{../../consummer/system/type(type=${type.code})}" role="button" class="btn btn-secondary popover-test"  title="类型" th:attr="data-content=${type.description}" th:text="${type.name}"></a>
+                    <a th:href="@{/typeindex(type=${type.code})}" role="button" class="btn btn-secondary popover-test"  title="类型" th:attr="data-content=${type.description}" th:text="${type.name}"></a>
                 </div>
             </div>
             <div class="modal-footer">

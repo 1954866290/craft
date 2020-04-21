@@ -4,6 +4,8 @@ import com.zkwp.api.bean.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Map;
+
 /**
  * @auther zhangkun
  * @date 2020/4/12 18:43
@@ -11,4 +13,6 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface IUserDao {
     User getUserById(@Param("userid")String userid);
+
+    int updateUser(Map params);
 }

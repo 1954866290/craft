@@ -27,5 +27,9 @@ public class RestController {
        return typeService.getTypeListByPCode(pcode);
     }
 
+    @PostMapping(value = "/Type/getTypeByCode")
+    Type getTypeByCode(@RequestParam("code")String code){
+        return  typeService.getTypeByCode(code);
+    }
 
 }

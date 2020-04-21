@@ -7,4 +7,10 @@
         from sys_user
         where userid = #{userid}
     </select>
+
+    <update id="updateUser" parameterType="Map" >
+        update sys_user set nickname = #{nickname},email = #{email},introduction = #{introduction},gender=#{gender},updatedtime = #{updatetime}
+        ,city = #{city},province = #{province} ,headurl = ${headurl}
+        where userid = #{userid}
+    </update>
 </mapper>
