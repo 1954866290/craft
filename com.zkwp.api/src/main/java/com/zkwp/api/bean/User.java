@@ -26,5 +26,5 @@ public class User implements Serializable {
     private String userupdatetime;
     private String province;
     private String city;
-
+    private String fanCount;
 }
