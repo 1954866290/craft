@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zkwp.issue.dao.WechatIssueDao">
+
+    <insert id="saveIssueRecord" parameterType="com.zkwp.api.bean.Issue">
+        insert into biz_issue
+        (userid,title,description,type,videopath,price,createdtime)
+        values
+        (#{userid},#{title},#{description},#{type},#{videopath},#{price},#{issueCreatedTime})
+    </insert>
+    
+    <select id="getUserIdByPhone" parameterType="String" resultType="String">
+    select userid from sys_user where phone = #{phone}
+    </select>
+    
+    <insert id="saveImagesRecord" parameterType="com.zkwp.api.bean.Issue">
+        insert into biz_issue
+        (userid,title,description,type,oneimagepath,twoimagepath,threeimagepath,fourimagepath,price,createdtime)
+        values
+        (#{userid},#{title},#{description},#{type},#{oneimagepath},#{twoimagepath},
+        #{threeimagepath},#{fourimagepath},#{price},#{issueCreatedTime})
+    </insert>
+    
+    <select id="getIssuesById" parameterType="String" resultType="com.zkwp.api.bean.Issue">
+    select * from biz_issue where userid = #{userId}
+    </select>
+</mapper>

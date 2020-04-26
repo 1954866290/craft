@@ -3,12 +3,16 @@ package com.zkwp.api.bean;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import lombok.Data;
 
 /*
  * 统一出参类型
  */
 @Data
+@JsonInclude(value = Include.NON_NULL)
 public class OutputObject {
 	private String returnCode;
 	private String returnMessage;

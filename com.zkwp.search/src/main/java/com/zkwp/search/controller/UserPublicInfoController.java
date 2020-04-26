@@ -133,7 +133,7 @@ public class UserPublicInfoController {
 				String title = (String) sourceAsMap.get("title");
 				userPublic.setTitle(title);
 				String description = (String) sourceAsMap.get("description");
-				userPublic.setDescription(description);
+				userPublic.setDiscription(description);
 				String viewcount = (String) sourceAsMap.get("viewcount");
 				userPublic.setViewcount(viewcount);
 				String charmingcount = (String) sourceAsMap.get("charmingcount");

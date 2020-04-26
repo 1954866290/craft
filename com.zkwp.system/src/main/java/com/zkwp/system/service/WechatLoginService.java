@@ -69,7 +69,7 @@ public class WechatLoginService {
             	userNew.setPhone(phone);
             	userNew.setUsercreatetime(sdf.format(now));
             	wechatUserDao.createUserWechat(userNew);
-            	out.setReturnCode("00");
+            	out.setReturnCode("0000");
             	out.setReturnMessage("用户注册成功");
             }
         } else {

@@ -19,12 +19,18 @@ import java.util.Map;
 @FeignClient(value = "craft-issue" ,path = "/craft/issue")
 @RequestMapping(value = "/feign-api")
 public interface IssueFeignService {
-    @PostMapping("/issue/doIssue")
-    OutputObject doIssue(@RequestBody Map params);
-
-    @PostMapping("/issue/getIssueListByTypeCode")
-    List<Issue> getIssueListByTypeCode(@RequestParam("code") String code);
-
-    @PostMapping("/issue/getIssueByCode")
-    Issue getIssueByCode(@RequestParam("issuecode")String issuecode);
+	@RequestMapping("/wechat/getUserId")
+    String getUserIdByPhone(@RequestParam("phone") String phone);
+	
+	@RequestMapping("/wechat/videoUpload")
+    OutputObject videoIssue(@RequestBody Map params);
+	
+	@RequestMapping("/wechat/imagesUpload")
+    OutputObject imageIssue(@RequestParam("imagesPath") String imagesPath, @RequestBody Map params);
+	
+	@RequestMapping("/wechat/getIssueInfo")
+	OutputObject getUserIssueInfo(@RequestParam("userId") String userId);
+	
+	@RequestMapping("/wechat/getIssueInfoAll")
+	OutputObject getUserIssueInfoAll(@RequestBody Map params);
 }

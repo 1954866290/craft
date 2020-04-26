@@ -61,7 +61,9 @@ public class SmallRoutineController {
     	int pageNum = Integer.parseInt(pageNumber);
     	int pageSize1 = Integer.parseInt(pageSize);
     	PageHelper.startPage(pageNum, pageSize1);
+    	System.out.println(imageName);
     	List<UserPublic> beans = smallRoutineService.getSwiperDataByImageName(imageName);
+    	System.out.println(beans);
     	out.setSearchTotals(total.size());
     	out.setList(beans);
     	return out;

@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
@@ -14,14 +13,18 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.alibaba.fastjson.JSON;
 import com.zkwp.api.bean.OutputObject;
 import com.zkwp.wechat.issue.service.WechatIssueService;
-import com.zkwp.wechat.util.JsonUtil;
+/**
+ * 微信小程序文件上传
+ * @author 王朋
+ *
+ */
 @Controller
 public class WechatIssueController {
 	private Logger logger = LoggerFactory.getLogger(WechatIssueController.class);
@@ -41,8 +44,8 @@ public class WechatIssueController {
     private RestTemplate restTemplate;
 
     @Autowired
-    WechatIssueService issueService;
-    
+    WechatIssueService wechatIssueService;
+
     /**
      * 视频发布
      * @param request
@@ -52,26 +55,69 @@ public class WechatIssueController {
      */
     @RequestMapping(value = "/videoIssue")
     @ResponseBody
-    public OutputObject videoIssue(HttpServletRequest request, HttpSession session,  @Param("video")MultipartFile video) {
+    public OutputObject videoIssue(HttpServletRequest request, @Param("video")MultipartFile video) {
        OutputObject out = new OutputObject();
        String title = request.getParameter("issueTitle");
        String description = request.getParameter("description");
        String types = request.getParameter("types");
+       String phone = request.getParameter("phone");
+       String price = request.getParameter("price");
        Map<String, String> params = new HashMap<String, String>();
        params.put("title", title);
        params.put("description", description);
        params.put("type", types);
-//        String userid = StringUtil.objToString(session.getAttribute("userid"));
-        params.put("userid","12");
-        params.put("coverPath","1111");
-        params.put("price","100");
-//        String title = StringUtil.objToString(params.get("title"));
+       String userId = wechatIssueService.getUserInfoByPhone(phone);
+       params.put("userId", userId);
+       params.put("price",price);
         try{
-            out = issueService.videoIssue(video, params);
-        }catch (Exception e){
-            logger.error("IssueController::doIssue throws exception",e);
+            out = wechatIssueService.videoIssue(video, params);
+            }catch (Exception e){
+            e.printStackTrace();
         }
         return out;
+    }
+    
+    /**
+     * 图片上传
+     * 由于小程序上传多张图片时，会多次调用后台，因此该接口用户单纯的接收图片，并返回图片路径，小程序接收图片路径，
+     * 并封装成数组，和作品相关信息再次调用 图片发布接口进行作品发布
+     * @param imageSrc
+     * @return
+     */
+    @RequestMapping(value = "/imagesUpload")
+    @ResponseBody
+    public OutputObject imagesUpload(@RequestParam("imageSrc") MultipartFile imageSrc) {
+    	OutputObject out = new OutputObject();
+    	out = wechatIssueService.imageUpload(imageSrc);
+    	return out;
+    }
+    
+    
+    /**
+     * 图片发布
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/imagesIssue")
+    @ResponseBody
+    public OutputObject imagesIssue(HttpServletRequest request) {
+    	OutputObject out = new OutputObject();
+    	Map params = new HashMap();
+    	String title = request.getParameter("issueTitle");
+        String description = request.getParameter("description");
+        String types = request.getParameter("types");
+        String phone = request.getParameter("phone");
+        String price = request.getParameter("price");
+        String imagesPath = request.getParameter("imagesList");
+        params.put("title", title);
+        params.put("description", description);
+        params.put("types", types);
+        params.put("phone", phone);
+        params.put("price", price);
+        String userId = wechatIssueService.getUserInfoByPhone(phone);
+        params.put("userId", userId);
+        out = wechatIssueService.imagesIssue(imagesPath, params);
+    	return out;
     }
     
     /**
@@ -84,7 +130,7 @@ public class WechatIssueController {
     public OutputObject UserLogin(HttpServletRequest request) {
     	OutputObject out = new OutputObject();
     	String phone = request.getParameter("phone");
-    	out = issueService.userLoginWechat(phone);
+    	out = wechatIssueService.userLoginWechat(phone);
     	return out;
     }
     /**
@@ -96,13 +142,44 @@ public class WechatIssueController {
     @ResponseBody
     public OutputObject weChatCheckCode(HttpServletRequest request) {
     	OutputObject out = new OutputObject();
-    	String userInfo = request.getParameter("userInfo");
-    	Map<String, String> userMap = (Map<String, String>) JsonUtil.convertJson2Object(userInfo, Map.class);
-    	String phone = userMap.get("phone");
-    	String code = userMap.get("code");
-    	out = issueService.checkRandomCode(phone, code);
+    	//String userInfo = request.getParameter("userInfo");
+    	// Map<String, String> userMap = (Map<String, String>) JsonUtil.convertJson2Object(userInfo, Map.class);
+    	String phone = request.getParameter("phone");
+    	String code = request.getParameter("code");
+    	out = wechatIssueService.checkRandomCode(phone, code);
     	return out;
     }
-
+    
+    /**
+     * 根据用户手机号获取用户id和用户已发布的作品信息
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/getMyIssueInfo")
+    @ResponseBody
+    public OutputObject getMyIssueInfo(HttpServletRequest request) {
+    	OutputObject out = new OutputObject();
+    	OutputObject out1 = new OutputObject();
+    	String requestPageNum = request.getParameter("pagenum");
+    	String requestPageSize = request.getParameter("pagesize");
+    	String phone = request.getParameter("phone");
+    	System.out.println(requestPageNum);
+    	System.out.println(requestPageSize);
+    	System.out.println(phone);
+    	// 根据手机号获取用户id
+    	String userId = wechatIssueService.getUserInfoByPhone(phone);
+    	// 根据用户id去查询用户发布作品信息
+    	out = wechatIssueService.getWroksInfo(userId);
+    	System.out.println(out.getReturnList());
+    	System.out.println(out.getReturnList().size());
+    	Map params = new HashMap();
+    	params.put("pageNum", requestPageNum);
+    	params.put("pageSize", requestPageSize);
+    	params.put("userId", userId);
+    	out1 = wechatIssueService.getWroksInfoBreakPage(params);
+    	out1.setSearchTotals(out.getReturnList().size());
+    	System.out.println(out1);
+    	return out1;
+    }
 
 }
