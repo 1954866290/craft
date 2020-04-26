@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zkwp.chat.dao.statistics.IStatisticsDao">
+    <update id="updateSightIssue" parameterType="com.zkwp.api.bean.statistics.SightIssue">
+        update biz_issue set viewcount =
+        <foreach collection="sightIssueList" item="item" index="index" open="case id" close="end" separator=" ">
+            when #{item.issueId} then viewcount+ #{item.count}
+        </foreach>
+        where id in (
+        <foreach collection="sightIssueList" item="item" separator="," index="index">
+            #{item.issueId}
+        </foreach>
+        )
+    </update>
+
+
+    <update id="updateSightWebSite" parameterType="com.zkwp.api.bean.statistics.SightWebSite">
+        update biz_statistical_calendar set count = count+ #{sightWebSite.count}
+        where calendar = #{sightWebSite.calendar}
+    </update>
+
+    <insert id="insertSightWebSiteCalendar" parameterType="com.zkwp.api.bean.statistics.SightWebSite">
+        insert into biz_statistical_calendar
+        (count,calendar)
+        values
+        (#{sightWebsite.count},#{sightWebsite.calendar})
+    </insert>
+
+    <update id="updateCommentIssue" parameterType="com.zkwp.api.bean.statistics.CommentIssue">
+        update biz_issue set commentCount =
+        <foreach collection="sightIssueList" item="item" index="index" open="case id" close="end" separator=" ">
+            when #{item.issueId} then commentCount+ #{item.count}
+        </foreach>
+        where id in (
+        <foreach collection="sightIssueList" item="item" separator="," index="index">
+            #{item.issueId}
+        </foreach>
+        )
+    </update>
+
+    <update id="updateAttentionUser" parameterType="com.zkwp.api.bean.statistics.AttentionUser">
+        update sys_user set fanCount =
+        <foreach collection="sightIssueList" item="item" index="index" open="case id" close="end" separator=" ">
+            when #{item.userId} then fanCount+ #{item.count}
+        </foreach>
+        where id in (
+        <foreach collection="sightIssueList" item="item" separator="," index="index">
+            #{item.userId}
+        </foreach>
+        )
+    </update>
+
+    <update id="updateLikeComment" parameterType="com.zkwp.api.bean.statistics.LikeComment">
+        update biz_comment set likeCount =
+        <foreach collection="sightIssueList" item="item" index="index" open="case id" close="end" separator=" ">
+            when #{item.commentId} then likeCount+ #{item.count}
+        </foreach>
+        where id in (
+        <foreach collection="sightIssueList" item="item" separator="," index="index">
+            #{item.commentId}
+        </foreach>
+        )
+    </update>
+
+    <update id="updateLikeIssue" parameterType="com.zkwp.api.bean.statistics.LikeComment">
+        update biz_issue set charmingcount =
+        <foreach collection="sightIssueList" item="item" index="index" open="case id" close="end" separator=" ">
+            when #{item.issueId} then charmingcount+ #{item.count}
+        </foreach>
+        where id in (
+        <foreach collection="sightIssueList" item="item" separator="," index="index">
+            #{item.issueId}
+        </foreach>
+        )
+    </update>
+</mapper>
