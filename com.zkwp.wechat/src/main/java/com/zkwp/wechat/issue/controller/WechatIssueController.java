@@ -163,23 +163,48 @@ public class WechatIssueController {
     	String requestPageNum = request.getParameter("pagenum");
     	String requestPageSize = request.getParameter("pagesize");
     	String phone = request.getParameter("phone");
-    	System.out.println(requestPageNum);
-    	System.out.println(requestPageSize);
-    	System.out.println(phone);
     	// 根据手机号获取用户id
     	String userId = wechatIssueService.getUserInfoByPhone(phone);
     	// 根据用户id去查询用户发布作品信息
     	out = wechatIssueService.getWroksInfo(userId);
-    	System.out.println(out.getReturnList());
-    	System.out.println(out.getReturnList().size());
     	Map params = new HashMap();
     	params.put("pageNum", requestPageNum);
     	params.put("pageSize", requestPageSize);
     	params.put("userId", userId);
     	out1 = wechatIssueService.getWroksInfoBreakPage(params);
     	out1.setSearchTotals(out.getReturnList().size());
-    	System.out.println(out1);
     	return out1;
+    }
+    
+    /**
+     * 根据作品id获取作品详细信息
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/getIssueDetails")
+    @ResponseBody
+    public OutputObject getIssueDetails(HttpServletRequest request) {
+    	OutputObject out = new OutputObject();
+    	String worksId = request.getParameter("id");
+    	out = wechatIssueService.getWorksInfoById(worksId);
+    	return out;
+    }
+    
+    /**
+     * 根据作品id删除作品
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/deleteIssueById")
+    @ResponseBody
+    public OutputObject deleteIssueById(HttpServletRequest request) {
+    	OutputObject out = new OutputObject();
+    	String phone = request.getParameter("phone");
+    	String worksId = request.getParameter("worksId");
+    	// 根据手机号获取用户id
+    	String userId = wechatIssueService.getUserInfoByPhone(phone);
+    	out = wechatIssueService.deleteIssue(userId, worksId);
+    	return out;
     }
 
 }

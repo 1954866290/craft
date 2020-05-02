@@ -22,6 +22,7 @@ public class OutputObject {
 	private Map returnMap;
 	private List returnList;
 	private List<Map> finalList;
+	private Object object;
 	
 	
 }

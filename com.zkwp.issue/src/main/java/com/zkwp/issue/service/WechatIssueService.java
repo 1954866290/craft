@@ -1,5 +1,6 @@
 package com.zkwp.issue.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -8,14 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
-import com.rabbitmq.tools.json.JSONUtil;
 import com.zkwp.api.bean.Issue;
 import com.zkwp.api.bean.OutputObject;
-import com.zkwp.api.utils.CommonResult;
 import com.zkwp.api.utils.StringUtil;
 import com.zkwp.issue.dao.WechatIssueDao;
 import com.zkwp.issue.util.JsonUtil;
-import com.zkwp.system.dao.WechatUserDao;
 
 @Service
 public class WechatIssueService {
@@ -33,7 +31,7 @@ public class WechatIssueService {
         String videoPath = StringUtil.objToString(params.get("videoPath"));
         String userid = StringUtil.objToString(params.get("userId"));
         Issue issue = new Issue();
-        issue.setIssueCreatedTime(StringUtil.dateToString(new Date()));
+        issue.setCreatedtime(StringUtil.dateToString(new Date()));
         issue.setTitle(StringUtil.objToString(params.get("title")));
         issue.setDescription(StringUtil.objToString(params.get("description")));
         issue.setUserid(userid);
@@ -72,7 +70,7 @@ public class WechatIssueService {
         		issue.setFourimagepath((String)imagesPath.get(i));
         	}
         }
-        issue.setIssueCreatedTime(StringUtil.dateToString(new Date()));
+        issue.setCreatedtime(StringUtil.dateToString(new Date()));
         issue.setTitle(StringUtil.objToString(params.get("title")));
         issue.setDescription(StringUtil.objToString(params.get("description")));
         issue.setUserid(userid);
@@ -120,12 +118,49 @@ public class WechatIssueService {
 		String userId = StringUtil.objToString(params.get("userId"));
 		int pagenum = Integer.parseInt(pageNum);
 		int pagesize = Integer.parseInt(pageSize);
-		System.out.println(pagenum);
-		System.out.println(pagesize);
-		System.out.println(userId);
 		PageHelper.startPage(pagenum, pagesize);
 		List<Issue> issueList = wechatIssueDao.getIssuesById(userId);
 		out.setReturnList(issueList);
+		return out;
+	}
+	
+	/**
+	 * 根据作品id获取作品详细信息
+	 */
+	public OutputObject getWorksInfoById(String worksId) {
+		OutputObject out = new OutputObject();
+		List imagesList = new ArrayList();
+		Issue issue = wechatIssueDao.getWorksInfoById(worksId);
+		if (StringUtil.isNotBlank(issue.getOneimagepath())) {
+			imagesList.add(issue.getOneimagepath());
+		}
+		if (StringUtil.isNotBlank(issue.getTwoimagepath())) {
+			imagesList.add(issue.getTwoimagepath());
+		}
+		if (StringUtil.isNotBlank(issue.getThreeimagepath())) {
+			imagesList.add(issue.getThreeimagepath());
+		}
+		if (StringUtil.isNotBlank(issue.getFourimagepath())) {
+			imagesList.add(issue.getFourimagepath());
+		}
+		out.setReturnList(imagesList);
+		out.setObject(issue);
+		return out;
+	}
+	
+	/**
+	 * 删除作品
+	 * @param userId
+	 * @param worksId
+	 * @return
+	 */
+	public OutputObject deleteIssue(String userId, String worksId) {
+		OutputObject out = new OutputObject();
+		int i = wechatIssueDao.deleteWorks(userId, worksId);
+	    if (1 == i) {
+	        out.setReturnCode("0000");
+	        out.setReturnMessage("作品已删除");
+	        } 
 		return out;
 	}
 

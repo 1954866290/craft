@@ -17,6 +17,11 @@ public interface UserPublicInfoService {
 	    void updateUserPubInfoByWorksId(UserPublic userPub);
 		// 插入userPub
 		void saveUserPubInfo(UserPublic userPub);
+		// 获取商品列表
 		List<UserPublic> getGoodsListByTitle(String typeName);
+		// 获取推荐列表
+		List getTuiJianList(String typeName);
+		// 获取新品列表
+		List getNewList(String typeName);
 
 }

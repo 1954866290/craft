@@ -15,5 +15,9 @@ public interface WechatIssueDao {
 	int saveImagesRecord(Issue issue);
 	// 根据用户id获取用户已发布的作品
 	List<Issue> getIssuesById(String userId);
+	// 根据作品id获取作品详细信息
+	Issue getWorksInfoById(String worksId);
+	// 删除作品
+	int deleteWorks(String userId, String worksId);
 
 }

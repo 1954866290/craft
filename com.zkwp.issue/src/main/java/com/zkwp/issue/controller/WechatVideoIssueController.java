@@ -87,5 +87,26 @@ public class WechatVideoIssueController {
 		out = wechatIssueService.getIssuesByUserIdAll(params);
 		return out;
 	}
-
+	
+	@RequestMapping(value = "/wechat/getWorksInfoById")
+	@ResponseBody
+	public OutputObject getWorksInfoById(@RequestParam("worksId") String worksId) {
+		OutputObject out = new OutputObject();
+		out = wechatIssueService.getWorksInfoById(worksId);
+		return out;
+	}
+	
+	/**
+	 * 删除作品
+	 * @param userId
+	 * @param worksId
+	 * @return
+	 */
+	@RequestMapping(value = "/wechat/deleteWorksById")
+	@ResponseBody
+	public OutputObject deleteWorksById(@RequestParam("userId") String userId, @RequestParam("worksId") String worksId) {
+		OutputObject out = new OutputObject();
+		out = wechatIssueService.deleteIssue(userId, worksId);
+		return out;
+	}
 }

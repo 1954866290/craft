@@ -51,4 +51,16 @@ public class UserPublicInfoServiceImpl implements UserPublicInfoService{
 		return this.userPublicInfoDao.getGoodsListByTitle(typeName);
 	}
 
+	@Override
+	public List getTuiJianList(String typeName) {
+		// TODO Auto-generated method stub
+		return this.userPublicInfoDao.getTuiJianList(typeName);
+	}
+
+	@Override
+	public List getNewList(String typeName) {
+		// TODO Auto-generated method stub
+		return this.userPublicInfoDao.getNewList(typeName);
+	}
+
 }

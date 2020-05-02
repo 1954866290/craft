@@ -6,7 +6,7 @@
         insert into biz_issue
         (userid,title,description,type,videopath,price,createdtime)
         values
-        (#{userid},#{title},#{description},#{type},#{videopath},#{price},#{issueCreatedTime})
+        (#{userid},#{title},#{description},#{type},#{videopath},#{price},#{createdtime})
     </insert>
     
     <select id="getUserIdByPhone" parameterType="String" resultType="String">
@@ -18,10 +18,18 @@
         (userid,title,description,type,oneimagepath,twoimagepath,threeimagepath,fourimagepath,price,createdtime)
         values
         (#{userid},#{title},#{description},#{type},#{oneimagepath},#{twoimagepath},
-        #{threeimagepath},#{fourimagepath},#{price},#{issueCreatedTime})
+        #{threeimagepath},#{fourimagepath},#{price},#{createdtime})
     </insert>
     
     <select id="getIssuesById" parameterType="String" resultType="com.zkwp.api.bean.Issue">
-    select * from biz_issue where userid = #{userId}
+    select * from biz_issue where userid = #{userId} order by createdtime desc
     </select>
+    
+    <select id="getWorksInfoById" parameterType="String" resultType="com.zkwp.api.bean.Issue">
+    select * from biz_issue where id = #{worksId}
+    </select>
+    
+    <delete id="deleteWorks" parameterType="String">
+    delete from biz_issue where userid = #{userId} and id = #{worksId}
+    </delete>
 </mapper>

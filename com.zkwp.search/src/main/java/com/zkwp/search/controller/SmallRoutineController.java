@@ -98,6 +98,22 @@ public class SmallRoutineController {
     	int pageNum = Integer.parseInt(request.getParameter("pagenum"));
     	int pageSize = Integer.parseInt(request.getParameter("pagesize"));
     	OutputObject out = new OutputObject();
+    	if ("推荐".equals(typeName)) {
+    		List tuiJiaTotal = userPublicInfoService.getTuiJianList(typeName);
+    		PageHelper.startPage(pageNum, pageSize);
+    		List tuiJianList = userPublicInfoService.getTuiJianList(typeName);
+    		out.setReturnList(tuiJianList);
+    		out.setSearchTotals(tuiJiaTotal.size());
+    		return out;
+    	}
+    	if ("新品".equals(typeName)) {
+    		List newTotal = userPublicInfoService.getNewList(typeName);
+    		PageHelper.startPage(pageNum, pageSize);
+    		List newList = userPublicInfoService.getNewList(typeName);
+    		out.setReturnList(newList);
+    		out.setSearchTotals(newTotal.size());
+    		return out;
+    	}
     	// 先查询出总条数，再进行分页查询
     	List<UserPublic> total = userPublicInfoService.getGoodsListByTitle(typeName);
     	PageHelper.startPage(pageNum, pageSize);

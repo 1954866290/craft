@@ -33,4 +33,10 @@ public interface IssueFeignService {
 	
 	@RequestMapping("/wechat/getIssueInfoAll")
 	OutputObject getUserIssueInfoAll(@RequestBody Map params);
+	
+	@RequestMapping("/wechat/getWorksInfoById")
+	OutputObject getWorksInfoById(@RequestParam("worksId") String worksId);
+	
+	@RequestMapping("/wechat/deleteWorksById")
+	OutputObject deleteWorksById(@RequestParam("userId") String userId, @RequestParam("worksId") String worksId);
 }

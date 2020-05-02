@@ -266,4 +266,10 @@ where worksid=#{worksid}
 <select id="getGoodsListByTitle" parameterType="String" resultType="com.zkwp.api.bean.UserPublic">
 select * from biz_user_public_info where title=#{typeName}
 </select>
+<select id="getTuiJianList" parameterType="String" resultType="com.zkwp.api.bean.Issue">
+select * from biz_issue order by charmingcount desc
+</select>
+<select id="getNewList" parameterType="String" resultType="com.zkwp.api.bean.Issue">
+select * from biz_issue order by createdtime desc
+</select>
 </mapper>

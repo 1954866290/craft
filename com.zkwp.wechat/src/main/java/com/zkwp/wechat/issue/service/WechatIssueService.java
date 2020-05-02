@@ -125,6 +125,29 @@ public class WechatIssueService {
 	    	out = issueFeignService.getUserIssueInfoAll(params);
 	    	return out;
 	    }
+	    
+	    /**
+	     * 根据作品id获取作品详细信息
+	     * @param worksId
+	     * @return
+	     */
+	    public OutputObject getWorksInfoById(String worksId) {
+	    	OutputObject out = new OutputObject();
+	    	out = issueFeignService.getWorksInfoById(worksId);
+	    	return out;
+	    }
+	    
+	    /**
+	     * 删除作品
+	     * @param userId
+	     * @param worksId
+	     * @return
+	     */
+	    public OutputObject deleteIssue(String userId, String worksId) {
+	    	OutputObject out = new OutputObject();
+	    	out = issueFeignService.deleteWorksById(userId, worksId);
+	    	return out;
+	    }
 
 
 }

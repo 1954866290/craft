@@ -54,7 +54,7 @@ public class IssueService {
         String coverPath = StringUtil.objToString(params.get("coverPath"));
         String userid = StringUtil.objToString(params.get("userid"));
         Issue issue = new Issue();
-        issue.setIssueCreatedTime(StringUtil.dateToString(new Date()));
+        issue.setCreatedtime(StringUtil.dateToString(new Date()));
         issue.setOneimagepath(coverPath);
         issue.setTitle(StringUtil.objToString(params.get("title")));
         issue.setDescription(StringUtil.objToString(params.get("description")));
@@ -65,7 +65,7 @@ public class IssueService {
         issue.setType(StringUtil.objToString(params.get("type")));
         issue.setViewcount("0");
         issue.setVideopath(videoPath);
-        issue.setIssueUpdatedTime(StringUtil.dateToString(new Date()));
+        issue.setUpdatedtime(StringUtil.dateToString(new Date()));
         issue.setCode(creatCode());
         int i = issueDao.insertIssueRecord(issue);
         return CommonResult.success(i);
