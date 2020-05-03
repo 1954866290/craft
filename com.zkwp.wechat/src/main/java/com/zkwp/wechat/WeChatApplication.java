@@ -9,15 +9,13 @@ import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  * @auther zhangkun
  * @date 2020/4/4 12:50
  **/
-@SpringBootApplication(scanBasePackages = "com.zkwp.wechat",exclude = {
-        DataSourceAutoConfiguration.class,
-        DataSourceTransactionManagerAutoConfiguration.class,
-        HibernateJpaAutoConfiguration.class})
+@SpringBootApplication(scanBasePackages = "com.zkwp.wechat")
 @EnableHystrix
 @EnableDiscoveryClient
 @EnableCircuitBreaker

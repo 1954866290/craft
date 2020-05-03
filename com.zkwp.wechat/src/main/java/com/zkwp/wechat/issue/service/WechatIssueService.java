@@ -148,6 +148,4 @@ public class WechatIssueService {
 	    	out = issueFeignService.deleteWorksById(userId, worksId);
 	    	return out;
 	    }
-
-
 }
