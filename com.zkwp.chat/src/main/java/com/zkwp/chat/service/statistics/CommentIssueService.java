@@ -36,7 +36,7 @@ public class CommentIssueService {
     }
 
     @Scheduled(cron = "0 0/5 * * * ? *")
-    private void addDB() {
+    private void addDBCommentIssue() {
         ConcurrentMap<String, CommentIssue> temp = stringCommentIssueConcurrentMap;
         stringCommentIssueConcurrentMap.clear();
         Iterator<Map.Entry<String, CommentIssue>> entryIterator = temp.entrySet().iterator();

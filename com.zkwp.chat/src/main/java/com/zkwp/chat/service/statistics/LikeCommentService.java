@@ -15,10 +15,11 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/**
+/*
  * @auther zhangkun
  * @date 2020/4/25 14:46
- **/
+ */
+
 @Service
 public class LikeCommentService {
     private ConcurrentMap<String, LikeComment> concurrentMap = new ConcurrentHashMap<>();
@@ -36,7 +37,7 @@ public class LikeCommentService {
     }
 
     @Scheduled(cron = "0 0/5 * * * ? *")
-    private void addDB() {
+    private void addDBLikeComment() {
         ConcurrentMap<String, LikeComment> temp = concurrentMap;
         concurrentMap.clear();
         Iterator<Map.Entry<String, LikeComment>> entryIterator = temp.entrySet().iterator();

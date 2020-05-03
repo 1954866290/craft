@@ -25,10 +25,10 @@ public class RestController {
     @Autowired
     private CommentService commentService;
 
-    @Autowired
-    private AttentionUserService attentionUserService;
+    /*@Autowired
+    private AttentionUserService attentionUserService;*/
 
-    @Autowired
+  /*  @Autowired
     private CommentIssueService commentIssueService;
 
     @Autowired
@@ -41,7 +41,7 @@ public class RestController {
     private SightWebSiteService sightWebSiteService;
 
     @Autowired
-    private SightIssueService sightIssueService;
+    private SightIssueService sightIssueService;*/
 
     @PostMapping("/Comment/getCommentsTop5")
     public List<Map> getCommentsTop5(@RequestBody Map params) {
@@ -63,12 +63,12 @@ public class RestController {
         }
     }
 
-    @PostMapping("/Statistics/addAttentionUser")
+   /* @PostMapping("/Statistics/addAttentionUser")
     public void addAttentionUser(@RequestParam("userid") String userId) {
         attentionUserService.accumulateAttentionUser(userId);
-    }
+    }*/
 
-    @PostMapping("/Statistics/addCommentIssue")
+  /*  @PostMapping("/Statistics/addCommentIssue")
     public void addCommentIssue(@RequestParam("issueid") String issueId) {
         commentIssueService.accumulateCommentIssue(issueId);
     }
@@ -92,6 +92,6 @@ public class RestController {
     public void addSightWebSite() {
         sightWebSiteService.accumulateSightWebSite();
     }
-
+*/
 
 }

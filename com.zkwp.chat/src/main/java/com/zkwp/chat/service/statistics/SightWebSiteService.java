@@ -13,10 +13,11 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/**
+/*
  * @auther zhangkun
  * @date 2020/4/25 13:03
- **/
+ */
+
 @Service
 public class SightWebSiteService {
 
@@ -31,7 +32,7 @@ public class SightWebSiteService {
     }
 
     @Scheduled(cron = "0 0/5 * * * ? *")
-    private void addDB() {
+    private void addDBSightWebSite() {
         SightWebSite temp = sightWebSite;
 
         temp.setCalendar(getCalendar());
