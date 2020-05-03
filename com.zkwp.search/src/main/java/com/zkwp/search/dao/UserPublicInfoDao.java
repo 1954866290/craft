@@ -22,5 +22,9 @@ public interface UserPublicInfoDao {
 	void saveUserPubInfo(UserPublic userPub);
 	//根据类别名称查询商品列表
 	List<UserPublic> getGoodsListByTitle(String typeName);
+	// 获取推荐列表
+	List getTuiJianList(String typeName);
+	// 获取新品列表
+    List getNewList(String typeName);
 
 }

@@ -20,8 +20,8 @@ public class Issue implements Serializable {
     private String viewcount;
     private String charmingcount ;
     private String type;
-    private String issueCreatedTime;
-    private String issueUpdatedTime;
+    private String createdtime;
+    private String updatedtime;
     private String delflag;
     private String oneimagepath;//第一张图片路径
     private String twoimagepath;//第二张图片路径

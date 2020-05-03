@@ -27,7 +27,7 @@ public class UserPublic {
     private String usercreatetime;//用户创建时间
     private String userupdatetime;//用户信息修改时间
     private String title;//发布作品标题
-    private String description;//发布作品描述
+    private String discription;//发布作品描述
     private String viewcount;//观看次数
     private String charmingcount ;//点赞数
     private String type;//作品类型
