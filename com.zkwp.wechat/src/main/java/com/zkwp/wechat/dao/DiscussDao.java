@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.zkwp.api.bean.BizComment;
+import com.zkwp.api.bean.Feedback;
+import com.zkwp.api.bean.OutputObject;
 @Mapper
 public interface DiscussDao {
 	
@@ -15,5 +17,13 @@ public interface DiscussDao {
 	String getUserId(String worksId);
 
 	String getNickname(String userId);
+
+	int saveFeedback(Feedback feedback);
+
+	List<Feedback> getMyFeedbackInfo(String userId);
+
+	int getViewCount(String worksId);
+
+	int updateViewCount(String worksId, int finalViewCount);
 
 }

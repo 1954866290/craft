@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.github.pagehelper.PageHelper;
 import com.zkwp.api.bean.BizComment;
+import com.zkwp.api.bean.Feedback;
 import com.zkwp.api.bean.Issue;
 import com.zkwp.api.bean.OutputObject;
 import com.zkwp.api.utils.StringUtil;
@@ -256,6 +257,75 @@ public class WechatIssueController {
     	String worksId = request.getParameter("worksId");
     	List<BizComment> discussListTotal = discussService.getDiscussInfo(worksId);
     	out.setReturnList(discussListTotal);
+    	return out;
+    }
+    
+    /**
+     * 意见反馈接口
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/feedback")
+    @ResponseBody
+    public OutputObject feedback(HttpServletRequest request, @RequestParam("imageSrc") MultipartFile imageSrc) {
+    	OutputObject out = new OutputObject();
+    	String question = request.getParameter("question");
+    	String phone = request.getParameter("phone");
+    	// 根据手机号获取用户id
+    	String userId = wechatIssueService.getUserInfoByPhone(phone);
+    	Feedback feedback = new Feedback();
+    	feedback.setUserId(userId);
+    	if (StringUtil.isNotBlank(question)) {
+    		feedback.setUserQuestion(question);
+    	}
+    	// 根据是否能够获取到文件名称判断是否有图片上传
+    	if (StringUtil.isNotBlank(imageSrc.getOriginalFilename())) {
+    		OutputObject out1 = wechatIssueService.imageUpload(imageSrc);
+    		String image = out1.getReturnMessage();
+    		feedback.setUserImage(image);
+    	}
+    	int i = discussService.saveFeedback(feedback);
+    	if (1==i) {
+    		out.setReturnCode("0000");
+        	out.setReturnMessage("反馈成功");
+    	}
+    	return out;
+    }
+    
+    /**
+     * 获取我的反馈信息
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/myFeedbackInfo")
+    @ResponseBody
+    public OutputObject myFeedbackInfo(HttpServletRequest request) {
+    	OutputObject out = new OutputObject();
+    	String phone = request.getParameter("phone");
+    	// 根据手机号获取用户id
+    	String userId = wechatIssueService.getUserInfoByPhone(phone);
+    	List<Feedback> list = discussService.getMyFeedbackInfo(userId);
+    	out.setReturnList(list);
+    	return out;
+    }
+    
+    /**
+     * 增加浏览次数,首先根据作品id获取作品的浏览次数或播放量，然后加1
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/addViewCount")
+    @ResponseBody
+    public OutputObject addViewCount(HttpServletRequest request) {
+    	OutputObject out = new OutputObject();
+    	String worksId = request.getParameter("worksId");
+    	int viewCount = discussService.getViewCount(worksId);
+    	int finalViewCount = viewCount + 1;
+    	int i = discussService.updateViewCount(worksId, finalViewCount);
+    	if (1==i) {
+    		out.setReturnCode("0000");
+        	out.setReturnMessage("作品浏览次数更新成功");
+    	}
     	return out;
     }
 

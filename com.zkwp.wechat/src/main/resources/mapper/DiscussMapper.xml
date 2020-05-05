@@ -14,4 +14,17 @@ select userid from biz_issue where id = #{worksId}
 <select id="getNickname" parameterType="String" resultType="String">
 select nickname from sys_user where userid = #{userId}
 </select>
+<insert id="saveFeedback" parameterType="com.zkwp.api.bean.Feedback">
+insert into wechat_feedback (userid,user_question,question_image)
+values(#{userId},#{userQuestion},#{userImage})
+</insert>
+<select id="getMyFeedbackInfo" parameterType="String" resultType="com.zkwp.api.bean.Feedback">
+select * from wechat_feedback where userid = #{userId}
+</select>
+<select id="getViewCount" parameterType="String" resultType="int">
+select viewcount from biz_issue where id = #{worksId}
+</select>
+<update id="updateViewCount" parameterType="String">
+update biz_issue set viewcount=#{finalViewCount} where id = #{worksId}
+</update>
 </mapper>
