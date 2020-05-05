@@ -15,10 +15,11 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/**
+/*
  * @auther zhangkun
  * @date 2020/4/22 21:19
- **/
+ */
+
 @Service
 public class SightIssueService {
 
@@ -40,7 +41,7 @@ public class SightIssueService {
 
     //每五分钟执行一次
     @Scheduled(cron = "0 0/5 * * * ? *")
-    private void addDB() {
+    private void addDBSightIssue() {
         if (sightContainer.size() == 0) {
             return;
         }
