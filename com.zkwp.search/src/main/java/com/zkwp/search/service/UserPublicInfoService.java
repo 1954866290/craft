@@ -5,6 +5,7 @@ import java.util.List;
 import com.zkwp.api.bean.Issue;
 import com.zkwp.api.bean.User;
 import com.zkwp.api.bean.UserPublic;
+import com.zkwp.api.bean.WechatSysFile;
 
 public interface UserPublicInfoService {
 	    // 根据用户id得到用户信息
@@ -18,7 +19,7 @@ public interface UserPublicInfoService {
 		// 插入userPub
 		void saveUserPubInfo(UserPublic userPub);
 		// 获取商品列表
-		List<UserPublic> getGoodsListByTitle(String typeName);
+		List<WechatSysFile> getGoodsListByTitle(String typeName);
 		// 获取推荐列表
 		List getTuiJianList(String typeName);
 		// 获取新品列表

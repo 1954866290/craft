@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.zkwp.api.bean.Issue;
 import com.zkwp.api.bean.User;
 import com.zkwp.api.bean.UserPublic;
+import com.zkwp.api.bean.WechatSysFile;
 @Mapper
 public interface UserPublicInfoDao {
 	
@@ -21,7 +22,7 @@ public interface UserPublicInfoDao {
 	// 插入userPub
 	void saveUserPubInfo(UserPublic userPub);
 	//根据类别名称查询商品列表
-	List<UserPublic> getGoodsListByTitle(String typeName);
+	List<WechatSysFile> getGoodsListByTitle(String typeName);
 	// 获取推荐列表
 	List getTuiJianList(String typeName);
 	// 获取新品列表

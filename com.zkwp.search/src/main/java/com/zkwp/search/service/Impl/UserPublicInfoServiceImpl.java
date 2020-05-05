@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.zkwp.api.bean.Issue;
 import com.zkwp.api.bean.User;
 import com.zkwp.api.bean.UserPublic;
+import com.zkwp.api.bean.WechatSysFile;
 import com.zkwp.search.dao.UserPublicInfoDao;
 import com.zkwp.search.service.UserPublicInfoService;
 @Service
@@ -46,7 +47,7 @@ public class UserPublicInfoServiceImpl implements UserPublicInfoService{
 	}
 
 	@Override
-	public List<UserPublic> getGoodsListByTitle(String typeName) {
+	public List<WechatSysFile> getGoodsListByTitle(String typeName) {
 		// TODO Auto-generated method stub
 		return this.userPublicInfoDao.getGoodsListByTitle(typeName);
 	}

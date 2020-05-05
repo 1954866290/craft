@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zkwp.search.dao.SmallRoutineDao" >
-<select id="getSwiperDataByImageName" parameterType="String" resultType="com.zkwp.api.bean.UserPublic">
-    select * from biz_user_public_info where imagename = #{imageName}
+<select id="getSwiperDataByImageName" parameterType="String" resultType="com.zkwp.api.bean.WechatSysFile">
+    select * from wechat_sys_file where imagename = #{imageName}
 </select>
-<select id="getWorksInfo" parameterType="String" resultType="com.zkwp.api.bean.UserPublic">
-    select * from biz_user_public_info where goods_id = #{goodsId}
+<select id="getWorksInfo" parameterType="String" resultType="com.zkwp.api.bean.Issue">
+    select * from biz_issue where id = #{goodsId}
+</select>
+<select id="getFloorData" resultType="com.zkwp.api.bean.Issue">
+    select * from biz_issue where oneimagepath is not null
 </select>
 </mapper>

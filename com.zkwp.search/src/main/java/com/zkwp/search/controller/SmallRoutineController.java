@@ -21,10 +21,12 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
+import com.zkwp.api.bean.Issue;
 import com.zkwp.api.bean.OutputObject;
 import com.zkwp.api.bean.SystemImage;
 import com.zkwp.api.bean.Type;
 import com.zkwp.api.bean.UserPublic;
+import com.zkwp.api.bean.WechatSysFile;
 import com.zkwp.search.service.SmallRoutineService;
 import com.zkwp.search.service.TypesService;
 import com.zkwp.search.service.UserPublicInfoService;
@@ -46,7 +48,7 @@ public class SmallRoutineController {
     @ResponseBody
     public OutputObject getSwiperDataByName(String imageName, String pageSize) {
     	OutputObject out = new OutputObject();
-    	List<UserPublic> beans = (List<UserPublic>) smallRoutineService.getSwiperDataByImageName(imageName);
+    	List<WechatSysFile> beans = (List<WechatSysFile>) smallRoutineService.getSwiperDataByImageName(imageName);
     	out.setList(beans);
     	return out;
     }
@@ -55,17 +57,16 @@ public class SmallRoutineController {
      */
     @RequestMapping(value = "/getBreakPageByName", method = RequestMethod.GET)
     @ResponseBody
-    public OutputObject getBreakPageByName(String imageName, String pageNumber, String pageSize) {
+    public OutputObject getBreakPageByName(String pageNumber, String pageSize) {
     	OutputObject out = new OutputObject();
-    	List<UserPublic> total = smallRoutineService.getSwiperDataByImageName(imageName);
+    	List<Issue> total = smallRoutineService.getfloorData();
     	int pageNum = Integer.parseInt(pageNumber);
     	int pageSize1 = Integer.parseInt(pageSize);
     	PageHelper.startPage(pageNum, pageSize1);
-    	System.out.println(imageName);
-    	List<UserPublic> beans = smallRoutineService.getSwiperDataByImageName(imageName);
+    	List<Issue> beans = smallRoutineService.getfloorData();
     	System.out.println(beans);
     	out.setSearchTotals(total.size());
-    	out.setList(beans);
+    	out.setReturnList(beans);
     	return out;
     }
     /**
@@ -115,9 +116,9 @@ public class SmallRoutineController {
     		return out;
     	}
     	// 先查询出总条数，再进行分页查询
-    	List<UserPublic> total = userPublicInfoService.getGoodsListByTitle(typeName);
+    	List<WechatSysFile> total = userPublicInfoService.getGoodsListByTitle(typeName);
     	PageHelper.startPage(pageNum, pageSize);
-    	List<UserPublic> goodsList = userPublicInfoService.getGoodsListByTitle(typeName);
+    	List<WechatSysFile> goodsList = userPublicInfoService.getGoodsListByTitle(typeName);
     	out.setList(goodsList);
     	out.setSearchTotals(total.size());
     	return out;
@@ -142,13 +143,13 @@ public class SmallRoutineController {
     public String getDetailsByGoodsId(HttpServletRequest request) {
     	OutputObject out = new OutputObject();
     	String goodsId = request.getParameter("goods_id");
-    	UserPublic worksInfo = smallRoutineService.getWorksInfo(goodsId);
+    	Issue worksInfo = smallRoutineService.getWorksInfo(goodsId);
     	List list = new ArrayList<>();
     	list.add(worksInfo.getOneimagepath());
     	list.add(worksInfo.getTwoimagepath());
     	list.add(worksInfo.getThreeimagepath());
     	list.add(worksInfo.getFourimagepath());
-    	worksInfo.setImageList(list);
+    	worksInfo.setImagesList(list);
         return JSON.toJSONString(worksInfo);
     }
     /**

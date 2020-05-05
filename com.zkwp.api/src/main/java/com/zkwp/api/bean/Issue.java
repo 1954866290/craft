@@ -3,6 +3,7 @@ package com.zkwp.api.bean;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @auther zhangkun
@@ -29,6 +30,7 @@ public class Issue implements Serializable {
     private String fourimagepath;//第四张图片路径
     private String videopath;//视频路径
     private String price;//价格
+    private List imagesList;
 
 
 }
