@@ -16,4 +16,5 @@ public class BizComment {
     private String status;
     private String commenttime;
     private String delflag;
+    private String nickname;
 }

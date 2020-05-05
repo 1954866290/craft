@@ -1,6 +1,8 @@
 package com.zkwp.wechat.issue.controller;
 
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,8 +20,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.github.pagehelper.PageHelper;
+import com.zkwp.api.bean.BizComment;
+import com.zkwp.api.bean.Issue;
 import com.zkwp.api.bean.OutputObject;
+import com.zkwp.api.utils.StringUtil;
 import com.zkwp.wechat.issue.service.WechatIssueService;
+import com.zkwp.wechat.service.DiscussService;
 /**
  * 微信小程序文件上传
  * @author 王朋
@@ -45,6 +52,9 @@ public class WechatIssueController {
 
     @Autowired
     WechatIssueService wechatIssueService;
+    
+    @Autowired
+    private DiscussService discussService;
 
     /**
      * 视频发布
@@ -204,6 +214,48 @@ public class WechatIssueController {
     	// 根据手机号获取用户id
     	String userId = wechatIssueService.getUserInfoByPhone(phone);
     	out = wechatIssueService.deleteIssue(userId, worksId);
+    	return out;
+    }
+    
+    /**
+     * 发表评论
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/issueDiscuss")
+    @ResponseBody
+    public OutputObject issueDiscuss(HttpServletRequest request) {
+    	OutputObject out = new OutputObject();
+    	String issueId = request.getParameter("worksId");
+    	String content = request.getParameter("content");
+    	String userId= discussService.getUserId(issueId);
+    	String nickname = discussService.getNickname(userId);
+    	BizComment bizComment = new BizComment();
+    	bizComment.setIssueId(issueId);
+    	bizComment.setUserId(userId);
+    	bizComment.setContent(content);
+    	bizComment.setNickname(nickname);
+    	bizComment.setCommenttime(StringUtil.dateToString(new Date()));
+    	int i = discussService.saveDiscussContent(bizComment);
+    	if (i==1) {
+    		out.setReturnCode("0000");
+    		out.setReturnMessage("评论发布成功");
+    	}
+    	return out;
+    }
+    
+    /**
+     * 获取作品评论内容
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/getDiscussInfo")
+    @ResponseBody
+    public OutputObject getDiscussInfo(HttpServletRequest request) {
+    	OutputObject out = new OutputObject();
+    	String worksId = request.getParameter("worksId");
+    	List<BizComment> discussListTotal = discussService.getDiscussInfo(worksId);
+    	out.setReturnList(discussListTotal);
     	return out;
     }
 
