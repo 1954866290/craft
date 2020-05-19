@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.zkwp.api.bean.BizComment;
 import com.zkwp.api.bean.Feedback;
 import com.zkwp.api.bean.OutputObject;
+import com.zkwp.api.bean.User;
 import com.zkwp.wechat.dao.DiscussDao;
 import com.zkwp.wechat.service.DiscussService;
 @Service
@@ -62,6 +63,18 @@ public class DiscussServiceImpl implements DiscussService{
 	public int updateViewCount(String worksId, int finalViewCount) {
 		// TODO Auto-generated method stub
 		return this.discussDao.updateViewCount(worksId, finalViewCount);
+	}
+
+	@Override
+	public User getUserInfo(String phone) {
+		// TODO Auto-generated method stub
+		return this.discussDao.getUserInfo(phone);
+	}
+
+	@Override
+	public int updateUserInfo(User user) {
+		// TODO Auto-generated method stub
+		return this.discussDao.updateUserInfo(user);
 	}
 
 }

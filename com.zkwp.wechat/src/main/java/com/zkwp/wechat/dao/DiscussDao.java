@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.zkwp.api.bean.BizComment;
 import com.zkwp.api.bean.Feedback;
 import com.zkwp.api.bean.OutputObject;
+import com.zkwp.api.bean.User;
 @Mapper
 public interface DiscussDao {
 	
@@ -25,5 +26,9 @@ public interface DiscussDao {
 	int getViewCount(String worksId);
 
 	int updateViewCount(String worksId, int finalViewCount);
+
+	User getUserInfo(String phone);
+
+	int updateUserInfo(User user);
 
 }

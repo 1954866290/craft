@@ -1,5 +1,7 @@
 package com.zkwp.wechat.issue.controller;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +27,7 @@ import com.zkwp.api.bean.BizComment;
 import com.zkwp.api.bean.Feedback;
 import com.zkwp.api.bean.Issue;
 import com.zkwp.api.bean.OutputObject;
+import com.zkwp.api.bean.User;
 import com.zkwp.api.utils.StringUtil;
 import com.zkwp.wechat.issue.service.WechatIssueService;
 import com.zkwp.wechat.service.DiscussService;
@@ -261,14 +264,15 @@ public class WechatIssueController {
     }
     
     /**
-     * 意见反馈接口
+     * 意见反馈接口，有文本信息及图片信息
      * @param request
      * @return
      */
     @RequestMapping(value = "/feedback")
     @ResponseBody
-    public OutputObject feedback(HttpServletRequest request, @RequestParam("imageSrc") MultipartFile imageSrc) {
+    public OutputObject feedback(@RequestParam("imageSrc") MultipartFile imageSrc, HttpServletRequest request) {
     	OutputObject out = new OutputObject();
+    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     	String question = request.getParameter("question");
     	String phone = request.getParameter("phone");
     	// 根据手机号获取用户id
@@ -282,8 +286,37 @@ public class WechatIssueController {
     	if (StringUtil.isNotBlank(imageSrc.getOriginalFilename())) {
     		OutputObject out1 = wechatIssueService.imageUpload(imageSrc);
     		String image = out1.getReturnMessage();
-    		feedback.setUserImage(image);
+    		feedback.setQuestionImage(image);
     	}
+    	feedback.setFeedbackTime(sdf.format(new Date()));
+    	int i = discussService.saveFeedback(feedback);
+    	if (1==i) {
+    		out.setReturnCode("0000");
+        	out.setReturnMessage("反馈成功");
+    	}
+    	return out;
+    }
+    
+    /**
+     * 意见反馈接口，只有文本信息
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/feedbackText")
+    @ResponseBody
+    public OutputObject feedbackText(HttpServletRequest request) {
+    	OutputObject out = new OutputObject();
+    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    	String question = request.getParameter("question");
+    	String phone = request.getParameter("phone");
+    	// 根据手机号获取用户id
+    	String userId = wechatIssueService.getUserInfoByPhone(phone);
+    	Feedback feedback = new Feedback();
+    	feedback.setUserId(userId);
+    	if (StringUtil.isNotBlank(question)) {
+    		feedback.setUserQuestion(question);
+    	}
+    	feedback.setFeedbackTime(sdf.format(new Date()));
     	int i = discussService.saveFeedback(feedback);
     	if (1==i) {
     		out.setReturnCode("0000");
@@ -318,13 +351,52 @@ public class WechatIssueController {
     @ResponseBody
     public OutputObject addViewCount(HttpServletRequest request) {
     	OutputObject out = new OutputObject();
-    	String worksId = request.getParameter("worksId");
+    	String worksId = request.getParameter("goods_id");
+    	System.out.println(worksId+"========");
     	int viewCount = discussService.getViewCount(worksId);
     	int finalViewCount = viewCount + 1;
     	int i = discussService.updateViewCount(worksId, finalViewCount);
     	if (1==i) {
     		out.setReturnCode("0000");
         	out.setReturnMessage("作品浏览次数更新成功");
+    	}
+    	return out;
+    }
+    
+    /**
+     * 获取用户详细信息
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/getUserInfo")
+    @ResponseBody
+    public OutputObject getUserInfo(HttpServletRequest request) {
+    	OutputObject out = new OutputObject();
+    	String phone = request.getParameter("phone");
+    	User user = discussService.getUserInfo(phone);
+    	out.setObject(user);
+    	return out;
+    }
+    
+    /**
+     * 修改个人签名
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/updateMyInfo")
+    @ResponseBody
+    public OutputObject updateMyInfo(HttpServletRequest request) {
+    	OutputObject out = new OutputObject();
+    	String phone = request.getParameter("phone");
+    	String updateContent = request.getParameter("updateContent");
+    	String userId = wechatIssueService.getUserInfoByPhone(phone);
+    	User user = new User();
+    	user.setUserid(userId);
+    	user.setIntroduction(updateContent);
+    	int i = discussService.updateUserInfo(user);
+    	if (1 == i ) {
+    		out.setReturnCode("0000");
+    		out.setReturnMessage("个人签名修改成功");
     	}
     	return out;
     }

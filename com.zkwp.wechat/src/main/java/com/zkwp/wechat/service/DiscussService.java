@@ -6,6 +6,7 @@ import java.util.List;
 import com.zkwp.api.bean.BizComment;
 import com.zkwp.api.bean.Feedback;
 import com.zkwp.api.bean.OutputObject;
+import com.zkwp.api.bean.User;
 
 public interface DiscussService {
 	// 插入评论
@@ -24,5 +25,9 @@ public interface DiscussService {
 	int getViewCount(String worksId);
 	// 更新作品的浏览次数或播放次数
 	int updateViewCount(String worksId, int finalViewCount);
+	// 根据手机号获取用户详细信息
+	User getUserInfo(String phone);
+	// 修改用户个人简介
+	int updateUserInfo(User user);
 
 }
